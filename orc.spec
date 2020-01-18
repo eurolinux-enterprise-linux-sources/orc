@@ -1,6 +1,6 @@
 Name:		orc
 Version:	0.4.17
-Release:	2%{?dist}
+Release:	5%{?dist}
 Summary:	The Oil Run-time Compiler
 
 Group:		System Environment/Libraries
@@ -82,12 +82,6 @@ touch -r stamp-h1 %{buildroot}%{_includedir}/%{name}-0.4/orc/orc-stdint.h
 rm -rf %{buildroot}
 
 
-%check
-%ifnarch s390 s390x ppc ppc64 %{arm} i686
-make check
-%endif
-
-
 %post -p /sbin/ldconfig
 
 
@@ -120,6 +114,16 @@ make check
 
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.4.17-5
+- Mass rebuild 2014-01-24
+
+* Wed Jan 08 2014 Benjamin Otte <otte@redhat.com> - 0.4.17-4
+- Don't run tests during build
+Resolves: 1048890
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.4.17-3
+- Mass rebuild 2013-12-27
+
 * Wed Feb 20 2013 Fabian Deutsch <fabiand@fedoraproject.org> - 0.4.17-2
 - Fix typo rhbz#817944
 
