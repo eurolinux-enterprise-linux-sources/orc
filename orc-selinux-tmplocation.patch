@@ -1,0 +1,45 @@
+commit 0e31d7fc6a03faf1076dfd51b49401539c3ebed9
+Author: Fabian Deutsch <fabiand@fedoraproject.org>
+Date:   Tue Sep 2 10:38:17 2014 +0200
+
+    TMPDIR becomes the last option
+    
+    Previously $TMPDIR and /tmp were the first options to try to use for
+    intermediate files. To prevent name collisions, now user specific dirs ($HOME
+    and $XDG_RUNTIME_DIR) are prefered over the user unspecific dirs ($TMP and
+    /tmp).
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=735871
+
+diff --git a/orc/orccodemem.c b/orc/orccodemem.c
+index 7bb78d2..8bc2a48 100644
+--- a/orc/orccodemem.c
++++ b/orc/orccodemem.c
+@@ -266,21 +266,21 @@ orc_code_region_allocate_codemem (OrcCodeRegion *region)
+ {
+   const char *tmpdir;
+ 
+-  tmpdir = getenv ("TMPDIR");
++  tmpdir = getenv ("XDG_RUNTIME_DIR");
+   if (tmpdir && orc_code_region_allocate_codemem_dual_map (region,
+         tmpdir, FALSE)) return;
+ 
+-  if (orc_code_region_allocate_codemem_dual_map (region,
+-        "/tmp", FALSE)) return;
+-
+-  tmpdir = getenv ("XDG_RUNTIME_DIR");
++  tmpdir = getenv ("HOME");
+   if (tmpdir && orc_code_region_allocate_codemem_dual_map (region,
+         tmpdir, FALSE)) return;
+ 
+-  tmpdir = getenv ("HOME");
++  tmpdir = getenv ("TMPDIR");
+   if (tmpdir && orc_code_region_allocate_codemem_dual_map (region,
+         tmpdir, FALSE)) return;
+ 
++  if (orc_code_region_allocate_codemem_dual_map (region,
++        "/tmp", FALSE)) return;
++
+   if (orc_code_region_allocate_codemem_anon_map (region)) return;
+   
+   ORC_ERROR("Failed to create write and exec mmap regions.  This "
