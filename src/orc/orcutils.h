@@ -29,17 +29,17 @@
 #define _ORC_UTILS_H_
 
 /* Orc objects */
-/* typedef struct _OrcVariable OrcVariable; */
-/* typedef struct _OrcOpcodeSet OrcOpcodeSet; */
-/* typedef struct _OrcStaticOpcode OrcStaticOpcode; */
+//typedef struct _OrcVariable OrcVariable;
+//typedef struct _OrcOpcodeSet OrcOpcodeSet;
+//typedef struct _OrcStaticOpcode OrcStaticOpcode;
 typedef struct _OrcInstruction OrcInstruction;
 typedef struct _OrcProgram OrcProgram;
 typedef struct _OrcCompiler OrcCompiler;
 typedef struct _OrcConstant OrcConstant;
-/* typedef struct _OrcFixup OrcFixup; */
+//typedef struct _OrcFixup OrcFixup;
 typedef struct _OrcTarget OrcTarget;
 typedef struct _OrcCode OrcCode;
-/* typedef struct _OrcCodeChunk OrcCodeChunk; */
+//typedef struct _OrcCodeChunk OrcCodeChunk;
 
 typedef enum {
   ORC_COMPILE_RESULT_OK = 0,
@@ -208,6 +208,9 @@ ORC_BEGIN_DECLS
 
 #ifdef ORC_ENABLE_UNSTABLE_API
 
+int get_file_int (const char *file, int *value);
+char * get_file (const char *file);
+char * get_cpuinfo_line (char *cpuinfo, const char *tag);
 char * _strndup (const char *s, int n);
 char ** strsplit (const char *s, char delimiter);
 char * get_tag_value (char *s, const char *tag);

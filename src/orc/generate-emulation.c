@@ -35,7 +35,6 @@ void help (void)
   printf("\n");
   printf("Application Options:\n");
   printf("  -o, --output FILE       Write output to FILE\n");
-  printf("      --header            Write header instead of .c file\n");
   printf("\n");
 
   exit (0);
@@ -46,6 +45,7 @@ main (int argc, char *argv[])
 {
   char *output_file = NULL;
   char *input_file = NULL;
+  char *include_file = NULL;
   FILE *output;
   int i;
   OrcOpcodeSet *opcode_set;
@@ -78,8 +78,7 @@ main (int argc, char *argv[])
   }
 
   if (output_file == NULL) {
-    output_file = output_header ? "out.h" : "out.c";
-    printf("Writing to file: %s\n", output_file);
+    output_file = "out.c";
   }
 
   output = fopen (output_file, "w");
@@ -115,6 +114,9 @@ main (int argc, char *argv[])
     fprintf(output, "#endif\n");
     fprintf(output, "#include <math.h>\n");
     fprintf(output, "#include <orc/orc.h>\n");
+    if (include_file) {
+      fprintf(output, "#include <%s>\n", include_file);
+    }
     fprintf(output, "\n");
     fprintf(output, "%s", orc_target_get_asm_preamble ("c"));
     fprintf(output, "\n");

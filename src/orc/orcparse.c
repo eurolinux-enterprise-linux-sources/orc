@@ -84,7 +84,7 @@ orc_parse_full (const char *code, OrcProgram ***programs, char **log)
 
     p = parser->line;
     end = p + strlen (p);
-    /* printf("%d: %s\n", parser->line_number, parser->line); */
+    //printf("%d: %s\n", parser->line_number, parser->line);
 
     while (p[0] == ' ' || p[0] == '\t') p++;
 
@@ -93,7 +93,7 @@ orc_parse_full (const char *code, OrcProgram ***programs, char **log)
     }
 
     if (p[0] == '#') {
-      /* printf("comment: %s\n", p+1); */
+      //printf("comment: %s\n", p+1);
       continue;
     }
 
@@ -118,9 +118,9 @@ orc_parse_full (const char *code, OrcProgram ***programs, char **log)
     {
       int i;
       for(i=0;i<n_tokens;i++){
-        /* printf("'%s' ", token[i]); */
+        //printf("'%s' ", token[i]);
       }
-      /* printf("\n"); */
+      //printf("\n");
     }
 
     if (token[0][0] == '.') {
@@ -168,7 +168,7 @@ orc_parse_full (const char *code, OrcProgram ***programs, char **log)
             }
           } else if (strcmp (token[i], "min") == 0) {
             if (i == n_tokens - 1) {
-              orc_parse_log (parser, "error: line %d: .n min requires multiple value\n",
+              orc_parse_log (parser, "error: line %d: .n mult requires multiple value\n",
                   parser->line_number);
             } else {
               orc_program_set_n_minimum (parser->program,
@@ -177,19 +177,16 @@ orc_parse_full (const char *code, OrcProgram ***programs, char **log)
             }
           } else if (strcmp (token[i], "max") == 0) {
             if (i == n_tokens - 1) {
-              orc_parse_log (parser, "error: line %d: .n max requires multiple value\n",
+              orc_parse_log (parser, "error: line %d: .n mult requires multiple value\n",
                   parser->line_number);
             } else {
               orc_program_set_n_maximum (parser->program,
                   strtol (token[1], NULL, 0));
               i++;
             }
-          } else if (i == n_tokens - 1) {
+          } else {
             orc_program_set_constant_n (parser->program,
                 strtol (token[1], NULL, 0));
-          } else {
-            orc_parse_log (parser, "error: line %d: unknown .n token '%s'\n",
-                parser->line_number, token[i]);
           }
         }
       } else if (strcmp (token[0], ".m") == 0) {
@@ -210,11 +207,8 @@ orc_parse_full (const char *code, OrcProgram ***programs, char **log)
               orc_program_set_var_alignment (parser->program, var, alignment);
               i++;
             }
-          } else if (i == n_tokens - 1) {
-            orc_program_set_type_name (parser->program, var, token[i]);
           } else {
-            orc_parse_log (parser, "error: line %d: unknown .dest token '%s'\n",
-                parser->line_number, token[i]);
+            orc_program_set_type_name (parser->program, var, token[i]);
           }
         }
       } else if (strcmp (token[0], ".dest") == 0) {
@@ -232,11 +226,8 @@ orc_parse_full (const char *code, OrcProgram ***programs, char **log)
               orc_program_set_var_alignment (parser->program, var, alignment);
               i++;
             }
-          } else if (i == n_tokens - 1) {
-            orc_program_set_type_name (parser->program, var, token[i]);
           } else {
-            orc_parse_log (parser, "error: line %d: unknown .source token '%s'\n",
-                parser->line_number, token[i]);
+            orc_program_set_type_name (parser->program, var, token[i]);
           }
         }
       } else if (strcmp (token[0], ".accumulator") == 0) {

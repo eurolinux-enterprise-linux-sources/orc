@@ -279,10 +279,10 @@ mmx_save_accumulators (OrcCompiler *compiler)
   for(i=0;i<ORC_N_COMPILER_VARIABLES;i++){
     OrcVariable *var = compiler->vars + i;
 
-    if (var->name == NULL) continue;
-    switch (var->vartype) {
+    if (compiler->vars[i].name == NULL) continue;
+    switch (compiler->vars[i].vartype) {
       case ORC_VAR_TYPE_ACCUMULATOR:
-        src = var->alloc;
+        src = compiler->vars[i].alloc;
         tmp = orc_compiler_get_temp_reg (compiler);
 
 #ifndef MMX
@@ -291,7 +291,7 @@ mmx_save_accumulators (OrcCompiler *compiler)
         orc_mmx_emit_pshufw (compiler, ORC_MMX_SHUF(3,2,3,2), src, tmp);
 #endif
 
-        if (var->size == 2) {
+        if (compiler->vars[i].size == 2) {
           orc_mmx_emit_paddw (compiler, tmp, src);
         } else {
           orc_mmx_emit_paddd (compiler, tmp, src);
@@ -300,14 +300,14 @@ mmx_save_accumulators (OrcCompiler *compiler)
 #ifndef MMX
         orc_mmx_emit_pshufd (compiler, ORC_MMX_SHUF(1,1,1,1), src, tmp);
 
-        if (var->size == 2) {
+        if (compiler->vars[i].size == 2) {
           orc_mmx_emit_paddw (compiler, tmp, src);
         } else {
           orc_mmx_emit_paddd (compiler, tmp, src);
         }
 #endif
 
-        if (var->size == 2) {
+        if (compiler->vars[i].size == 2) {
 #ifndef MMX
           orc_mmx_emit_pshuflw (compiler, ORC_MMX_SHUF(1,1,1,1), src, tmp);
 #else
@@ -317,7 +317,7 @@ mmx_save_accumulators (OrcCompiler *compiler)
           orc_mmx_emit_paddw (compiler, tmp, src);
         }
 
-        if (var->size == 2) {
+        if (compiler->vars[i].size == 2) {
           orc_mmx_emit_movd_store_register (compiler, src, compiler->gp_tmpreg);
           orc_x86_emit_and_imm_reg (compiler, 4, 0xffff, compiler->gp_tmpreg);
           orc_x86_emit_mov_reg_memoffset (compiler, 4, compiler->gp_tmpreg,
@@ -650,8 +650,6 @@ orc_emit_split_3_regions (OrcCompiler *compiler)
   int var_size_shift;
 
   align_var = get_align_var (compiler);
-  if (align_var < 0)
-    return;
   var_size_shift = get_shift (compiler->vars[align_var].size);
   align_shift = var_size_shift + compiler->loop_shift;
 
@@ -719,8 +717,6 @@ orc_emit_split_2_regions (OrcCompiler *compiler)
   int var_size_shift;
 
   align_var = get_align_var (compiler);
-  if (align_var < 0)
-    return;
   var_size_shift = get_shift (compiler->vars[align_var].size);
   align_shift = var_size_shift + compiler->loop_shift;
 
@@ -781,10 +777,6 @@ orc_compiler_mmx_assemble (OrcCompiler *compiler)
   }
 
   align_var = get_align_var (compiler);
-  if (align_var < 0) {
-    orc_x86_assemble_copy (compiler);
-    return;
-  }
   is_aligned = compiler->vars[align_var].is_aligned;
 
   {

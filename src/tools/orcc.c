@@ -238,10 +238,8 @@ main (int argc, char *argv[])
   }
 
   n = orc_parse_full (code, &programs, &log);
-  free(code);
   n_programs = n;
   printf("%s", log);
-  free(log);
 
   if (programs == NULL) {
     printf("no programs\n");
@@ -414,11 +412,6 @@ main (int argc, char *argv[])
     }
   }
 
-  for(i=0;i<n;i++){
-    orc_program_free(programs[i]);
-  }
-  free(programs);
-
   fclose (output);
 
   if (error) {
@@ -478,8 +471,6 @@ read_file (const char *filename)
   if (ret < 0) goto bail;
 
   contents[size] = 0;
-
-  fclose (file);
 
   return contents;
 bail:
@@ -896,11 +887,11 @@ output_program_generation (OrcProgram *p, FILE *output, int is_inline)
     bytecode = orc_bytecode_from_program (p);
 
     fprintf(output, "#if 1\n");
-    /* fprintf(output, "#ifdef bytecode\n"); */
-    fprintf(output, "      static const orc_uint8 bc[] = {\n");
+    //fprintf(output, "#ifdef bytecode\n");
+    fprintf(output, "    static const orc_uint8 bc[] = {\n");
     for(i=0;i<bytecode->length;i++) {
       if ((i&0xf) == 0) {
-        fprintf(output, "        ");
+        fprintf(output, "      ");
       }
       fprintf(output, "%d, ", bytecode->bytecode[i]);
       if ((i&0xf) == 15) {
@@ -910,11 +901,11 @@ output_program_generation (OrcProgram *p, FILE *output, int is_inline)
     if ((i&0xf) != 15) {
       fprintf(output, "\n");
     }
-    fprintf(output, "      };\n");
-    fprintf(output, "      p = orc_program_new_from_static_bytecode (bc);\n");
-    /* fprintf(output, "     orc_program_set_name (p, \"%s\");\n", p->name); */
+    fprintf(output, "    };\n");
+    fprintf(output, "    p = orc_program_new_from_static_bytecode (bc);\n");
+    //fprintf(output, "   orc_program_set_name (p, \"%s\");\n", p->name);
     if (use_backup && !is_inline) {
-      fprintf(output, "      orc_program_set_backup_function (p, _backup_%s);\n",
+      fprintf(output, "    orc_program_set_backup_function (p, _backup_%s);\n",
           p->name);
     }
 
@@ -944,8 +935,6 @@ output_program_generation (OrcProgram *p, FILE *output, int is_inline)
       fprintf(output, "#endif\n");
     }
 #endif
-
-    orc_bytecode_free (bytecode);
 
     fprintf(output, "#else\n");
   }
@@ -1348,7 +1337,7 @@ output_code_assembly (OrcProgram *p, FILE *output)
 {
 
   fprintf(output, "/* %s */\n", p->name);
-  /* output_prototype (p, output); */
+  //output_prototype (p, output);
   {
     OrcCompileResult result;
     OrcTarget *t = orc_target_get_by_name(target);

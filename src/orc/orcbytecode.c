@@ -78,7 +78,7 @@ orc_bytecode_from_program (OrcProgram *p)
     bytecode_append_string (bytecode, p->name);
   }
 #if 0
-  /* if (!is_inline) { */
+  //if (!is_inline) {
   if (p->backup_function) {
     bytecode_append_code (bytecode, ORC_BC_SET_BACKUP_FUNCTION);
     bytecode_pointer (bytecode, p->backup_function);
@@ -105,7 +105,7 @@ orc_bytecode_from_program (OrcProgram *p)
     if (var->size) {
       bytecode_append_code (bytecode, ORC_BC_ADD_ACCUMULATOR);
       bytecode_append_int (bytecode, var->size);
-      /* bytecode_append_int (bytecode, var->alignment); */
+      //bytecode_append_int (bytecode, var->alignment);
     }
   }
   for(i=0;i<8;i++){
@@ -349,9 +349,9 @@ orc_bytecode_parse_get_uint32 (OrcBytecodeParse *parse)
 {
   orc_uint32 value;
   value = orc_bytecode_parse_get_byte (parse);
-  value |= ((orc_uint32)orc_bytecode_parse_get_byte (parse)) << 8;
-  value |= ((orc_uint32)orc_bytecode_parse_get_byte (parse)) << 16;
-  value |= ((orc_uint32)orc_bytecode_parse_get_byte (parse)) << 24;
+  value |= orc_bytecode_parse_get_byte (parse) << 8;
+  value |= orc_bytecode_parse_get_byte (parse) << 16;
+  value |= orc_bytecode_parse_get_byte (parse) << 24;
   return value;
 }
 
@@ -359,16 +359,14 @@ orc_uint64
 orc_bytecode_parse_get_uint64 (OrcBytecodeParse *parse)
 {
   orc_uint64 value;
-
-  value = ((orc_uint64)orc_bytecode_parse_get_byte (parse));
-  value |= ((orc_uint64)orc_bytecode_parse_get_byte (parse)) << 8;
-  value |= ((orc_uint64)orc_bytecode_parse_get_byte (parse)) << 16;
-  value |= ((orc_uint64)orc_bytecode_parse_get_byte (parse)) << 24;
-  value |= ((orc_uint64)orc_bytecode_parse_get_byte (parse)) << 32;
-  value |= ((orc_uint64)orc_bytecode_parse_get_byte (parse)) << 40;
-  value |= ((orc_uint64)orc_bytecode_parse_get_byte (parse)) << 48;
-  value |= ((orc_uint64)orc_bytecode_parse_get_byte (parse)) << 56;
-
+  value = orc_bytecode_parse_get_byte (parse);
+  value |= orc_bytecode_parse_get_byte (parse) << 8;
+  value |= orc_bytecode_parse_get_byte (parse) << 16;
+  value |= orc_bytecode_parse_get_byte (parse) << 24;
+  value |= (orc_uint64)orc_bytecode_parse_get_byte (parse) << 32;
+  value |= (orc_uint64)orc_bytecode_parse_get_byte (parse) << 40;
+  value |= (orc_uint64)orc_bytecode_parse_get_byte (parse) << 48;
+  value |= (orc_uint64)orc_bytecode_parse_get_byte (parse) << 56;
   return value;
 }
 
@@ -377,7 +375,7 @@ orc_bytecode_parse_function (OrcProgram *program, const orc_uint8 *bytecode)
 {
   OrcBytecodeParse _parse;
   OrcBytecodeParse *parse = &_parse;
-  /* int in_function = FALSE; */
+  //int in_function = FALSE;
   int bc;
   int size;
   int alignment;
@@ -397,7 +395,7 @@ orc_bytecode_parse_function (OrcProgram *program, const orc_uint8 *bytecode)
           /* FIXME this is technically an error */
           return 0;
         case ORC_BC_BEGIN_FUNCTION:
-          /* in_function = TRUE; */
+          //in_function = TRUE;
           break;
         case ORC_BC_END_FUNCTION:
           return 0;
@@ -420,9 +418,6 @@ orc_bytecode_parse_function (OrcProgram *program, const orc_uint8 *bytecode)
           program->constant_m = orc_bytecode_parse_get_int (parse);
           break;
         case ORC_BC_SET_NAME:
-          if (program->name) {
-            free (program->name);
-          }
           program->name = orc_bytecode_parse_get_string (parse);
           break;
         case ORC_BC_SET_BACKUP_FUNCTION:

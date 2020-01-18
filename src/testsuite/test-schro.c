@@ -224,8 +224,6 @@ test_program (int type)
   if (!ret) {
     error = TRUE;
   }
-
-  orc_program_free (p);
 }
 
 
@@ -238,9 +236,7 @@ main (int argc, char *argv[])
   orc_test_init();
 
   for(i=0;i<18;i++){
-#if 0
-    printf("/* %d */\n", i);
-#endif
+    //printf("/* %d */\n", i);
     test_program (i);
   }
 

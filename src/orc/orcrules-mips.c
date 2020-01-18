@@ -467,7 +467,6 @@ mips_rule_loadupib (OrcCompiler *compiler, void *user, OrcInstruction *insn)
   src->update_type = 1;
 }
 
-#if 0
 void
 mips_rule_loadupdb (OrcCompiler *compiler, void *user, OrcInstruction *insn)
 {
@@ -514,7 +513,6 @@ mips_rule_loadupdb (OrcCompiler *compiler, void *user, OrcInstruction *insn)
   }
   src->update_type = 1;
 }
-#endif
 
 void
 mips_rule_loadp (OrcCompiler *compiler, void *user, OrcInstruction *insn)
@@ -723,7 +721,7 @@ orc_compiler_orc_mips_register_rules (OrcTarget *target)
   orc_rule_register (rule_set, "addssw", mips_rule_addssw, NULL);
   orc_rule_register (rule_set, "subssw", mips_rule_subssw, NULL);
   orc_rule_register (rule_set, "loadupib", mips_rule_loadupib, NULL);
-  /* orc_rule_register (rule_set, "loadupdb", mips_rule_loadupdb, NULL); */
+  orc_rule_register (rule_set, "loadupdb", mips_rule_loadupdb, NULL);
   orc_rule_register (rule_set, "shrsw", mips_rule_shrsw, NULL);
   orc_rule_register (rule_set, "shruw", mips_rule_shruw, NULL);
   orc_rule_register (rule_set, "swapl", mips_rule_swapl, NULL);

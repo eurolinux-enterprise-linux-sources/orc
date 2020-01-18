@@ -3,8 +3,10 @@ pkgincludedir = $(includedir)/orc-@ORC_MAJORMINOR@/orc
 
 lib_LTLIBRARIES = liborc-@ORC_MAJORMINOR@.la
 
-liborc_@ORC_MAJORMINOR@_la_LIBADD = $(LIBM) $(LIBRT) $(PTHREAD_LIBS) $(LIBLOG)
-liborc_@ORC_MAJORMINOR@_la_LDFLAGS = $(ORC_LDFLAGS)
+liborc_@ORC_MAJORMINOR@_la_LIBADD = $(LIBM) $(LIBRT) $(PTHREAD_LIBS)
+liborc_@ORC_MAJORMINOR@_la_LDFLAGS = \
+	-version-info $(ORC_LIBVERSION) \
+	-no-undefined -export-symbols-regex 'orc_'
 liborc_@ORC_MAJORMINOR@_la_CFLAGS = $(ORC_CFLAGS) \
 	-DORC_ENABLE_UNSTABLE_API
 
@@ -125,5 +127,5 @@ update: generate-emulation generate-bytecode
 	$(top_builddir)/tools/orcc$(EXEEXT) --header -o orcfunctions.h orcfunctions.orc
 	./generate-emulation$(EXEEXT) -o orcemulateopcodes.c
 	./generate-emulation$(EXEEXT) --header -o orcemulateopcodes.h
-	./generate-bytecode$(EXEEXT) --header -o orcbytecodes.h
+	./generate-bytecode$(EXEEXT) --header -o orcbytecode.h
 	

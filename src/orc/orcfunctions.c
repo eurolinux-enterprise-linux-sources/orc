@@ -61,19 +61,6 @@ typedef union { orc_int64 i; double f; orc_int32 x2[2]; float x2f[2]; orc_int16 
 #endif
 #endif
 
-#ifndef ORC_INTERNAL
-#if defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590)
-#define ORC_INTERNAL __attribute__((visibility("hidden")))
-#elif defined(__SUNPRO_C) && (__SUNPRO_C >= 0x550)
-#define ORC_INTERNAL __hidden
-#elif defined (__GNUC__)
-#define ORC_INTERNAL __attribute__((visibility("hidden")))
-#else
-#define ORC_INTERNAL
-#endif
-#endif
-
-
 #ifndef DISABLE_ORC
 #include <orc/orc.h>
 #endif
@@ -104,8 +91,8 @@ void orc_memset (void * ORC_RESTRICT d1, int p1, int n);
 #define ORC_CLAMP_UW(x) ORC_CLAMP(x,ORC_UW_MIN,ORC_UW_MAX)
 #define ORC_CLAMP_SL(x) ORC_CLAMP(x,ORC_SL_MIN,ORC_SL_MAX)
 #define ORC_CLAMP_UL(x) ORC_CLAMP(x,ORC_UL_MIN,ORC_UL_MAX)
-#define ORC_SWAP_W(x) ((((x)&0xffU)<<8) | (((x)&0xff00U)>>8))
-#define ORC_SWAP_L(x) ((((x)&0xffU)<<24) | (((x)&0xff00U)<<8) | (((x)&0xff0000U)>>8) | (((x)&0xff000000U)>>24))
+#define ORC_SWAP_W(x) ((((x)&0xff)<<8) | (((x)&0xff00)>>8))
+#define ORC_SWAP_L(x) ((((x)&0xff)<<24) | (((x)&0xff00)<<8) | (((x)&0xff0000)>>8) | (((x)&0xff000000)>>24))
 #define ORC_SWAP_Q(x) ((((x)&ORC_UINT64_C(0xff))<<56) | (((x)&ORC_UINT64_C(0xff00))<<40) | (((x)&ORC_UINT64_C(0xff0000))<<24) | (((x)&ORC_UINT64_C(0xff000000))<<8) | (((x)&ORC_UINT64_C(0xff00000000))>>8) | (((x)&ORC_UINT64_C(0xff0000000000))>>24) | (((x)&ORC_UINT64_C(0xff000000000000))>>40) | (((x)&ORC_UINT64_C(0xff00000000000000))>>56))
 #define ORC_PTR_OFFSET(ptr,offset) ((void *)(((unsigned char *)(ptr)) + (offset)))
 #define ORC_DENORMAL(x) ((x) & ((((x)&0x7f800000) == 0) ? 0xff800000 : 0xffffffff))
@@ -189,14 +176,6 @@ orc_memcpy (void * ORC_RESTRICT d1, const void * ORC_RESTRICT s1, int n)
     if (!p_inited) {
       OrcProgram *p;
 
-#if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 10, 111, 114, 99, 95, 109, 101, 109, 99, 112, 121, 11, 1, 1, 
-        12, 1, 1, 42, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_memcpy);
-#else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_memcpy");
       orc_program_set_backup_function (p, _backup_orc_memcpy);
@@ -204,7 +183,6 @@ orc_memcpy (void * ORC_RESTRICT d1, const void * ORC_RESTRICT s1, int n)
       orc_program_add_source (p, 1, "s1");
 
       orc_program_append_2 (p, "copyb", 0, ORC_VAR_D1, ORC_VAR_S1, ORC_VAR_D1, ORC_VAR_D1);
-#endif
 
       orc_program_compile (p);
       c = orc_program_take_code (p);
@@ -286,14 +264,6 @@ orc_memset (void * ORC_RESTRICT d1, int p1, int n)
     if (!p_inited) {
       OrcProgram *p;
 
-#if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 10, 111, 114, 99, 95, 109, 101, 109, 115, 101, 116, 11, 1, 1, 
-        16, 1, 42, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_memset);
-#else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_memset");
       orc_program_set_backup_function (p, _backup_orc_memset);
@@ -301,7 +271,6 @@ orc_memset (void * ORC_RESTRICT d1, int p1, int n)
       orc_program_add_parameter (p, 1, "p1");
 
       orc_program_append_2 (p, "copyb", 0, ORC_VAR_D1, ORC_VAR_P1, ORC_VAR_D1, ORC_VAR_D1);
-#endif
 
       orc_program_compile (p);
       c = orc_program_take_code (p);

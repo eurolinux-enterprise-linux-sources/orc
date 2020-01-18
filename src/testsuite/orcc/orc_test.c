@@ -101,8 +101,8 @@ typedef union { orc_int64 i; double f; orc_int32 x2[2]; float x2f[2]; orc_int16 
 #define ORC_CLAMP_UW(x) ORC_CLAMP(x,ORC_UW_MIN,ORC_UW_MAX)
 #define ORC_CLAMP_SL(x) ORC_CLAMP(x,ORC_SL_MIN,ORC_SL_MAX)
 #define ORC_CLAMP_UL(x) ORC_CLAMP(x,ORC_UL_MIN,ORC_UL_MAX)
-#define ORC_SWAP_W(x) ((((x)&0xffU)<<8) | (((x)&0xff00U)>>8))
-#define ORC_SWAP_L(x) ((((x)&0xffU)<<24) | (((x)&0xff00U)<<8) | (((x)&0xff0000U)>>8) | (((x)&0xff000000U)>>24))
+#define ORC_SWAP_W(x) ((((x)&0xff)<<8) | (((x)&0xff00)>>8))
+#define ORC_SWAP_L(x) ((((x)&0xff)<<24) | (((x)&0xff00)<<8) | (((x)&0xff0000)>>8) | (((x)&0xff000000)>>24))
 #define ORC_SWAP_Q(x) ((((x)&ORC_UINT64_C(0xff))<<56) | (((x)&ORC_UINT64_C(0xff00))<<40) | (((x)&ORC_UINT64_C(0xff0000))<<24) | (((x)&ORC_UINT64_C(0xff000000))<<8) | (((x)&ORC_UINT64_C(0xff00000000))>>8) | (((x)&ORC_UINT64_C(0xff0000000000))>>24) | (((x)&ORC_UINT64_C(0xff000000000000))>>40) | (((x)&ORC_UINT64_C(0xff00000000000000))>>56))
 #define ORC_PTR_OFFSET(ptr,offset) ((void *)(((unsigned char *)(ptr)) + (offset)))
 #define ORC_DENORMAL(x) ((x) & ((((x)&0x7f800000) == 0) ? 0xff800000 : 0xffffffff))
@@ -133,11 +133,7 @@ _backup_orc_add2_rshift_add_s16_22_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr6;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -184,11 +180,7 @@ _backup_orc_add2_rshift_add_s16_22 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -235,11 +227,7 @@ _backup_orc_add2_rshift_sub_s16_22_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr6;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -286,11 +274,7 @@ _backup_orc_add2_rshift_sub_s16_22 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -486,11 +470,7 @@ _backup_orc_add_const_rshift_s16_11 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -955,11 +935,7 @@ _backup_orc_mas4_across_add_s16_1991_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr8;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -1034,11 +1010,7 @@ _backup_orc_mas4_across_add_s16_1991_ip (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr7;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -1113,11 +1085,7 @@ _backup_orc_mas4_across_sub_s16_1991_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr8;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -1192,11 +1160,7 @@ _backup_orc_mas4_across_sub_s16_1991_ip (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr7;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -1419,11 +1383,7 @@ _backup_orc_offsetconvert_u8_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_int8 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_int8 var35;
   orc_union16 var36;
 
@@ -1455,11 +1415,7 @@ _backup_orc_offsetconvert_s16_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_int8 * ORC_RESTRICT ptr4;
   orc_int8 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -1759,11 +1715,7 @@ _backup_orc_rrshift6_add_s16_2d (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_int8 var36;
   orc_union16 var37;
@@ -1809,11 +1761,7 @@ _backup_orc_rrshift6_sub_s16_2d (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 * ORC_RESTRICT ptr1;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -1859,11 +1807,7 @@ _backup_orc_rrshift6_s16_ip_2d (OrcExecutor * ORC_RESTRICT ex)
   int m = ex->params[ORC_VAR_A1];
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -1895,11 +1839,7 @@ _backup_orc_rrshift6_s16_ip (OrcExecutor * ORC_RESTRICT ex)
   int n = ex->n;
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -2249,17 +2189,9 @@ _backup_orc_interleave2_rrshift1_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union32 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -2406,11 +2338,7 @@ _backup_orc_haar_deint_lshift1_split_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union32 var39;
   orc_union16 var40;
@@ -2475,11 +2403,7 @@ _backup_orc_haar_deint_split_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union32 var39;
   orc_union16 var40;
@@ -2538,11 +2462,7 @@ _backup_orc_haar_split_s16_lo (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -2618,11 +2538,7 @@ _backup_orc_haar_split_s16_op (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var34;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -2670,11 +2586,7 @@ _backup_orc_haar_split_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var34;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -2722,11 +2634,7 @@ _backup_orc_haar_synth_s16_lo (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -2763,11 +2671,7 @@ _backup_orc_haar_synth_s16_hi (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -2811,11 +2715,7 @@ _backup_orc_haar_synth_s16_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -2864,11 +2764,7 @@ _backup_orc_haar_synth_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr1;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -2917,22 +2813,10 @@ _backup_orc_haar_synth_rrshift1_int_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union32 var39;
   orc_union16 var40;
   orc_union16 var41;
@@ -2992,11 +2876,7 @@ _backup_orc_haar_synth_int_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union32 var37;
   orc_union16 var38;
@@ -3075,11 +2955,7 @@ _backup_orc_haar_add_half_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -3143,11 +3019,7 @@ _backup_orc_haar_sub_half_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -3986,23 +3858,11 @@ _backup_orc_downsample_vert_u8 (OrcExecutor * ORC_RESTRICT ex)
   const orc_int8 * ORC_RESTRICT ptr7;
   orc_int8 var35;
   orc_int8 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_int8 var38;
   orc_int8 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
   orc_int8 var42;
   orc_union16 var43;
   orc_union16 var44;
@@ -4079,21 +3939,9 @@ _backup_orc_downsample_horiz_u8 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var38;
   orc_union16 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -4196,16 +4044,8 @@ _backup_orc_stats_moment_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union32 var12 =  { 0 };
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -4245,21 +4085,9 @@ _backup_orc_stats_above_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union32 var12 =  { 0 };
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -4517,11 +4345,7 @@ _backup_orc_combine4_8xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -4617,11 +4441,7 @@ _backup_orc_combine4_12xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -4717,11 +4537,7 @@ _backup_orc_combine4_16xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -4817,11 +4633,7 @@ _backup_orc_combine4_24xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -4917,11 +4729,7 @@ _backup_orc_combine4_32xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -5017,11 +4825,7 @@ _backup_orc_combine4_nxm_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -5528,28 +5332,12 @@ _backup_convert_rgb_to_gray (OrcExecutor * ORC_RESTRICT ex)
   orc_int8 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union32 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union32 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
   orc_int8 var42;
   orc_union16 var43;
   orc_int8 var44;
@@ -6351,11 +6139,7 @@ _backup_orc_code_combine_over_u (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr5;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -6461,11 +6245,7 @@ _backup_orc_code_combine_over_u_n (OrcExecutor * ORC_RESTRICT ex)
   int n = ex->n;
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var37;
-#else
   orc_union64 var37;
-#endif
   orc_union32 var38;
   orc_union32 var39;
   orc_union64 var40;
@@ -6690,11 +6470,7 @@ _backup_orc_code_combine_out_u (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var37;
   orc_union32 var38;
   orc_union32 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var40;
-#else
   orc_union64 var40;
-#endif
   orc_union32 var41;
   orc_union64 var42;
   orc_union64 var43;
@@ -6789,11 +6565,7 @@ _backup_orc_code_combine_out_u_n (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -6867,11 +6639,7 @@ _backup_orc_code_combine_atop_u (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var41;
   orc_union32 var42;
   orc_union32 var43;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var44;
-#else
   orc_union64 var44;
-#endif
   orc_union32 var45;
   orc_union64 var46;
   orc_union64 var47;
@@ -7002,11 +6770,7 @@ _backup_orc_code_combine_atop_u_n (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var40;
   orc_union32 var41;
   orc_union32 var42;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var43;
-#else
   orc_union64 var43;
-#endif
   orc_union32 var44;
   orc_union64 var45;
   orc_union64 var46;
@@ -7114,17 +6878,9 @@ _backup_orc_code_combine_xor_u (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var40;
   orc_union32 var41;
   orc_union32 var42;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var43;
-#else
   orc_union64 var43;
-#endif
   orc_union32 var44;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var45;
-#else
   orc_union64 var45;
-#endif
   orc_union32 var46;
   orc_union64 var47;
   orc_union64 var48;
@@ -7265,17 +7021,9 @@ _backup_orc_code_combine_xor_u_n (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var44;
-#else
   orc_union64 var44;
-#endif
   orc_union32 var45;
   orc_union64 var46;
   orc_union64 var47;
@@ -7492,11 +7240,7 @@ _backup_orc_code_combine_over_ca (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr5;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
   orc_union64 var44;
   orc_union64 var45;
@@ -7612,11 +7356,7 @@ _backup_orc_code_combine_over_ca_n (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var41;
-#else
   orc_union64 var41;
-#endif
   orc_union32 var42;
   orc_union64 var43;
   orc_union64 var44;
@@ -7707,11 +7447,7 @@ _backup_orc_composite_over_8888_8_8888_line (OrcExecutor * ORC_RESTRICT ex)
   const orc_int8 * ORC_RESTRICT ptr5;
   orc_union32 var38;
   orc_int8 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var40;
-#else
   orc_union64 var40;
-#endif
   orc_union32 var41;
   orc_union64 var42;
   orc_union32 var43;
@@ -7819,11 +7555,7 @@ _backup_orc_composite_over_n_8888_8888_ca_2d (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
   orc_union64 var44;
   orc_union64 var45;
@@ -7988,11 +7720,7 @@ _backup_test_float_constant_1 (OrcExecutor * ORC_RESTRICT ex)
   int i;
   int n = ex->n;
   orc_union32 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union32 var32;
-#else
   orc_union32 var32;
-#endif
   orc_union32 var33;
 
   ptr0 = (orc_union32 *)ex->arrays[0];
@@ -8016,11 +7744,7 @@ _backup_test_float_constant_2 (OrcExecutor * ORC_RESTRICT ex)
   int i;
   int n = ex->n;
   orc_union32 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union32 var32;
-#else
   orc_union32 var32;
-#endif
   orc_union32 var33;
 
   ptr0 = (orc_union32 *)ex->arrays[0];
@@ -8046,11 +7770,7 @@ _backup_convert_fc32_to_int32 (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union64 * ORC_RESTRICT ptr4;
   orc_union64 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var35;
-#else
   orc_union64 var35;
-#endif
   orc_union32 var36;
   orc_union64 var37;
   orc_union64 var38;
@@ -8137,11 +7857,7 @@ _backup_const64 (OrcExecutor * ORC_RESTRICT ex)
   int i;
   int n = ex->n;
   orc_union64 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var32;
-#else
   orc_union64 var32;
-#endif
   orc_union64 var33;
 
   ptr0 = (orc_union64 *)ex->arrays[0];
@@ -8191,11 +7907,7 @@ _backup_pa_volume_s16ne_orc_2ch (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 * ORC_RESTRICT ptr0;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;

@@ -88,7 +88,7 @@ orc_code_chunk_split (OrcCodeChunk *chunk, int size)
   newchunk->offset = chunk->offset + size;
   newchunk->size = chunk->size - size;
   newchunk->next = chunk->next;
-  newchunk->prev = chunk;
+  newchunk->prev = chunk->prev;
 
   chunk->size = size;
   if (chunk->next) {
@@ -170,7 +170,7 @@ orc_code_allocate_codemem (OrcCode *code, int size)
   code->code = ORC_PTR_OFFSET(region->write_ptr, chunk->offset);
   code->exec = ORC_PTR_OFFSET(region->exec_ptr, chunk->offset);
   code->code_size = size;
-  /* compiler->codeptr = ORC_PTR_OFFSET(region->write_ptr, chunk->offset); */
+  //compiler->codeptr = ORC_PTR_OFFSET(region->write_ptr, chunk->offset);
 }
 
 void
@@ -198,14 +198,11 @@ orc_code_region_allocate_codemem_dual_map (OrcCodeRegion *region,
   int fd;
   int n;
   char *filename;
-  mode_t mask;
 
   filename = malloc (strlen ("/orcexec..") +
       strlen (dir) + 6 + 1);
   sprintf(filename, "%s/orcexec.XXXXXX", dir);
-  mask = umask (0066);
   fd = mkstemp (filename);
-  umask (mask);
   if (fd == -1) {
     ORC_WARNING ("failed to create temp file");
     free (filename);

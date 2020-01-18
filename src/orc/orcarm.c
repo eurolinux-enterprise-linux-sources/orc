@@ -14,12 +14,6 @@
 #include <orc/orcarm.h>
 #include <orc/orcutils.h>
 
-#ifdef HAVE_ARM
-#if defined(__APPLE__)
-#include  <libkern/OSCacheControl.h>
-#endif
-#endif
-
 /**
  * SECTION:orcarm
  * @title: ARM
@@ -33,7 +27,7 @@ orc_arm_cond_name (OrcArmCond cond)
     "eq", "ne", "cs", "cc", "mi", "pl", "vs", "vc",
     "hi", "ls", "ge", "lt", "gt", "le", "", ""
   };
-  if ((int)cond < 0 || (int)cond >= 16) {
+  if (cond < 0 || cond >= 16) {
     return "ERROR";
   }
   return cond_names[cond&0xf];
@@ -54,7 +48,7 @@ orc_arm_reg_name (int reg)
     "r4", "r5", "r6", "r7",
     "r8", "r9", "r10", "r11",
     "ip", "sp", "lr", "pc" };
-  /* "r12", "r13", "r14", "r15" }; */
+    //"r12", "r13", "r14", "r15" };
 #endif
 
   if (reg < ORC_GP_REG_BASE || reg >= ORC_GP_REG_BASE+16) {
@@ -730,11 +724,7 @@ void
 orc_arm_flush_cache (OrcCode *code)
 {
 #ifdef HAVE_ARM
-#ifdef __APPLE__
-  sys_icache_invalidate(code->code, code->code_size);
-#else
   __clear_cache (code->code, code->code + code->code_size);
-#endif
 #endif
 }
 

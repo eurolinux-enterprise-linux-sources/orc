@@ -261,8 +261,8 @@ void memcpy_aligned_n16 (void * ORC_RESTRICT d1, const void * ORC_RESTRICT s1, i
 #define ORC_CLAMP_UW(x) ORC_CLAMP(x,ORC_UW_MIN,ORC_UW_MAX)
 #define ORC_CLAMP_SL(x) ORC_CLAMP(x,ORC_SL_MIN,ORC_SL_MAX)
 #define ORC_CLAMP_UL(x) ORC_CLAMP(x,ORC_UL_MIN,ORC_UL_MAX)
-#define ORC_SWAP_W(x) ((((x)&0xffU)<<8) | (((x)&0xff00U)>>8))
-#define ORC_SWAP_L(x) ((((x)&0xffU)<<24) | (((x)&0xff00U)<<8) | (((x)&0xff0000U)>>8) | (((x)&0xff000000U)>>24))
+#define ORC_SWAP_W(x) ((((x)&0xff)<<8) | (((x)&0xff00)>>8))
+#define ORC_SWAP_L(x) ((((x)&0xff)<<24) | (((x)&0xff00)<<8) | (((x)&0xff0000)>>8) | (((x)&0xff000000)>>24))
 #define ORC_SWAP_Q(x) ((((x)&ORC_UINT64_C(0xff))<<56) | (((x)&ORC_UINT64_C(0xff00))<<40) | (((x)&ORC_UINT64_C(0xff0000))<<24) | (((x)&ORC_UINT64_C(0xff000000))<<8) | (((x)&ORC_UINT64_C(0xff00000000))>>8) | (((x)&ORC_UINT64_C(0xff0000000000))>>24) | (((x)&ORC_UINT64_C(0xff000000000000))>>40) | (((x)&ORC_UINT64_C(0xff00000000000000))>>56))
 #define ORC_PTR_OFFSET(ptr,offset) ((void *)(((unsigned char *)(ptr)) + (offset)))
 #define ORC_DENORMAL(x) ((x) & ((((x)&0x7f800000) == 0) ? 0xff800000 : 0xffffffff))
@@ -293,11 +293,7 @@ orc_add2_rshift_add_s16_22_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * OR
   const orc_union16 * ORC_RESTRICT ptr6;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -345,11 +341,7 @@ _backup_orc_add2_rshift_add_s16_22_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr6;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -399,15 +391,15 @@ orc_add2_rshift_add_s16_22_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * OR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 50, 50, 95, 111, 112, 
-        11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 
-        0, 0, 20, 2, 70, 32, 5, 6, 70, 32, 32, 16, 94, 32, 32, 16, 
-        70, 0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_22_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 50, 50, 95, 111, 112, 
+      11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 
+      0, 0, 20, 2, 70, 32, 5, 6, 70, 32, 32, 16, 94, 32, 32, 16, 
+      70, 0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_22_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_add_s16_22_op");
@@ -457,11 +449,7 @@ orc_add2_rshift_add_s16_22 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_R
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -507,11 +495,7 @@ _backup_orc_add2_rshift_add_s16_22 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -560,15 +544,15 @@ orc_add2_rshift_add_s16_22 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 50, 50, 11, 2, 2, 
-        12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 20, 2, 70, 32, 
-        4, 5, 70, 32, 32, 16, 94, 32, 32, 16, 70, 0, 0, 32, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 50, 50, 11, 2, 2, 
+      12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 20, 2, 70, 32, 
+      4, 5, 70, 32, 32, 16, 94, 32, 32, 16, 70, 0, 0, 32, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_22);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_22);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_add_s16_22");
@@ -617,11 +601,7 @@ orc_add2_rshift_sub_s16_22_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * OR
   const orc_union16 * ORC_RESTRICT ptr6;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -669,11 +649,7 @@ _backup_orc_add2_rshift_sub_s16_22_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr6;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -723,15 +699,15 @@ orc_add2_rshift_sub_s16_22_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * OR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 50, 50, 95, 111, 112, 
-        11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 
-        0, 0, 20, 2, 70, 32, 5, 6, 70, 32, 32, 16, 94, 32, 32, 16, 
-        98, 0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_22_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 50, 50, 95, 111, 112, 
+      11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 
+      0, 0, 20, 2, 70, 32, 5, 6, 70, 32, 32, 16, 94, 32, 32, 16, 
+      98, 0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_22_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_sub_s16_22_op");
@@ -781,11 +757,7 @@ orc_add2_rshift_sub_s16_22 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_R
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -831,11 +803,7 @@ _backup_orc_add2_rshift_sub_s16_22 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union16 var37;
   orc_union16 var38;
@@ -884,15 +852,15 @@ orc_add2_rshift_sub_s16_22 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 50, 50, 11, 2, 2, 
-        12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 20, 2, 70, 32, 
-        4, 5, 70, 32, 32, 16, 94, 32, 32, 16, 98, 0, 0, 32, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 50, 50, 11, 2, 2, 
+      12, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 20, 2, 70, 32, 
+      4, 5, 70, 32, 32, 16, 94, 32, 32, 16, 98, 0, 0, 32, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_22);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_22);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_sub_s16_22");
@@ -1021,14 +989,14 @@ orc_add2_rshift_add_s16_11_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * OR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 49, 95, 111, 112, 
-        11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 
-        5, 6, 70, 0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_11_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 49, 95, 111, 112, 
+      11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 
+      5, 6, 70, 0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_11_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_add_s16_11_op");
@@ -1152,14 +1120,14 @@ orc_add2_rshift_add_s16_11 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 49, 11, 2, 2, 
-        12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 4, 5, 70, 0, 0, 32, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_11);
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 49, 11, 2, 2, 
+      12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 4, 5, 70, 0, 0, 32, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_add_s16_11);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_add_s16_11");
@@ -1285,14 +1253,14 @@ orc_add2_rshift_sub_s16_11_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * OR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 49, 95, 111, 112, 
-        11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 
-        5, 6, 98, 0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_11_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 29, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 49, 95, 111, 112, 
+      11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 
+      5, 6, 98, 0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_11_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_sub_s16_11_op");
@@ -1416,14 +1384,14 @@ orc_add2_rshift_sub_s16_11 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
-        102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 49, 11, 2, 2, 
-        12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 4, 5, 98, 0, 0, 32, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_11);
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 111, 114, 99, 95, 97, 100, 100, 50, 95, 114, 115, 104, 105, 
+      102, 116, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 49, 11, 2, 2, 
+      12, 2, 2, 12, 2, 2, 20, 2, 75, 32, 4, 5, 98, 0, 0, 32, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add2_rshift_sub_s16_11);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add2_rshift_sub_s16_11");
@@ -1466,11 +1434,7 @@ orc_add_const_rshift_s16_11 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -1502,11 +1466,7 @@ _backup_orc_add_const_rshift_s16_11 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -1543,14 +1503,14 @@ orc_add_const_rshift_s16_11 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 27, 111, 114, 99, 95, 97, 100, 100, 95, 99, 111, 110, 115, 116, 
-        95, 114, 115, 104, 105, 102, 116, 95, 115, 49, 54, 95, 49, 49, 11, 2, 
-        2, 12, 2, 2, 14, 4, 1, 0, 0, 0, 20, 2, 70, 32, 4, 16, 
-        94, 0, 32, 16, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add_const_rshift_s16_11);
+    static const orc_uint8 bc[] = {
+      1, 9, 27, 111, 114, 99, 95, 97, 100, 100, 95, 99, 111, 110, 115, 116, 
+      95, 114, 115, 104, 105, 102, 116, 95, 115, 49, 54, 95, 49, 49, 11, 2, 
+      2, 12, 2, 2, 14, 4, 1, 0, 0, 0, 20, 2, 70, 32, 4, 16, 
+      94, 0, 32, 16, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add_const_rshift_s16_11);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add_const_rshift_s16_11");
@@ -1657,13 +1617,13 @@ orc_add_const_rshift_s16 (orc_int16 * ORC_RESTRICT d1, int p1, int p2, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 97, 100, 100, 95, 99, 111, 110, 115, 116, 
-        95, 114, 115, 104, 105, 102, 116, 95, 115, 49, 54, 11, 2, 2, 16, 2, 
-        16, 2, 20, 2, 70, 32, 0, 24, 94, 0, 32, 25, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add_const_rshift_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 97, 100, 100, 95, 99, 111, 110, 115, 116, 
+      95, 114, 115, 104, 105, 102, 116, 95, 115, 49, 54, 11, 2, 2, 16, 2, 
+      16, 2, 20, 2, 70, 32, 0, 24, 94, 0, 32, 25, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add_const_rshift_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add_const_rshift_s16");
@@ -1773,12 +1733,12 @@ orc_add_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s1, con
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 11, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 11, 2, 
-        2, 12, 2, 2, 12, 2, 2, 70, 0, 4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 11, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 11, 2, 
+      2, 12, 2, 2, 12, 2, 2, 70, 0, 4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add_s16");
@@ -1889,12 +1849,12 @@ orc_add_s16_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, const orc_int16 * OR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 14, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 95, 
-        50, 100, 11, 2, 2, 12, 2, 2, 70, 0, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add_s16_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 14, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 95, 
+      50, 100, 11, 2, 2, 12, 2, 2, 70, 0, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add_s16_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -2010,13 +1970,13 @@ orc_addc_rshift_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 97, 100, 100, 99, 95, 114, 115, 104, 105, 
-        102, 116, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 12, 2, 2, 16, 
-        2, 20, 2, 70, 32, 4, 5, 94, 0, 32, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_addc_rshift_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 97, 100, 100, 99, 95, 114, 115, 104, 105, 
+      102, 116, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 12, 2, 2, 16, 
+      2, 20, 2, 70, 32, 4, 5, 94, 0, 32, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_addc_rshift_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_addc_rshift_s16");
@@ -2118,13 +2078,13 @@ orc_lshift1_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s1,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 15, 111, 114, 99, 95, 108, 115, 104, 105, 102, 116, 49, 95, 115, 
-        49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 1, 0, 0, 0, 93, 0, 
-        4, 16, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_lshift1_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 15, 111, 114, 99, 95, 108, 115, 104, 105, 102, 116, 49, 95, 115, 
+      49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 1, 0, 0, 0, 93, 0, 
+      4, 16, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_lshift1_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_lshift1_s16");
@@ -2221,13 +2181,13 @@ orc_lshift2_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s1,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 15, 111, 114, 99, 95, 108, 115, 104, 105, 102, 116, 50, 95, 115, 
-        49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 93, 0, 
-        4, 16, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_lshift2_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 15, 111, 114, 99, 95, 108, 115, 104, 105, 102, 116, 50, 95, 115, 
+      49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 93, 0, 
+      4, 16, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_lshift2_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_lshift2_s16");
@@ -2320,11 +2280,11 @@ orc_lshift_s16_ip (orc_int16 * ORC_RESTRICT d1, int p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 108, 115, 104, 105, 102, 116, 95, 115, 49, 
-        54, 95, 105, 112, 11, 2, 2, 16, 2, 93, 0, 0, 24, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_lshift_s16_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 108, 115, 104, 105, 102, 116, 95, 115, 49, 
+      54, 95, 105, 112, 11, 2, 2, 16, 2, 93, 0, 0, 24, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_lshift_s16_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_lshift_s16_ip");
@@ -2482,15 +2442,15 @@ orc_mas2_add_s16_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 97, 100, 100, 95, 
-        115, 49, 54, 95, 111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 
-        2, 2, 16, 2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 5, 6, 
-        176, 33, 32, 24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 70, 
-        0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas2_add_s16_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 97, 100, 100, 95, 
+      115, 49, 54, 95, 111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 
+      2, 2, 16, 2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 5, 6, 
+      176, 33, 32, 24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 70, 
+      0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas2_add_s16_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas2_add_s16_op");
@@ -2661,15 +2621,15 @@ orc_mas2_add_s16_ip (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 97, 100, 100, 95, 
-        115, 49, 54, 95, 105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 16, 
-        2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 4, 5, 176, 33, 32, 
-        24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 70, 0, 0, 32, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas2_add_s16_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 97, 100, 100, 95, 
+      115, 49, 54, 95, 105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 16, 
+      2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 4, 5, 176, 33, 32, 
+      24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 70, 0, 0, 32, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas2_add_s16_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas2_add_s16_ip");
@@ -2842,15 +2802,15 @@ orc_mas2_sub_s16_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 115, 117, 98, 95, 
-        115, 49, 54, 95, 111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 
-        2, 2, 16, 2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 5, 6, 
-        176, 33, 32, 24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 98, 
-        0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas2_sub_s16_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 115, 117, 98, 95, 
+      115, 49, 54, 95, 111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 
+      2, 2, 16, 2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 5, 6, 
+      176, 33, 32, 24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 98, 
+      0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas2_sub_s16_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas2_sub_s16_op");
@@ -3021,15 +2981,15 @@ orc_mas2_sub_s16_ip (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 115, 117, 98, 95, 
-        115, 49, 54, 95, 105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 16, 
-        2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 4, 5, 176, 33, 32, 
-        24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 98, 0, 0, 32, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas2_sub_s16_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 109, 97, 115, 50, 95, 115, 117, 98, 95, 
+      115, 49, 54, 95, 105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 16, 
+      2, 16, 4, 16, 4, 20, 2, 20, 4, 70, 32, 4, 5, 176, 33, 32, 
+      24, 103, 33, 33, 25, 125, 33, 33, 26, 163, 32, 33, 98, 0, 0, 32, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas2_sub_s16_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas2_sub_s16_ip");
@@ -3088,11 +3048,7 @@ orc_mas4_across_add_s16_1991_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
   const orc_union16 * ORC_RESTRICT ptr8;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3168,11 +3124,7 @@ _backup_orc_mas4_across_add_s16_1991_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr8;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3248,17 +3200,17 @@ orc_mas4_across_add_s16_1991_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
-        115, 115, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
-        111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
-        2, 12, 2, 2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 
-        20, 2, 20, 4, 20, 4, 70, 32, 6, 7, 176, 34, 32, 16, 70, 33, 
-        5, 8, 153, 35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 
-        25, 163, 32, 34, 70, 0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas4_across_add_s16_1991_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
+      115, 115, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
+      111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
+      2, 12, 2, 2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 
+      20, 2, 20, 4, 20, 4, 70, 32, 6, 7, 176, 34, 32, 16, 70, 33, 
+      5, 8, 153, 35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 
+      25, 163, 32, 34, 70, 0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas4_across_add_s16_1991_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas4_across_add_s16_1991_op");
@@ -3326,11 +3278,7 @@ orc_mas4_across_add_s16_1991_ip (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
   const orc_union16 * ORC_RESTRICT ptr7;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3404,11 +3352,7 @@ _backup_orc_mas4_across_add_s16_1991_ip (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr7;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3483,17 +3427,17 @@ orc_mas4_across_add_s16_1991_ip (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
-        115, 115, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
-        105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
-        2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 20, 2, 20, 
-        4, 20, 4, 70, 32, 5, 6, 176, 34, 32, 16, 70, 33, 4, 7, 153, 
-        35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 25, 163, 32, 
-        34, 70, 0, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas4_across_add_s16_1991_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
+      115, 115, 95, 97, 100, 100, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
+      105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
+      2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 20, 2, 20, 
+      4, 20, 4, 70, 32, 5, 6, 176, 34, 32, 16, 70, 33, 4, 7, 153, 
+      35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 25, 163, 32, 
+      34, 70, 0, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas4_across_add_s16_1991_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas4_across_add_s16_1991_ip");
@@ -3560,11 +3504,7 @@ orc_mas4_across_sub_s16_1991_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
   const orc_union16 * ORC_RESTRICT ptr8;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3640,11 +3580,7 @@ _backup_orc_mas4_across_sub_s16_1991_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr8;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3720,17 +3656,17 @@ orc_mas4_across_sub_s16_1991_op (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
-        115, 115, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
-        111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
-        2, 12, 2, 2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 
-        20, 2, 20, 4, 20, 4, 70, 32, 6, 7, 176, 34, 32, 16, 70, 33, 
-        5, 8, 153, 35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 
-        25, 163, 32, 34, 98, 0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas4_across_sub_s16_1991_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
+      115, 115, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
+      111, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
+      2, 12, 2, 2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 
+      20, 2, 20, 4, 20, 4, 70, 32, 6, 7, 176, 34, 32, 16, 70, 33, 
+      5, 8, 153, 35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 
+      25, 163, 32, 34, 98, 0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas4_across_sub_s16_1991_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas4_across_sub_s16_1991_op");
@@ -3798,11 +3734,7 @@ orc_mas4_across_sub_s16_1991_ip (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
   const orc_union16 * ORC_RESTRICT ptr7;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3876,11 +3808,7 @@ _backup_orc_mas4_across_sub_s16_1991_ip (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr7;
   orc_union16 var36;
   orc_union16 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union16 var39;
   orc_union16 var40;
   orc_union32 var41;
@@ -3955,17 +3883,17 @@ orc_mas4_across_sub_s16_1991_ip (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
-        115, 115, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
-        105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
-        2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 20, 2, 20, 
-        4, 20, 4, 70, 32, 5, 6, 176, 34, 32, 16, 70, 33, 4, 7, 153, 
-        35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 25, 163, 32, 
-        34, 98, 0, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_mas4_across_sub_s16_1991_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 31, 111, 114, 99, 95, 109, 97, 115, 52, 95, 97, 99, 114, 111, 
+      115, 115, 95, 115, 117, 98, 95, 115, 49, 54, 95, 49, 57, 57, 49, 95, 
+      105, 112, 11, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 2, 12, 2, 
+      2, 14, 4, 9, 0, 0, 0, 16, 4, 16, 4, 20, 2, 20, 2, 20, 
+      4, 20, 4, 70, 32, 5, 6, 176, 34, 32, 16, 70, 33, 4, 7, 153, 
+      35, 33, 129, 34, 34, 35, 103, 34, 34, 24, 125, 34, 34, 25, 163, 32, 
+      34, 98, 0, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_mas4_across_sub_s16_1991_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_mas4_across_sub_s16_1991_ip");
@@ -4094,13 +4022,13 @@ orc_subtract_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s1
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 16, 111, 114, 99, 95, 115, 117, 98, 116, 114, 97, 99, 116, 95, 
-        115, 49, 54, 11, 2, 2, 12, 2, 2, 12, 2, 2, 98, 0, 4, 5, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_subtract_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 16, 111, 114, 99, 95, 115, 117, 98, 116, 114, 97, 99, 116, 95, 
+      115, 49, 54, 11, 2, 2, 12, 2, 2, 12, 2, 2, 98, 0, 4, 5, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_subtract_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_subtract_s16");
@@ -4214,13 +4142,13 @@ orc_add_s16_u8 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s1, 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 14, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 95, 117, 
-        56, 11, 2, 2, 12, 2, 2, 12, 1, 1, 20, 2, 150, 32, 5, 70, 
-        0, 32, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add_s16_u8);
+    static const orc_uint8 bc[] = {
+      1, 9, 14, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 95, 117, 
+      56, 11, 2, 2, 12, 2, 2, 12, 1, 1, 20, 2, 150, 32, 5, 70, 
+      0, 32, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add_s16_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_add_s16_u8");
@@ -4339,13 +4267,13 @@ orc_add_s16_u8_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, const orc_uint8 *
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 17, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 95, 
-        117, 56, 95, 50, 100, 11, 2, 2, 12, 1, 1, 20, 2, 150, 32, 4, 
-        70, 0, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_add_s16_u8_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 17, 111, 114, 99, 95, 97, 100, 100, 95, 115, 49, 54, 95, 
+      117, 56, 95, 50, 100, 11, 2, 2, 12, 1, 1, 20, 2, 150, 32, 4, 
+      70, 0, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_add_s16_u8_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -4447,13 +4375,13 @@ orc_convert_s16_u8 (orc_uint16 * ORC_RESTRICT d1, const orc_uint8 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 18, 111, 114, 99, 95, 99, 111, 110, 118, 101, 114, 116, 95, 115, 
-        49, 54, 95, 117, 56, 11, 2, 2, 12, 1, 1, 150, 0, 4, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 18, 111, 114, 99, 95, 99, 111, 110, 118, 101, 114, 116, 95, 115, 
+      49, 54, 95, 117, 56, 11, 2, 2, 12, 1, 1, 150, 0, 4, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_convert_s16_u8);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_convert_s16_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_convert_s16_u8");
@@ -4549,13 +4477,13 @@ orc_convert_u8_s16 (orc_uint8 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 18, 111, 114, 99, 95, 99, 111, 110, 118, 101, 114, 116, 95, 117, 
-        56, 95, 115, 49, 54, 11, 1, 1, 12, 2, 2, 160, 0, 4, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 18, 111, 114, 99, 95, 99, 111, 110, 118, 101, 114, 116, 95, 117, 
+      56, 95, 115, 49, 54, 11, 1, 1, 12, 2, 2, 160, 0, 4, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_convert_u8_s16);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_convert_u8_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_convert_u8_s16");
@@ -4594,11 +4522,7 @@ orc_offsetconvert_u8_s16 (orc_uint8 * ORC_RESTRICT d1, const orc_int16 * ORC_RES
   orc_int8 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_int8 var35;
   orc_union16 var36;
 
@@ -4630,11 +4554,7 @@ _backup_orc_offsetconvert_u8_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_int8 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_int8 var35;
   orc_union16 var36;
 
@@ -4671,14 +4591,14 @@ orc_offsetconvert_u8_s16 (orc_uint8 * ORC_RESTRICT d1, const orc_int16 * ORC_RES
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 111, 102, 102, 115, 101, 116, 99, 111, 110, 
-        118, 101, 114, 116, 95, 117, 56, 95, 115, 49, 54, 11, 1, 1, 12, 2, 
-        2, 14, 4, 128, 0, 0, 0, 20, 2, 70, 32, 4, 16, 160, 0, 32, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_offsetconvert_u8_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 111, 102, 102, 115, 101, 116, 99, 111, 110, 
+      118, 101, 114, 116, 95, 117, 56, 95, 115, 49, 54, 11, 1, 1, 12, 2, 
+      2, 14, 4, 128, 0, 0, 0, 20, 2, 70, 32, 4, 16, 160, 0, 32, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_offsetconvert_u8_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_offsetconvert_u8_s16");
@@ -4720,11 +4640,7 @@ orc_offsetconvert_s16_u8 (orc_int16 * ORC_RESTRICT d1, const orc_uint8 * ORC_RES
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_int8 * ORC_RESTRICT ptr4;
   orc_int8 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -4756,11 +4672,7 @@ _backup_orc_offsetconvert_s16_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_int8 * ORC_RESTRICT ptr4;
   orc_int8 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -4797,14 +4709,14 @@ orc_offsetconvert_s16_u8 (orc_int16 * ORC_RESTRICT d1, const orc_uint8 * ORC_RES
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 111, 102, 102, 115, 101, 116, 99, 111, 110, 
-        118, 101, 114, 116, 95, 115, 49, 54, 95, 117, 56, 11, 2, 2, 12, 1, 
-        1, 14, 4, 128, 0, 0, 0, 20, 2, 150, 32, 4, 98, 0, 32, 16, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_offsetconvert_s16_u8);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 111, 102, 102, 115, 101, 116, 99, 111, 110, 
+      118, 101, 114, 116, 95, 115, 49, 54, 95, 117, 56, 11, 2, 2, 12, 1, 
+      1, 14, 4, 128, 0, 0, 0, 20, 2, 150, 32, 4, 98, 0, 32, 16, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_offsetconvert_s16_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_offsetconvert_s16_u8");
@@ -4919,13 +4831,13 @@ orc_subtract_s16_u8 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 115, 117, 98, 116, 114, 97, 99, 116, 95, 
-        115, 49, 54, 95, 117, 56, 11, 2, 2, 12, 2, 2, 12, 1, 1, 20, 
-        2, 150, 32, 5, 98, 0, 4, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_subtract_s16_u8);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 115, 117, 98, 116, 114, 97, 99, 116, 95, 
+      115, 49, 54, 95, 117, 56, 11, 2, 2, 12, 2, 2, 12, 1, 1, 20, 
+      2, 150, 32, 5, 98, 0, 4, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_subtract_s16_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_subtract_s16_u8");
@@ -5053,14 +4965,14 @@ orc_multiply_and_add_s16_u8 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 27, 111, 114, 99, 95, 109, 117, 108, 116, 105, 112, 108, 121, 95, 
-        97, 110, 100, 95, 97, 100, 100, 95, 115, 49, 54, 95, 117, 56, 11, 2, 
-        2, 12, 2, 2, 12, 1, 1, 20, 2, 150, 32, 5, 89, 32, 32, 4, 
-        70, 0, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_multiply_and_add_s16_u8);
+    static const orc_uint8 bc[] = {
+      1, 9, 27, 111, 114, 99, 95, 109, 117, 108, 116, 105, 112, 108, 121, 95, 
+      97, 110, 100, 95, 97, 100, 100, 95, 115, 49, 54, 95, 117, 56, 11, 2, 
+      2, 12, 2, 2, 12, 1, 1, 20, 2, 150, 32, 5, 89, 32, 32, 4, 
+      70, 0, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_multiply_and_add_s16_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_multiply_and_add_s16_u8");
@@ -5157,12 +5069,12 @@ orc_splat_s16_ns (orc_int16 * ORC_RESTRICT d1, int p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 115, 49, 54, 
-        95, 110, 115, 11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_s16_ns);
+    static const orc_uint8 bc[] = {
+      1, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 115, 49, 54, 
+      95, 110, 115, 11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_s16_ns);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_splat_s16_ns");
@@ -5262,13 +5174,13 @@ orc_splat_s16_2d_4xn (orc_int16 * ORC_RESTRICT d1, int d1_stride, int p1, int m)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 4, 7, 9, 20, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 
-        115, 49, 54, 95, 50, 100, 95, 52, 120, 110, 11, 2, 2, 16, 2, 79, 
-        0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_s16_2d_4xn);
+    static const orc_uint8 bc[] = {
+      1, 3, 4, 7, 9, 20, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 
+      115, 49, 54, 95, 50, 100, 95, 52, 120, 110, 11, 2, 2, 16, 2, 79, 
+      0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_s16_2d_4xn);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 4);
@@ -5372,13 +5284,13 @@ orc_splat_s16_2d_8xn (orc_int16 * ORC_RESTRICT d1, int d1_stride, int p1, int m)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 8, 7, 9, 20, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 
-        115, 49, 54, 95, 50, 100, 95, 56, 120, 110, 11, 2, 2, 16, 2, 79, 
-        0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_s16_2d_8xn);
+    static const orc_uint8 bc[] = {
+      1, 3, 8, 7, 9, 20, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 
+      115, 49, 54, 95, 50, 100, 95, 56, 120, 110, 11, 2, 2, 16, 2, 79, 
+      0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_s16_2d_8xn);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 8);
@@ -5481,12 +5393,12 @@ orc_splat_s16_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, int p1, int n, int
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 115, 49, 
-        54, 95, 50, 100, 11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_s16_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 115, 49, 
+      54, 95, 50, 100, 11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_s16_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -5581,12 +5493,12 @@ orc_splat_u8_ns (orc_uint8 * ORC_RESTRICT d1, int p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 15, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 56, 95, 
-        110, 115, 11, 1, 1, 16, 1, 42, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_u8_ns);
+    static const orc_uint8 bc[] = {
+      1, 9, 15, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 56, 95, 
+      110, 115, 11, 1, 1, 16, 1, 42, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_u8_ns);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_splat_u8_ns");
@@ -5685,12 +5597,12 @@ orc_splat_u8_2d (orc_uint8 * ORC_RESTRICT d1, int d1_stride, int p1, int n, int 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 15, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 56, 
-        95, 50, 100, 11, 1, 1, 16, 1, 42, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_u8_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 15, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 56, 
+      95, 50, 100, 11, 1, 1, 16, 1, 42, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_u8_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -5799,13 +5711,13 @@ orc_average_u8 (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_RESTRICT s1, 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 14, 111, 114, 99, 95, 97, 118, 101, 114, 97, 103, 101, 95, 117, 
-        56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 0, 4, 5, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 14, 111, 114, 99, 95, 97, 118, 101, 114, 97, 103, 101, 95, 117, 
+      56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 0, 4, 5, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_average_u8);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_average_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_average_u8");
@@ -5848,11 +5760,7 @@ orc_rrshift6_add_s16_2d (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_i
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_int8 var36;
   orc_union16 var37;
@@ -5899,11 +5807,7 @@ _backup_orc_rrshift6_add_s16_2d (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_int8 var36;
   orc_union16 var37;
@@ -5952,15 +5856,15 @@ orc_rrshift6_add_s16_2d (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_i
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 23, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 
-        95, 97, 100, 100, 95, 115, 49, 54, 95, 50, 100, 11, 1, 1, 12, 2, 
-        2, 12, 2, 2, 14, 4, 32, 0, 0, 0, 14, 4, 6, 0, 0, 0, 
-        20, 2, 70, 32, 5, 16, 94, 32, 32, 17, 70, 32, 4, 32, 160, 0, 
-        32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_rrshift6_add_s16_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 23, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 
+      95, 97, 100, 100, 95, 115, 49, 54, 95, 50, 100, 11, 1, 1, 12, 2, 
+      2, 12, 2, 2, 14, 4, 32, 0, 0, 0, 14, 4, 6, 0, 0, 0, 
+      20, 2, 70, 32, 5, 16, 94, 32, 32, 17, 70, 32, 4, 32, 160, 0, 
+      32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_rrshift6_add_s16_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -6013,11 +5917,7 @@ orc_rrshift6_sub_s16_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, orc_int16 *
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 * ORC_RESTRICT ptr1;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -6064,11 +5964,7 @@ _backup_orc_rrshift6_sub_s16_2d (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 * ORC_RESTRICT ptr1;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -6118,15 +6014,15 @@ orc_rrshift6_sub_s16_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, orc_int16 *
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 23, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 
-        95, 115, 117, 98, 95, 115, 49, 54, 95, 50, 100, 11, 2, 2, 11, 2, 
-        2, 14, 4, 224, 31, 0, 0, 14, 4, 6, 0, 0, 0, 20, 2, 98, 
-        32, 1, 16, 94, 32, 32, 17, 79, 1, 32, 98, 0, 0, 32, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 23, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 
+      95, 115, 117, 98, 95, 115, 49, 54, 95, 50, 100, 11, 2, 2, 11, 2, 
+      2, 14, 4, 224, 31, 0, 0, 14, 4, 6, 0, 0, 0, 20, 2, 98, 
+      32, 1, 16, 94, 32, 32, 17, 79, 1, 32, 98, 0, 0, 32, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_rrshift6_sub_s16_2d);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_rrshift6_sub_s16_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -6175,11 +6071,7 @@ orc_rrshift6_s16_ip_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, int n, int m
   int j;
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -6213,11 +6105,7 @@ _backup_orc_rrshift6_s16_ip_2d (OrcExecutor * ORC_RESTRICT ex)
   int m = ex->params[ORC_VAR_A1];
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -6255,14 +6143,14 @@ orc_rrshift6_s16_ip_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, int n, int m
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 22, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 
-        95, 115, 49, 54, 95, 105, 112, 95, 50, 100, 11, 2, 2, 14, 4, 224, 
-        31, 0, 0, 14, 4, 6, 0, 0, 0, 20, 2, 98, 32, 0, 16, 94, 
-        0, 32, 17, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_rrshift6_s16_ip_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 22, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 
+      95, 115, 49, 54, 95, 105, 112, 95, 50, 100, 11, 2, 2, 14, 4, 224, 
+      31, 0, 0, 14, 4, 6, 0, 0, 0, 20, 2, 98, 32, 0, 16, 94, 
+      0, 32, 17, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_rrshift6_s16_ip_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -6305,11 +6193,7 @@ orc_rrshift6_s16_ip (orc_int16 * ORC_RESTRICT d1, int n){
   int i;
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -6339,11 +6223,7 @@ _backup_orc_rrshift6_s16_ip (OrcExecutor * ORC_RESTRICT ex)
   int n = ex->n;
   orc_union16 * ORC_RESTRICT ptr0;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
 
@@ -6379,14 +6259,14 @@ orc_rrshift6_s16_ip (orc_int16 * ORC_RESTRICT d1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 95, 
-        115, 49, 54, 95, 105, 112, 11, 2, 2, 14, 4, 224, 31, 0, 0, 14, 
-        4, 6, 0, 0, 0, 20, 2, 98, 32, 0, 16, 94, 0, 32, 17, 2, 
-        0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_rrshift6_s16_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 114, 114, 115, 104, 105, 102, 116, 54, 95, 
+      115, 49, 54, 95, 105, 112, 11, 2, 2, 14, 4, 224, 31, 0, 0, 14, 
+      4, 6, 0, 0, 0, 20, 2, 98, 32, 0, 16, 94, 0, 32, 17, 2, 
+      0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_rrshift6_s16_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_rrshift6_s16_ip");
@@ -6492,11 +6372,11 @@ orc_unpack_yuyv_y (orc_uint8 * ORC_RESTRICT d1, const orc_uint16 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 121, 117, 
-        121, 118, 95, 121, 11, 1, 1, 12, 2, 2, 188, 0, 4, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_unpack_yuyv_y);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 121, 117, 
+      121, 118, 95, 121, 11, 1, 1, 12, 2, 2, 188, 0, 4, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_unpack_yuyv_y);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_unpack_yuyv_y");
@@ -6614,13 +6494,13 @@ orc_unpack_yuyv_u (orc_uint8 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 121, 117, 
-        121, 118, 95, 117, 11, 1, 1, 12, 4, 4, 20, 2, 190, 32, 4, 189, 
-        0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_unpack_yuyv_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 121, 117, 
+      121, 118, 95, 117, 11, 1, 1, 12, 4, 4, 20, 2, 190, 32, 4, 189, 
+      0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_unpack_yuyv_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_unpack_yuyv_u");
@@ -6740,13 +6620,13 @@ orc_unpack_yuyv_v (orc_uint8 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 121, 117, 
-        121, 118, 95, 118, 11, 1, 1, 12, 4, 4, 20, 2, 191, 32, 4, 189, 
-        0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_unpack_yuyv_v);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 121, 117, 
+      121, 118, 95, 118, 11, 1, 1, 12, 4, 4, 20, 2, 191, 32, 4, 189, 
+      0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_unpack_yuyv_v);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_unpack_yuyv_v");
@@ -6940,14 +6820,14 @@ orc_packyuyv (orc_uint32 * ORC_RESTRICT d1, const orc_uint8 * ORC_RESTRICT s1, c
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 12, 111, 114, 99, 95, 112, 97, 99, 107, 121, 117, 121, 118, 11, 
-        4, 4, 12, 2, 2, 12, 1, 1, 12, 1, 1, 20, 1, 20, 1, 20, 
-        2, 20, 2, 20, 2, 79, 36, 4, 188, 32, 36, 189, 33, 36, 196, 34, 
-        32, 5, 196, 35, 33, 6, 195, 0, 34, 35, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_packyuyv);
+    static const orc_uint8 bc[] = {
+      1, 9, 12, 111, 114, 99, 95, 112, 97, 99, 107, 121, 117, 121, 118, 11, 
+      4, 4, 12, 2, 2, 12, 1, 1, 12, 1, 1, 20, 1, 20, 1, 20, 
+      2, 20, 2, 20, 2, 79, 36, 4, 188, 32, 36, 189, 33, 36, 196, 34, 
+      32, 5, 196, 35, 33, 6, 195, 0, 34, 35, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_packyuyv);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_packyuyv");
@@ -7065,11 +6945,11 @@ orc_unpack_uyvy_y (orc_uint8 * ORC_RESTRICT d1, const orc_uint16 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 117, 121, 
-        118, 121, 95, 121, 11, 1, 1, 12, 2, 2, 189, 0, 4, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_unpack_uyvy_y);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 117, 121, 
+      118, 121, 95, 121, 11, 1, 1, 12, 2, 2, 189, 0, 4, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_unpack_uyvy_y);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_unpack_uyvy_y");
@@ -7187,13 +7067,13 @@ orc_unpack_uyvy_u (orc_uint8 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 117, 121, 
-        118, 121, 95, 117, 11, 1, 1, 12, 4, 4, 20, 2, 190, 32, 4, 188, 
-        0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_unpack_uyvy_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 117, 121, 
+      118, 121, 95, 117, 11, 1, 1, 12, 4, 4, 20, 2, 190, 32, 4, 188, 
+      0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_unpack_uyvy_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_unpack_uyvy_u");
@@ -7313,13 +7193,13 @@ orc_unpack_uyvy_v (orc_uint8 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 117, 121, 
-        118, 121, 95, 118, 11, 1, 1, 12, 4, 4, 20, 2, 191, 32, 4, 188, 
-        0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_unpack_uyvy_v);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 117, 110, 112, 97, 99, 107, 95, 117, 121, 
+      118, 121, 95, 118, 11, 1, 1, 12, 4, 4, 20, 2, 191, 32, 4, 188, 
+      0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_unpack_uyvy_v);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_unpack_uyvy_v");
@@ -7437,13 +7317,13 @@ orc_interleave2_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 105, 110, 116, 101, 114, 108, 101, 97, 118, 
-        101, 50, 95, 115, 49, 54, 11, 4, 4, 12, 2, 2, 12, 2, 2, 195, 
-        0, 4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_interleave2_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 105, 110, 116, 101, 114, 108, 101, 97, 118, 
+      101, 50, 95, 115, 49, 54, 11, 4, 4, 12, 2, 2, 12, 2, 2, 195, 
+      0, 4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_interleave2_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_interleave2_s16");
@@ -7485,17 +7365,9 @@ orc_interleave2_rrshift1_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union32 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -7547,17 +7419,9 @@ _backup_orc_interleave2_rrshift1_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union32 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -7613,15 +7477,15 @@ orc_interleave2_rrshift1_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 28, 111, 114, 99, 95, 105, 110, 116, 101, 114, 108, 101, 97, 118, 
-        101, 50, 95, 114, 114, 115, 104, 105, 102, 116, 49, 95, 115, 49, 54, 11, 
-        4, 4, 12, 2, 2, 12, 2, 2, 14, 4, 1, 0, 0, 0, 20, 2, 
-        20, 2, 70, 32, 4, 16, 94, 32, 32, 16, 70, 33, 5, 16, 94, 33, 
-        33, 16, 195, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_interleave2_rrshift1_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 28, 111, 114, 99, 95, 105, 110, 116, 101, 114, 108, 101, 97, 118, 
+      101, 50, 95, 114, 114, 115, 104, 105, 102, 116, 49, 95, 115, 49, 54, 11, 
+      4, 4, 12, 2, 2, 12, 2, 2, 14, 4, 1, 0, 0, 0, 20, 2, 
+      20, 2, 70, 32, 4, 16, 94, 32, 32, 16, 70, 33, 5, 16, 94, 33, 
+      33, 16, 195, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_interleave2_rrshift1_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_interleave2_rrshift1_s16");
@@ -7762,13 +7626,13 @@ orc_deinterleave2_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 100, 101, 105, 110, 116, 101, 114, 108, 101, 
-        97, 118, 101, 50, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 12, 4, 
-        4, 20, 4, 112, 32, 4, 190, 0, 32, 191, 1, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_deinterleave2_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 100, 101, 105, 110, 116, 101, 114, 108, 101, 
+      97, 118, 101, 50, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 12, 4, 
+      4, 20, 4, 112, 32, 4, 190, 0, 32, 191, 1, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_deinterleave2_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_deinterleave2_s16");
@@ -7917,15 +7781,15 @@ orc_deinterleave2_lshift1_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_REST
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 29, 111, 114, 99, 95, 100, 101, 105, 110, 116, 101, 114, 108, 101, 
-        97, 118, 101, 50, 95, 108, 115, 104, 105, 102, 116, 49, 95, 115, 49, 54, 
-        11, 2, 2, 11, 2, 2, 12, 4, 4, 14, 4, 1, 0, 0, 0, 20, 
-        4, 20, 2, 20, 2, 112, 32, 4, 190, 33, 32, 93, 0, 33, 16, 191, 
-        34, 32, 93, 1, 34, 16, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_deinterleave2_lshift1_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 29, 111, 114, 99, 95, 100, 101, 105, 110, 116, 101, 114, 108, 101, 
+      97, 118, 101, 50, 95, 108, 115, 104, 105, 102, 116, 49, 95, 115, 49, 54, 
+      11, 2, 2, 11, 2, 2, 12, 4, 4, 14, 4, 1, 0, 0, 0, 20, 
+      4, 20, 2, 20, 2, 112, 32, 4, 190, 33, 32, 93, 0, 33, 16, 191, 
+      34, 32, 93, 1, 34, 16, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_deinterleave2_lshift1_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_deinterleave2_lshift1_s16");
@@ -7976,11 +7840,7 @@ orc_haar_deint_lshift1_split_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_R
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union32 var39;
   orc_union16 var40;
@@ -8045,11 +7905,7 @@ _backup_orc_haar_deint_lshift1_split_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union32 var39;
   orc_union16 var40;
@@ -8117,17 +7973,17 @@ orc_haar_deint_lshift1_split_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 32, 111, 114, 99, 95, 104, 97, 97, 114, 95, 100, 101, 105, 110, 
-        116, 95, 108, 115, 104, 105, 102, 116, 49, 95, 115, 112, 108, 105, 116, 95, 
-        115, 49, 54, 11, 2, 2, 11, 2, 2, 12, 4, 4, 14, 4, 1, 0, 
-        0, 0, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 4, 112, 34, 
-        4, 190, 32, 34, 191, 33, 34, 93, 32, 32, 16, 93, 33, 33, 16, 98, 
-        33, 33, 32, 79, 1, 33, 75, 33, 33, 17, 70, 0, 32, 33, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 32, 111, 114, 99, 95, 104, 97, 97, 114, 95, 100, 101, 105, 110, 
+      116, 95, 108, 115, 104, 105, 102, 116, 49, 95, 115, 112, 108, 105, 116, 95, 
+      115, 49, 54, 11, 2, 2, 11, 2, 2, 12, 4, 4, 14, 4, 1, 0, 
+      0, 0, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 4, 112, 34, 
+      4, 190, 32, 34, 191, 33, 34, 93, 32, 32, 16, 93, 33, 33, 16, 98, 
+      33, 33, 32, 79, 1, 33, 75, 33, 33, 17, 70, 0, 32, 33, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_deint_lshift1_split_s16);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_deint_lshift1_split_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_deint_lshift1_split_s16");
@@ -8183,11 +8039,7 @@ orc_haar_deint_split_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT 
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union32 var39;
   orc_union16 var40;
@@ -8246,11 +8098,7 @@ _backup_orc_haar_deint_split_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union32 var39;
   orc_union16 var40;
@@ -8312,15 +8160,15 @@ orc_haar_deint_split_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 104, 97, 97, 114, 95, 100, 101, 105, 110, 
-        116, 95, 115, 112, 108, 105, 116, 95, 115, 49, 54, 11, 2, 2, 11, 2, 
-        2, 12, 4, 4, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 4, 
-        112, 34, 4, 190, 32, 34, 191, 33, 34, 98, 33, 33, 32, 79, 1, 33, 
-        75, 33, 33, 16, 70, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_deint_split_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 104, 97, 97, 114, 95, 100, 101, 105, 110, 
+      116, 95, 115, 112, 108, 105, 116, 95, 115, 49, 54, 11, 2, 2, 11, 2, 
+      2, 12, 4, 4, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 4, 
+      112, 34, 4, 190, 32, 34, 191, 33, 34, 98, 33, 33, 32, 79, 1, 33, 
+      75, 33, 33, 16, 70, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_deint_split_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_deint_split_s16");
@@ -8373,11 +8221,7 @@ orc_haar_split_s16_lo (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -8420,11 +8264,7 @@ _backup_orc_haar_split_s16_lo (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -8470,14 +8310,14 @@ orc_haar_split_s16_lo (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
-        116, 95, 115, 49, 54, 95, 108, 111, 11, 2, 2, 12, 2, 2, 12, 2, 
-        2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 79, 32, 4, 98, 33, 
-        5, 32, 75, 33, 33, 16, 70, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_split_s16_lo);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
+      116, 95, 115, 49, 54, 95, 108, 111, 11, 2, 2, 12, 2, 2, 12, 2, 
+      2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 79, 32, 4, 98, 33, 
+      5, 32, 75, 33, 33, 16, 70, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_split_s16_lo);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_split_s16_lo");
@@ -8591,13 +8431,13 @@ orc_haar_split_s16_hi (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
-        116, 95, 115, 49, 54, 95, 104, 105, 11, 2, 2, 12, 2, 2, 12, 2, 
-        2, 98, 0, 5, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_split_s16_hi);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
+      116, 95, 115, 49, 54, 95, 104, 105, 11, 2, 2, 12, 2, 2, 12, 2, 
+      2, 98, 0, 5, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_split_s16_hi);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_split_s16_hi");
@@ -8642,11 +8482,7 @@ orc_haar_split_s16_op (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
   orc_union16 var34;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -8696,11 +8532,7 @@ _backup_orc_haar_split_s16_op (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var34;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -8751,15 +8583,15 @@ orc_haar_split_s16_op (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
-        116, 95, 115, 49, 54, 95, 111, 112, 11, 2, 2, 11, 2, 2, 12, 2, 
-        2, 12, 2, 2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 79, 32, 
-        4, 98, 33, 5, 32, 79, 1, 33, 75, 33, 33, 16, 70, 0, 32, 33, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_split_s16_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
+      116, 95, 115, 49, 54, 95, 111, 112, 11, 2, 2, 11, 2, 2, 12, 2, 
+      2, 12, 2, 2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 79, 32, 
+      4, 98, 33, 5, 32, 79, 1, 33, 75, 33, 33, 16, 70, 0, 32, 33, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_split_s16_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_split_s16_op");
@@ -8811,11 +8643,7 @@ orc_haar_split_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2, in
   orc_union16 var34;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -8864,11 +8692,7 @@ _backup_orc_haar_split_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var34;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -8920,14 +8744,14 @@ orc_haar_split_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2, in
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 18, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
-        116, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 0, 0, 0, 
-        0, 20, 2, 20, 2, 79, 32, 0, 79, 33, 1, 98, 33, 33, 32, 79, 
-        1, 33, 75, 33, 33, 16, 70, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_split_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 18, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 112, 108, 105, 
+      116, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 0, 0, 0, 
+      0, 20, 2, 20, 2, 79, 32, 0, 79, 33, 1, 98, 33, 33, 32, 79, 
+      1, 33, 75, 33, 33, 16, 70, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_split_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_split_s16");
@@ -8975,11 +8799,7 @@ orc_haar_synth_s16_lo (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -9016,11 +8836,7 @@ _backup_orc_haar_synth_s16_lo (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -9061,14 +8877,14 @@ orc_haar_synth_s16_lo (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
-        104, 95, 115, 49, 54, 95, 108, 111, 11, 2, 2, 12, 2, 2, 12, 2, 
-        2, 14, 4, 0, 0, 0, 0, 20, 2, 75, 32, 5, 16, 98, 0, 4, 
-        32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_synth_s16_lo);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
+      104, 95, 115, 49, 54, 95, 108, 111, 11, 2, 2, 12, 2, 2, 12, 2, 
+      2, 14, 4, 0, 0, 0, 0, 20, 2, 75, 32, 5, 16, 98, 0, 4, 
+      32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_synth_s16_lo);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_synth_s16_lo");
@@ -9113,11 +8929,7 @@ orc_haar_synth_s16_hi (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -9160,11 +8972,7 @@ _backup_orc_haar_synth_s16_hi (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -9211,14 +9019,14 @@ orc_haar_synth_s16_hi (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
-        104, 95, 115, 49, 54, 95, 104, 105, 11, 2, 2, 12, 2, 2, 12, 2, 
-        2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 2, 79, 33, 5, 
-        75, 34, 33, 16, 98, 32, 4, 34, 70, 0, 33, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_synth_s16_hi);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
+      104, 95, 115, 49, 54, 95, 104, 105, 11, 2, 2, 12, 2, 2, 12, 2, 
+      2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 2, 79, 33, 5, 
+      75, 34, 33, 16, 98, 32, 4, 34, 70, 0, 33, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_synth_s16_hi);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_synth_s16_hi");
@@ -9268,11 +9076,7 @@ orc_haar_synth_s16_op (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -9322,11 +9126,7 @@ _backup_orc_haar_synth_s16_op (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -9379,15 +9179,15 @@ orc_haar_synth_s16_op (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
-        104, 95, 115, 49, 54, 95, 111, 112, 11, 2, 2, 11, 2, 2, 12, 2, 
-        2, 12, 2, 2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 2, 
-        79, 33, 5, 75, 34, 33, 16, 98, 32, 4, 34, 79, 0, 32, 70, 1, 
-        33, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_synth_s16_op);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
+      104, 95, 115, 49, 54, 95, 111, 112, 11, 2, 2, 11, 2, 2, 12, 2, 
+      2, 12, 2, 2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 20, 2, 
+      79, 33, 5, 75, 34, 33, 16, 98, 32, 4, 34, 79, 0, 32, 70, 1, 
+      33, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_synth_s16_op);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_synth_s16_op");
@@ -9439,11 +9239,7 @@ orc_haar_synth_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2, in
   orc_union16 * ORC_RESTRICT ptr1;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -9492,11 +9288,7 @@ _backup_orc_haar_synth_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr1;
   orc_union16 var35;
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -9549,14 +9341,14 @@ orc_haar_synth_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2, in
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 18, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
-        104, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 0, 0, 0, 
-        0, 20, 2, 20, 2, 20, 2, 79, 32, 0, 79, 33, 1, 75, 34, 33, 
-        16, 98, 32, 32, 34, 79, 0, 32, 70, 1, 33, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_synth_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 18, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
+      104, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 0, 0, 0, 
+      0, 20, 2, 20, 2, 20, 2, 79, 32, 0, 79, 33, 1, 75, 34, 33, 
+      16, 98, 32, 32, 34, 79, 0, 32, 70, 1, 33, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_synth_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_synth_s16");
@@ -9605,22 +9397,10 @@ orc_haar_synth_rrshift1_int_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union32 var39;
   orc_union16 var40;
   orc_union16 var41;
@@ -9680,22 +9460,10 @@ _backup_orc_haar_synth_rrshift1_int_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union32 var39;
   orc_union16 var40;
   orc_union16 var41;
@@ -9759,16 +9527,16 @@ orc_haar_synth_rrshift1_int_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 31, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
-        104, 95, 114, 114, 115, 104, 105, 102, 116, 49, 95, 105, 110, 116, 95, 115, 
-        49, 54, 11, 4, 4, 12, 2, 2, 12, 2, 2, 14, 4, 0, 0, 0, 
-        0, 20, 2, 20, 2, 79, 33, 5, 75, 32, 33, 16, 98, 32, 4, 32, 
-        70, 33, 33, 32, 75, 32, 32, 16, 75, 33, 33, 16, 195, 0, 32, 33, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_synth_rrshift1_int_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 31, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
+      104, 95, 114, 114, 115, 104, 105, 102, 116, 49, 95, 105, 110, 116, 95, 115, 
+      49, 54, 11, 4, 4, 12, 2, 2, 12, 2, 2, 14, 4, 0, 0, 0, 
+      0, 20, 2, 20, 2, 79, 33, 5, 75, 32, 33, 16, 98, 32, 4, 32, 
+      70, 33, 33, 32, 75, 32, 32, 16, 75, 33, 33, 16, 195, 0, 32, 33, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_synth_rrshift1_int_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_synth_rrshift1_int_s16");
@@ -9819,11 +9587,7 @@ orc_haar_synth_int_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTR
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union32 var37;
   orc_union16 var38;
@@ -9874,11 +9638,7 @@ _backup_orc_haar_synth_int_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
   orc_union16 var36;
   orc_union32 var37;
   orc_union16 var38;
@@ -9933,15 +9693,15 @@ orc_haar_synth_int_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 22, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
-        104, 95, 105, 110, 116, 95, 115, 49, 54, 11, 4, 4, 12, 2, 2, 12, 
-        2, 2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 79, 33, 5, 75, 
-        32, 33, 16, 98, 32, 4, 32, 70, 33, 33, 32, 195, 0, 32, 33, 2, 
-        0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_synth_int_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 22, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 121, 110, 116, 
+      104, 95, 105, 110, 116, 95, 115, 49, 54, 11, 4, 4, 12, 2, 2, 12, 
+      2, 2, 14, 4, 0, 0, 0, 0, 20, 2, 20, 2, 79, 33, 5, 75, 
+      32, 33, 16, 98, 32, 4, 32, 70, 33, 33, 32, 195, 0, 32, 33, 2, 
+      0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_synth_int_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_synth_int_s16");
@@ -10052,11 +9812,11 @@ orc_haar_sub_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s1
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 16, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 117, 98, 95, 
-        115, 49, 54, 11, 2, 2, 12, 2, 2, 98, 0, 0, 4, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_sub_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 16, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 117, 98, 95, 
+      115, 49, 54, 11, 2, 2, 12, 2, 2, 98, 0, 0, 4, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_sub_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_sub_s16");
@@ -10095,11 +9855,7 @@ orc_haar_add_half_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -10134,11 +9890,7 @@ _backup_orc_haar_add_half_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -10178,14 +9930,14 @@ orc_haar_add_half_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 97, 100, 100, 95, 
-        104, 97, 108, 102, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 
-        0, 0, 0, 0, 20, 2, 75, 32, 4, 16, 70, 0, 0, 32, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 97, 100, 100, 95, 
+      104, 97, 108, 102, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 
+      0, 0, 0, 0, 20, 2, 75, 32, 4, 16, 70, 0, 0, 32, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_add_half_s16);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_add_half_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_add_half_s16");
@@ -10290,11 +10042,11 @@ orc_haar_add_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s1
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 16, 111, 114, 99, 95, 104, 97, 97, 114, 95, 97, 100, 100, 95, 
-        115, 49, 54, 11, 2, 2, 12, 2, 2, 70, 0, 0, 4, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_add_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 16, 111, 114, 99, 95, 104, 97, 97, 114, 95, 97, 100, 100, 95, 
+      115, 49, 54, 11, 2, 2, 12, 2, 2, 70, 0, 0, 4, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_add_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_add_s16");
@@ -10333,11 +10085,7 @@ orc_haar_sub_half_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -10372,11 +10120,7 @@ _backup_orc_haar_sub_half_s16 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 * ORC_RESTRICT ptr0;
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union16 var33;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var34;
-#else
   orc_union16 var34;
-#endif
   orc_union16 var35;
   orc_union16 var36;
   orc_union16 var37;
@@ -10416,14 +10160,14 @@ orc_haar_sub_half_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRI
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 117, 98, 95, 
-        104, 97, 108, 102, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 
-        0, 0, 0, 0, 20, 2, 75, 32, 4, 16, 98, 0, 0, 32, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 104, 97, 97, 114, 95, 115, 117, 98, 95, 
+      104, 97, 108, 102, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 
+      0, 0, 0, 0, 20, 2, 75, 32, 4, 16, 98, 0, 0, 32, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_haar_sub_half_s16);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_haar_sub_half_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_haar_sub_half_s16");
@@ -10528,13 +10272,13 @@ orc_sum_u8 (orc_int32 * ORC_RESTRICT a1, const orc_uint8 * ORC_RESTRICT s1, int 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 10, 111, 114, 99, 95, 115, 117, 109, 95, 117, 56, 12, 1, 1, 
-        13, 4, 20, 2, 20, 4, 150, 32, 4, 154, 33, 32, 181, 12, 33, 2, 
-        0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sum_u8);
+    static const orc_uint8 bc[] = {
+      1, 9, 10, 111, 114, 99, 95, 115, 117, 109, 95, 117, 56, 12, 1, 1, 
+      13, 4, 20, 2, 20, 4, 150, 32, 4, 154, 33, 32, 181, 12, 33, 2, 
+      0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sum_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_sum_u8");
@@ -10634,12 +10378,12 @@ orc_sum_s16 (orc_int32 * ORC_RESTRICT a1, const orc_int16 * ORC_RESTRICT s1, int
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 11, 111, 114, 99, 95, 115, 117, 109, 95, 115, 49, 54, 12, 2, 
-        2, 13, 4, 20, 4, 153, 32, 4, 181, 12, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sum_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 11, 111, 114, 99, 95, 115, 117, 109, 95, 115, 49, 54, 12, 2, 
+      2, 13, 4, 20, 4, 153, 32, 4, 181, 12, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sum_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_sum_s16");
@@ -10771,14 +10515,14 @@ orc_sum_square_diff_u8 (orc_int32 * ORC_RESTRICT a1, const orc_uint8 * ORC_RESTR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 22, 111, 114, 99, 95, 115, 117, 109, 95, 115, 113, 117, 97, 114, 
-        101, 95, 100, 105, 102, 102, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 
-        4, 20, 2, 20, 2, 20, 4, 150, 32, 4, 150, 33, 5, 98, 32, 32, 
-        33, 89, 32, 32, 32, 154, 34, 32, 181, 12, 34, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sum_square_diff_u8);
+    static const orc_uint8 bc[] = {
+      1, 9, 22, 111, 114, 99, 95, 115, 117, 109, 95, 115, 113, 117, 97, 114, 
+      101, 95, 100, 105, 102, 102, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 
+      4, 20, 2, 20, 2, 20, 4, 150, 32, 4, 150, 33, 5, 98, 32, 32, 
+      33, 89, 32, 32, 32, 154, 34, 32, 181, 12, 34, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sum_square_diff_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_sum_square_diff_u8");
@@ -10940,15 +10684,15 @@ orc_dequantise_s16_2d_4xn (orc_int16 * ORC_RESTRICT d1, int d1_stride, const orc
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 4, 7, 9, 25, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 
-        116, 105, 115, 101, 95, 115, 49, 54, 95, 50, 100, 95, 52, 120, 110, 11, 
-        2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 
-        2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 
-        70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_dequantise_s16_2d_4xn);
+    static const orc_uint8 bc[] = {
+      1, 3, 4, 7, 9, 25, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 
+      116, 105, 115, 101, 95, 115, 49, 54, 95, 50, 100, 95, 52, 120, 110, 11, 
+      2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 
+      2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 
+      70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_dequantise_s16_2d_4xn);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 4);
@@ -11118,15 +10862,15 @@ orc_dequantise_s16_2d_8xn (orc_int16 * ORC_RESTRICT d1, int d1_stride, const orc
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 8, 7, 9, 25, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 
-        116, 105, 115, 101, 95, 115, 49, 54, 95, 50, 100, 95, 56, 120, 110, 11, 
-        2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 
-        2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 
-        70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_dequantise_s16_2d_8xn);
+    static const orc_uint8 bc[] = {
+      1, 3, 8, 7, 9, 25, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 
+      116, 105, 115, 101, 95, 115, 49, 54, 95, 50, 100, 95, 56, 120, 110, 11, 
+      2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 
+      2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 
+      70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_dequantise_s16_2d_8xn);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 8);
@@ -11292,15 +11036,15 @@ orc_dequantise_s16_ip_2d_8xn (orc_int16 * ORC_RESTRICT d1, int d1_stride, int p1
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 8, 7, 9, 28, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 
-        116, 105, 115, 101, 95, 115, 49, 54, 95, 105, 112, 95, 50, 100, 95, 56, 
-        120, 110, 11, 2, 2, 14, 4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 
-        2, 20, 2, 79, 32, 0, 96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 
-        70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_dequantise_s16_ip_2d_8xn);
+    static const orc_uint8 bc[] = {
+      1, 3, 8, 7, 9, 28, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 
+      116, 105, 115, 101, 95, 115, 49, 54, 95, 105, 112, 95, 50, 100, 95, 56, 
+      120, 110, 11, 2, 2, 14, 4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 
+      2, 20, 2, 79, 32, 0, 96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 
+      70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_dequantise_s16_ip_2d_8xn);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 8);
@@ -11462,15 +11206,15 @@ orc_dequantise_s16_ip_2d (orc_int16 * ORC_RESTRICT d1, int d1_stride, int p1, in
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 24, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 
-        115, 101, 95, 115, 49, 54, 95, 105, 112, 95, 50, 100, 11, 2, 2, 14, 
-        4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 0, 
-        96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 70, 32, 32, 25, 94, 32, 
-        32, 16, 89, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_dequantise_s16_ip_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 24, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 
+      115, 101, 95, 115, 49, 54, 95, 105, 112, 95, 50, 100, 11, 2, 2, 14, 
+      4, 2, 0, 0, 0, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 0, 
+      96, 33, 32, 69, 32, 32, 89, 32, 32, 24, 70, 32, 32, 25, 94, 32, 
+      32, 16, 89, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_dequantise_s16_ip_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -11624,15 +11368,15 @@ orc_dequantise_s16_ip (orc_int16 * ORC_RESTRICT d1, int p1, int p2, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 115, 
-        101, 95, 115, 49, 54, 95, 105, 112, 11, 2, 2, 14, 4, 2, 0, 0, 
-        0, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 0, 96, 33, 32, 69, 
-        32, 32, 89, 32, 32, 24, 70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 
-        32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_dequantise_s16_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 115, 
+      101, 95, 115, 49, 54, 95, 105, 112, 11, 2, 2, 14, 4, 2, 0, 0, 
+      0, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 0, 96, 33, 32, 69, 
+      32, 32, 89, 32, 32, 24, 70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 
+      32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_dequantise_s16_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_dequantise_s16_ip");
@@ -11787,15 +11531,15 @@ orc_dequantise_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 18, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 115, 
-        101, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 
-        0, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 
-        32, 32, 89, 32, 32, 24, 70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 
-        32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_dequantise_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 18, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 115, 
+      101, 95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 
+      0, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 
+      32, 32, 89, 32, 32, 24, 70, 32, 32, 25, 94, 32, 32, 16, 89, 0, 
+      32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_dequantise_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_dequantise_s16");
@@ -11956,15 +11700,15 @@ orc_dequantise_var_s16_ip (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RE
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 25, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 115, 
-        101, 95, 118, 97, 114, 95, 115, 49, 54, 95, 105, 112, 11, 2, 2, 12, 
-        2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 20, 2, 20, 2, 79, 
-        32, 0, 96, 33, 32, 69, 32, 32, 89, 32, 32, 4, 70, 32, 32, 5, 
-        94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_dequantise_var_s16_ip);
+    static const orc_uint8 bc[] = {
+      1, 9, 25, 111, 114, 99, 95, 100, 101, 113, 117, 97, 110, 116, 105, 115, 
+      101, 95, 118, 97, 114, 95, 115, 49, 54, 95, 105, 112, 11, 2, 2, 12, 
+      2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 20, 2, 20, 2, 79, 
+      32, 0, 96, 33, 32, 69, 32, 32, 89, 32, 32, 4, 70, 32, 32, 5, 
+      94, 32, 32, 16, 89, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_dequantise_var_s16_ip);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_dequantise_var_s16_ip");
@@ -12125,15 +11869,15 @@ orc_quantise1_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 113, 117, 97, 110, 116, 105, 115, 101, 49, 
-        95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 
-        16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 4, 96, 33, 32, 
-        69, 32, 32, 93, 32, 32, 16, 98, 32, 32, 25, 91, 32, 32, 24, 95, 
-        32, 32, 26, 89, 0, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_quantise1_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 113, 117, 97, 110, 116, 105, 115, 101, 49, 
+      95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 
+      16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 4, 96, 33, 32, 
+      69, 32, 32, 93, 32, 32, 16, 98, 32, 32, 25, 91, 32, 32, 24, 95, 
+      32, 32, 26, 89, 0, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_quantise1_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_quantise1_s16");
@@ -12287,15 +12031,15 @@ orc_quantise2_s16 (orc_int16 * ORC_RESTRICT d1, const orc_int16 * ORC_RESTRICT s
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 17, 111, 114, 99, 95, 113, 117, 97, 110, 116, 105, 115, 101, 50, 
-        95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 
-        16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 32, 
-        32, 93, 32, 32, 16, 98, 32, 32, 25, 95, 32, 32, 24, 89, 0, 32, 
-        33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_quantise2_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 17, 111, 114, 99, 95, 113, 117, 97, 110, 116, 105, 115, 101, 50, 
+      95, 115, 49, 54, 11, 2, 2, 12, 2, 2, 14, 4, 2, 0, 0, 0, 
+      16, 2, 16, 2, 20, 2, 20, 2, 79, 32, 4, 96, 33, 32, 69, 32, 
+      32, 93, 32, 32, 16, 98, 32, 32, 25, 95, 32, 32, 24, 89, 0, 32, 
+      33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_quantise2_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_quantise2_s16");
@@ -12510,17 +12254,17 @@ orc_quantdequant1_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 113, 117, 97, 110, 116, 100, 101, 113, 117, 
-        97, 110, 116, 49, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 
-        2, 0, 0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 
-        20, 2, 79, 32, 1, 96, 33, 32, 69, 32, 32, 93, 32, 32, 16, 98, 
-        32, 32, 25, 91, 32, 32, 24, 95, 32, 32, 26, 89, 33, 32, 33, 79, 
-        0, 33, 96, 33, 33, 89, 32, 32, 27, 70, 32, 32, 28, 94, 32, 32, 
-        16, 89, 1, 32, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_quantdequant1_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 113, 117, 97, 110, 116, 100, 101, 113, 117, 
+      97, 110, 116, 49, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 
+      2, 0, 0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 
+      20, 2, 79, 32, 1, 96, 33, 32, 69, 32, 32, 93, 32, 32, 16, 98, 
+      32, 32, 25, 91, 32, 32, 24, 95, 32, 32, 26, 89, 33, 32, 33, 79, 
+      0, 33, 96, 33, 33, 89, 32, 32, 27, 70, 32, 32, 28, 94, 32, 32, 
+      16, 89, 1, 32, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_quantdequant1_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_quantdequant1_s16");
@@ -12766,18 +12510,18 @@ orc_quantdequant3_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 113, 117, 97, 110, 116, 100, 101, 113, 117, 
-        97, 110, 116, 51, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 
-        2, 0, 0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 16, 2, 16, 4, 
-        20, 2, 20, 2, 20, 4, 79, 32, 1, 96, 33, 32, 69, 32, 32, 93, 
-        32, 32, 16, 98, 32, 32, 25, 177, 34, 32, 24, 103, 34, 34, 29, 126, 
-        34, 34, 26, 163, 32, 34, 89, 33, 32, 33, 79, 0, 33, 96, 33, 33, 
-        89, 32, 32, 27, 70, 32, 32, 28, 94, 32, 32, 16, 89, 1, 32, 33, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_quantdequant3_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 113, 117, 97, 110, 116, 100, 101, 113, 117, 
+      97, 110, 116, 51, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 
+      2, 0, 0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 16, 2, 16, 4, 
+      20, 2, 20, 2, 20, 4, 79, 32, 1, 96, 33, 32, 69, 32, 32, 93, 
+      32, 32, 16, 98, 32, 32, 25, 177, 34, 32, 24, 103, 34, 34, 29, 126, 
+      34, 34, 26, 163, 32, 34, 89, 33, 32, 33, 79, 0, 33, 96, 33, 33, 
+      89, 32, 32, 27, 70, 32, 32, 28, 94, 32, 32, 16, 89, 1, 32, 33, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_quantdequant3_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_quantdequant3_s16");
@@ -12998,17 +12742,17 @@ orc_quantdequant2_s16 (orc_int16 * ORC_RESTRICT d1, orc_int16 * ORC_RESTRICT d2,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 113, 117, 97, 110, 116, 100, 101, 113, 117, 
-        97, 110, 116, 50, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 
-        2, 0, 0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 
-        79, 32, 1, 96, 33, 32, 69, 32, 32, 93, 32, 32, 16, 98, 32, 32, 
-        25, 95, 32, 32, 24, 89, 33, 32, 33, 79, 0, 33, 96, 33, 33, 89, 
-        32, 32, 26, 70, 32, 32, 27, 94, 32, 32, 16, 89, 1, 32, 33, 2, 
-        0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_quantdequant2_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 113, 117, 97, 110, 116, 100, 101, 113, 117, 
+      97, 110, 116, 50, 95, 115, 49, 54, 11, 2, 2, 11, 2, 2, 14, 4, 
+      2, 0, 0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 
+      79, 32, 1, 96, 33, 32, 69, 32, 32, 93, 32, 32, 16, 98, 32, 32, 
+      25, 95, 32, 32, 24, 89, 33, 32, 33, 79, 0, 33, 96, 33, 33, 89, 
+      32, 32, 26, 70, 32, 32, 27, 94, 32, 32, 16, 89, 1, 32, 33, 2, 
+      0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_quantdequant2_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_quantdequant2_s16");
@@ -13074,23 +12818,11 @@ orc_downsample_vert_u8 (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_RESTR
   const orc_int8 * ORC_RESTRICT ptr7;
   orc_int8 var35;
   orc_int8 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_int8 var38;
   orc_int8 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
   orc_int8 var42;
   orc_union16 var43;
   orc_union16 var44;
@@ -13169,23 +12901,11 @@ _backup_orc_downsample_vert_u8 (OrcExecutor * ORC_RESTRICT ex)
   const orc_int8 * ORC_RESTRICT ptr7;
   orc_int8 var35;
   orc_int8 var36;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_int8 var38;
   orc_int8 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
   orc_int8 var42;
   orc_union16 var43;
   orc_union16 var44;
@@ -13265,17 +12985,17 @@ orc_downsample_vert_u8 (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_RESTR
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 22, 111, 114, 99, 95, 100, 111, 119, 110, 115, 97, 109, 112, 108, 
-        101, 95, 118, 101, 114, 116, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 
-        1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 6, 0, 0, 0, 14, 4, 
-        26, 0, 0, 0, 14, 4, 32, 0, 0, 0, 20, 2, 20, 2, 20, 2, 
-        150, 32, 4, 150, 33, 7, 70, 32, 32, 33, 89, 32, 32, 16, 150, 33, 
-        5, 150, 34, 6, 70, 33, 33, 34, 89, 33, 33, 17, 70, 33, 33, 32, 
-        70, 33, 33, 18, 95, 33, 33, 16, 157, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_downsample_vert_u8);
+    static const orc_uint8 bc[] = {
+      1, 9, 22, 111, 114, 99, 95, 100, 111, 119, 110, 115, 97, 109, 112, 108, 
+      101, 95, 118, 101, 114, 116, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 
+      1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 6, 0, 0, 0, 14, 4, 
+      26, 0, 0, 0, 14, 4, 32, 0, 0, 0, 20, 2, 20, 2, 20, 2, 
+      150, 32, 4, 150, 33, 7, 70, 32, 32, 33, 89, 32, 32, 16, 150, 33, 
+      5, 150, 34, 6, 70, 33, 33, 34, 89, 33, 33, 17, 70, 33, 33, 32, 
+      70, 33, 33, 18, 95, 33, 33, 16, 157, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_downsample_vert_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_downsample_vert_u8");
@@ -13339,21 +13059,9 @@ orc_downsample_horiz_u8 (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_REST
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var38;
   orc_union16 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -13458,21 +13166,9 @@ _backup_orc_downsample_horiz_u8 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr5;
   orc_union16 var38;
   orc_union16 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -13580,19 +13276,19 @@ orc_downsample_horiz_u8 (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_REST
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 23, 111, 114, 99, 95, 100, 111, 119, 110, 115, 97, 109, 112, 108, 
-        101, 95, 104, 111, 114, 105, 122, 95, 117, 56, 11, 1, 1, 12, 2, 2, 
-        12, 2, 2, 14, 4, 6, 0, 0, 0, 14, 4, 26, 0, 0, 0, 14, 
-        4, 32, 0, 0, 0, 20, 2, 20, 2, 20, 1, 20, 2, 20, 2, 20, 
-        2, 79, 32, 4, 79, 33, 5, 188, 34, 32, 150, 35, 34, 189, 34, 33, 
-        150, 36, 34, 70, 35, 35, 36, 89, 35, 35, 16, 189, 34, 32, 150, 36, 
-        34, 188, 34, 33, 150, 37, 34, 70, 36, 36, 37, 89, 36, 36, 17, 70, 
-        35, 35, 36, 70, 35, 35, 18, 95, 35, 35, 16, 157, 0, 35, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 23, 111, 114, 99, 95, 100, 111, 119, 110, 115, 97, 109, 112, 108, 
+      101, 95, 104, 111, 114, 105, 122, 95, 117, 56, 11, 1, 1, 12, 2, 2, 
+      12, 2, 2, 14, 4, 6, 0, 0, 0, 14, 4, 26, 0, 0, 0, 14, 
+      4, 32, 0, 0, 0, 20, 2, 20, 2, 20, 1, 20, 2, 20, 2, 20, 
+      2, 79, 32, 4, 79, 33, 5, 188, 34, 32, 150, 35, 34, 189, 34, 33, 
+      150, 36, 34, 70, 35, 35, 36, 89, 35, 35, 16, 189, 34, 32, 150, 36, 
+      34, 188, 34, 33, 150, 37, 34, 70, 36, 36, 37, 89, 36, 36, 17, 70, 
+      35, 35, 36, 70, 35, 35, 18, 95, 35, 35, 16, 157, 0, 35, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_downsample_horiz_u8);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_downsample_horiz_u8);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_downsample_horiz_u8");
@@ -13659,16 +13355,8 @@ orc_stats_moment_s16 (orc_int32 * ORC_RESTRICT a1, const orc_int16 * ORC_RESTRIC
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union32 var12 =  { 0 };
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -13708,16 +13396,8 @@ _backup_orc_stats_moment_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union32 var12 =  { 0 };
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union16 var37;
   orc_union16 var38;
   orc_union16 var39;
@@ -13762,13 +13442,13 @@ orc_stats_moment_s16 (orc_int32 * ORC_RESTRICT a1, const orc_int16 * ORC_RESTRIC
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 20, 111, 114, 99, 95, 115, 116, 97, 116, 115, 95, 109, 111, 109, 
-        101, 110, 116, 95, 115, 49, 54, 12, 2, 2, 13, 4, 14, 4, 2, 0, 
-        0, 0, 14, 4, 0, 0, 0, 0, 20, 2, 20, 4, 69, 32, 4, 98, 
-        32, 32, 16, 85, 32, 32, 17, 154, 33, 32, 181, 12, 33, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_stats_moment_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 20, 111, 114, 99, 95, 115, 116, 97, 116, 115, 95, 109, 111, 109, 
+      101, 110, 116, 95, 115, 49, 54, 12, 2, 2, 13, 4, 14, 4, 2, 0, 
+      0, 0, 14, 4, 0, 0, 0, 0, 20, 2, 20, 4, 69, 32, 4, 98, 
+      32, 32, 16, 85, 32, 32, 17, 154, 33, 32, 181, 12, 33, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_stats_moment_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_stats_moment_s16");
@@ -13815,21 +13495,9 @@ orc_stats_above_s16 (orc_int32 * ORC_RESTRICT a1, const orc_int16 * ORC_RESTRICT
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union32 var12 =  { 0 };
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -13874,21 +13542,9 @@ _backup_orc_stats_above_s16 (OrcExecutor * ORC_RESTRICT ex)
   const orc_union16 * ORC_RESTRICT ptr4;
   orc_union32 var12 =  { 0 };
   orc_union16 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var35;
-#else
   orc_union16 var35;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var37;
-#else
   orc_union16 var37;
-#endif
   orc_union16 var38;
   orc_union16 var39;
   orc_union16 var40;
@@ -13938,15 +13594,15 @@ orc_stats_above_s16 (orc_int32 * ORC_RESTRICT a1, const orc_int16 * ORC_RESTRICT
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 111, 114, 99, 95, 115, 116, 97, 116, 115, 95, 97, 98, 111, 
-        118, 101, 95, 115, 49, 54, 12, 2, 2, 13, 4, 14, 4, 1, 0, 0, 
-        0, 14, 4, 0, 0, 0, 0, 20, 2, 20, 4, 69, 32, 4, 98, 32, 
-        32, 16, 85, 32, 32, 17, 87, 32, 32, 16, 154, 33, 32, 181, 12, 33, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_stats_above_s16);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 111, 114, 99, 95, 115, 116, 97, 116, 115, 95, 97, 98, 111, 
+      118, 101, 95, 115, 49, 54, 12, 2, 2, 13, 4, 14, 4, 1, 0, 0, 
+      0, 14, 4, 0, 0, 0, 0, 20, 2, 20, 4, 69, 32, 4, 98, 32, 
+      32, 16, 85, 32, 32, 17, 87, 32, 32, 16, 154, 33, 32, 181, 12, 33, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_stats_above_s16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_stats_above_s16");
@@ -14051,12 +13707,12 @@ orc_accw (int * ORC_RESTRICT a1, const orc_int16 * ORC_RESTRICT s1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 8, 111, 114, 99, 95, 97, 99, 99, 119, 12, 2, 2, 13, 2, 
-        20, 2, 69, 32, 4, 180, 12, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_accw);
+    static const orc_uint8 bc[] = {
+      1, 9, 8, 111, 114, 99, 95, 97, 99, 99, 119, 12, 2, 2, 13, 2, 
+      20, 2, 69, 32, 4, 180, 12, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_accw);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_accw");
@@ -14172,13 +13828,13 @@ orc_avg2_8xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8 * O
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 8, 7, 9, 15, 111, 114, 99, 95, 97, 118, 103, 50, 95, 56, 
-        120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 0, 
-        4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_avg2_8xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 8, 7, 9, 15, 111, 114, 99, 95, 97, 118, 103, 50, 95, 56, 
+      120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 0, 
+      4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_avg2_8xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 8);
@@ -14300,13 +13956,13 @@ orc_avg2_12xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 12, 7, 9, 16, 111, 114, 99, 95, 97, 118, 103, 50, 95, 49, 
-        50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 
-        0, 4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_avg2_12xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 12, 7, 9, 16, 111, 114, 99, 95, 97, 118, 103, 50, 95, 49, 
+      50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 
+      0, 4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_avg2_12xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 12);
@@ -14428,13 +14084,13 @@ orc_avg2_16xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 16, 7, 9, 16, 111, 114, 99, 95, 97, 118, 103, 50, 95, 49, 
-        54, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 
-        0, 4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_avg2_16xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 16, 7, 9, 16, 111, 114, 99, 95, 97, 118, 103, 50, 95, 49, 
+      54, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 
+      0, 4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_avg2_16xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 16);
@@ -14556,13 +14212,13 @@ orc_avg2_32xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8 * 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 32, 7, 9, 16, 111, 114, 99, 95, 97, 118, 103, 50, 95, 51, 
-        50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 
-        0, 4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_avg2_32xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 32, 7, 9, 16, 111, 114, 99, 95, 97, 118, 103, 50, 95, 51, 
+      50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 
+      0, 4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_avg2_32xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 32);
@@ -14683,13 +14339,13 @@ orc_avg2_nxm_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8 * O
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 15, 111, 114, 99, 95, 97, 118, 103, 50, 95, 110, 120, 109, 
-        95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 0, 4, 5, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_avg2_nxm_u8);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 15, 111, 114, 99, 95, 97, 118, 103, 50, 95, 110, 120, 109, 
+      95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 39, 0, 4, 5, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_avg2_nxm_u8);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -14747,11 +14403,7 @@ orc_combine4_8xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -14847,11 +14499,7 @@ _backup_orc_combine4_8xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -14940,17 +14588,17 @@ orc_combine4_8xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 8, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 52, 95, 56, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 
-        1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 2, 
-        16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 32, 
-        24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 89, 
-        32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 33, 
-        33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine4_8xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 8, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 52, 95, 56, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 
+      1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 2, 
+      16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 32, 
+      24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 89, 
+      32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 33, 
+      33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine4_8xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 8);
@@ -15038,11 +14686,7 @@ orc_combine4_12xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -15138,11 +14782,7 @@ _backup_orc_combine4_12xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -15231,17 +14871,17 @@ orc_combine4_12xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 12, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 52, 95, 49, 50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
-        12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
-        2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
-        32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
-        89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
-        33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine4_12xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 12, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 52, 95, 49, 50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
+      12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
+      2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
+      32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
+      89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
+      33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine4_12xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 12);
@@ -15329,11 +14969,7 @@ orc_combine4_16xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -15429,11 +15065,7 @@ _backup_orc_combine4_16xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -15522,17 +15154,17 @@ orc_combine4_16xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 16, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 52, 95, 49, 54, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
-        12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
-        2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
-        32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
-        89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
-        33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine4_16xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 16, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 52, 95, 49, 54, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
+      12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
+      2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
+      32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
+      89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
+      33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine4_16xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 16);
@@ -15620,11 +15252,7 @@ orc_combine4_24xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -15720,11 +15348,7 @@ _backup_orc_combine4_24xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -15813,17 +15437,17 @@ orc_combine4_24xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 24, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 52, 95, 50, 52, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
-        12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
-        2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
-        32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
-        89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
-        33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine4_24xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 24, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 52, 95, 50, 52, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
+      12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
+      2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
+      32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
+      89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
+      33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine4_24xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 24);
@@ -15911,11 +15535,7 @@ orc_combine4_32xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -16011,11 +15631,7 @@ _backup_orc_combine4_32xn_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -16104,17 +15720,17 @@ orc_combine4_32xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 32, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 52, 95, 51, 50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
-        12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
-        2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
-        32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
-        89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
-        33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine4_32xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 32, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 52, 95, 51, 50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
+      12, 1, 1, 12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 16, 
+      2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 89, 33, 
+      32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 150, 32, 6, 
+      89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 32, 27, 70, 
+      33, 33, 32, 70, 33, 33, 16, 160, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine4_32xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 32);
@@ -16201,11 +15817,7 @@ orc_combine4_nxm_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -16304,11 +15916,7 @@ _backup_orc_combine4_nxm_u8 (OrcExecutor * ORC_RESTRICT ex)
   orc_union16 var39;
   orc_int8 var40;
   orc_union16 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var42;
-#else
   orc_union16 var42;
-#endif
   orc_int8 var43;
   orc_union16 var44;
   orc_union16 var45;
@@ -16400,18 +16008,18 @@ orc_combine4_nxm_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 101, 52, 
-        95, 110, 120, 109, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 
-        12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 14, 4, 4, 0, 
-        0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 
-        4, 89, 33, 32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 
-        150, 32, 6, 89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 
-        32, 27, 70, 33, 33, 32, 70, 33, 33, 16, 94, 33, 33, 17, 160, 0, 
-        33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine4_nxm_u8);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 101, 52, 
+      95, 110, 120, 109, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 
+      12, 1, 1, 12, 1, 1, 14, 4, 8, 0, 0, 0, 14, 4, 4, 0, 
+      0, 0, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 
+      4, 89, 33, 32, 24, 150, 32, 5, 89, 32, 32, 25, 70, 33, 33, 32, 
+      150, 32, 6, 89, 32, 32, 26, 70, 33, 33, 32, 150, 32, 7, 89, 32, 
+      32, 27, 70, 33, 33, 32, 70, 33, 33, 16, 94, 33, 33, 17, 160, 0, 
+      33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine4_nxm_u8);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -16623,15 +16231,15 @@ orc_combine2_8xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 8, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 50, 95, 56, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 
-        1, 1, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 
-        4, 150, 33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 33, 
-        70, 32, 32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine2_8xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 8, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 50, 95, 56, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 
+      1, 1, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 
+      4, 150, 33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 33, 
+      70, 32, 32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine2_8xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 8);
@@ -16830,15 +16438,15 @@ orc_combine2_12xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 12, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 50, 95, 49, 50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
-        12, 1, 1, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 
-        32, 4, 150, 33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 
-        33, 70, 32, 32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine2_12xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 12, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 50, 95, 49, 50, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
+      12, 1, 1, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 
+      32, 4, 150, 33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 
+      33, 70, 32, 32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine2_12xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 12);
@@ -17037,15 +16645,15 @@ orc_combine2_16xn_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 16, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
-        101, 50, 95, 49, 54, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
-        12, 1, 1, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 
-        32, 4, 150, 33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 
-        33, 70, 32, 32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine2_16xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 16, 7, 9, 20, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 
+      101, 50, 95, 49, 54, 120, 110, 95, 117, 56, 11, 1, 1, 12, 1, 1, 
+      12, 1, 1, 16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 
+      32, 4, 150, 33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 
+      33, 70, 32, 32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine2_16xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 16);
@@ -17243,15 +16851,15 @@ orc_combine2_nxm_u8 (orc_uint8 * ORC_RESTRICT d1, int d1_stride, const orc_uint8
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 101, 50, 
-        95, 110, 120, 109, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 
-        16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 150, 
-        33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 33, 70, 32, 
-        32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_combine2_nxm_u8);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 19, 111, 114, 99, 95, 99, 111, 109, 98, 105, 110, 101, 50, 
+      95, 110, 120, 109, 95, 117, 56, 11, 1, 1, 12, 1, 1, 12, 1, 1, 
+      16, 2, 16, 2, 16, 2, 16, 2, 20, 2, 20, 2, 150, 32, 4, 150, 
+      33, 5, 89, 32, 32, 24, 89, 33, 33, 25, 70, 32, 32, 33, 70, 32, 
+      32, 26, 94, 32, 32, 27, 160, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_combine2_nxm_u8);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -17382,13 +16990,13 @@ orc_sad_nxm_u8 (orc_uint32 * ORC_RESTRICT a1, const orc_uint8 * ORC_RESTRICT s1,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 14, 111, 114, 99, 95, 115, 97, 100, 95, 110, 120, 109, 95, 
-        117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 4, 5, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 14, 111, 114, 99, 95, 115, 97, 100, 95, 110, 120, 109, 95, 
+      117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 4, 5, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sad_nxm_u8);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sad_nxm_u8);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -17503,13 +17111,13 @@ orc_sad_8x8_u8 (orc_uint32 * ORC_RESTRICT a1, const orc_uint8 * ORC_RESTRICT s1,
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 8, 7, 8, 8, 9, 14, 111, 114, 99, 95, 115, 97, 100, 95, 
-        56, 120, 56, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 
-        4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sad_8x8_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 8, 7, 8, 8, 9, 14, 111, 114, 99, 95, 115, 97, 100, 95, 
+      56, 120, 56, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 
+      4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sad_8x8_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 8);
@@ -17626,13 +17234,13 @@ orc_sad_12x12_u8 (orc_uint32 * ORC_RESTRICT a1, const orc_uint8 * ORC_RESTRICT s
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 12, 7, 8, 12, 9, 16, 111, 114, 99, 95, 115, 97, 100, 95, 
-        49, 50, 120, 49, 50, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 
-        182, 12, 4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sad_12x12_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 12, 7, 8, 12, 9, 16, 111, 114, 99, 95, 115, 97, 100, 95, 
+      49, 50, 120, 49, 50, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 
+      182, 12, 4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sad_12x12_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 12);
@@ -17748,13 +17356,13 @@ orc_sad_16xn_u8 (orc_uint32 * ORC_RESTRICT a1, const orc_uint8 * ORC_RESTRICT s1
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 16, 7, 9, 15, 111, 114, 99, 95, 115, 97, 100, 95, 49, 54, 
-        120, 110, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 4, 
-        5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sad_16xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 16, 7, 9, 15, 111, 114, 99, 95, 115, 97, 100, 95, 49, 54, 
+      120, 110, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 4, 
+      5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sad_16xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 16);
@@ -17869,13 +17477,13 @@ orc_sad_32xn_u8 (orc_uint32 * ORC_RESTRICT a1, const orc_uint8 * ORC_RESTRICT s1
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 3, 32, 7, 9, 15, 111, 114, 99, 95, 115, 97, 100, 95, 51, 50, 
-        120, 110, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 4, 
-        5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_sad_32xn_u8);
+    static const orc_uint8 bc[] = {
+      1, 3, 32, 7, 9, 15, 111, 114, 99, 95, 115, 97, 100, 95, 51, 50, 
+      120, 110, 95, 117, 56, 12, 1, 1, 12, 1, 1, 13, 4, 182, 12, 4, 
+      5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_sad_32xn_u8);
 #else
       p = orc_program_new ();
       orc_program_set_constant_n (p, 32);
@@ -17921,28 +17529,12 @@ convert_rgb_to_gray (orc_uint8 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRIC
   orc_int8 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union32 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union32 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
   orc_int8 var42;
   orc_union16 var43;
   orc_int8 var44;
@@ -18063,28 +17655,12 @@ _backup_convert_rgb_to_gray (OrcExecutor * ORC_RESTRICT ex)
   orc_int8 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var35;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var36;
-#else
   orc_union16 var36;
-#endif
   orc_union32 var37;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var38;
-#else
   orc_union16 var38;
-#endif
   orc_union32 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var40;
-#else
   orc_union16 var40;
-#endif
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union16 var41;
-#else
   orc_union16 var41;
-#endif
   orc_int8 var42;
   orc_union16 var43;
   orc_int8 var44;
@@ -18210,18 +17786,18 @@ convert_rgb_to_gray (orc_uint8 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRIC
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 19, 99, 111, 110, 118, 101, 114, 116, 95, 114, 103, 98, 95, 116, 
-        111, 95, 103, 114, 97, 121, 11, 1, 1, 12, 4, 4, 14, 4, 139, 76, 
-        0, 0, 14, 4, 70, 150, 0, 0, 14, 4, 47, 29, 0, 0, 14, 4, 
-        128, 0, 0, 0, 20, 1, 20, 2, 20, 2, 190, 33, 4, 188, 32, 33, 
-        150, 34, 32, 183, 34, 34, 91, 34, 34, 16, 190, 33, 4, 189, 32, 33, 
-        150, 33, 32, 183, 33, 33, 91, 33, 33, 17, 72, 34, 34, 33, 191, 33, 
-        4, 188, 32, 33, 150, 33, 32, 183, 33, 33, 91, 33, 33, 18, 72, 34, 
-        34, 33, 72, 34, 34, 19, 189, 0, 34, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_convert_rgb_to_gray);
+    static const orc_uint8 bc[] = {
+      1, 9, 19, 99, 111, 110, 118, 101, 114, 116, 95, 114, 103, 98, 95, 116, 
+      111, 95, 103, 114, 97, 121, 11, 1, 1, 12, 4, 4, 14, 4, 139, 76, 
+      0, 0, 14, 4, 70, 150, 0, 0, 14, 4, 47, 29, 0, 0, 14, 4, 
+      128, 0, 0, 0, 20, 1, 20, 2, 20, 2, 190, 33, 4, 188, 32, 33, 
+      150, 34, 32, 183, 34, 34, 91, 34, 34, 16, 190, 33, 4, 189, 32, 33, 
+      150, 33, 32, 183, 33, 33, 91, 33, 33, 17, 72, 34, 34, 33, 191, 33, 
+      4, 188, 32, 33, 150, 33, 32, 183, 33, 33, 91, 33, 33, 18, 72, 34, 
+      34, 33, 72, 34, 34, 19, 189, 0, 34, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_convert_rgb_to_gray);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "convert_rgb_to_gray");
@@ -18640,18 +18216,18 @@ canny_calc_delta_x (orc_int32 * ORC_RESTRICT d1, const orc_uint8 * ORC_RESTRICT 
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 18, 99, 97, 110, 110, 121, 95, 99, 97, 108, 99, 95, 100, 101, 
-        108, 116, 97, 95, 120, 11, 4, 4, 12, 4, 4, 12, 4, 4, 20, 2, 
-        20, 2, 20, 1, 20, 2, 20, 1, 20, 2, 20, 4, 20, 4, 190, 33, 
-        4, 189, 34, 33, 190, 35, 5, 189, 36, 35, 150, 35, 34, 150, 37, 36, 
-        98, 32, 35, 37, 153, 38, 32, 120, 39, 38, 38, 191, 33, 4, 188, 34, 
-        33, 191, 35, 5, 188, 36, 35, 150, 35, 34, 150, 37, 36, 98, 32, 35, 
-        37, 153, 38, 32, 120, 38, 38, 38, 103, 39, 39, 38, 191, 33, 4, 189, 
-        34, 33, 191, 35, 5, 189, 36, 35, 150, 35, 34, 150, 37, 36, 98, 32, 
-        35, 37, 153, 38, 32, 120, 38, 38, 38, 103, 0, 39, 38, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_canny_calc_delta_x);
+    static const orc_uint8 bc[] = {
+      1, 9, 18, 99, 97, 110, 110, 121, 95, 99, 97, 108, 99, 95, 100, 101, 
+      108, 116, 97, 95, 120, 11, 4, 4, 12, 4, 4, 12, 4, 4, 20, 2, 
+      20, 2, 20, 1, 20, 2, 20, 1, 20, 2, 20, 4, 20, 4, 190, 33, 
+      4, 189, 34, 33, 190, 35, 5, 189, 36, 35, 150, 35, 34, 150, 37, 36, 
+      98, 32, 35, 37, 153, 38, 32, 120, 39, 38, 38, 191, 33, 4, 188, 34, 
+      33, 191, 35, 5, 188, 36, 35, 150, 35, 34, 150, 37, 36, 98, 32, 35, 
+      37, 153, 38, 32, 120, 38, 38, 38, 103, 39, 39, 38, 191, 33, 4, 189, 
+      34, 33, 191, 35, 5, 189, 36, 35, 150, 35, 34, 150, 37, 36, 98, 32, 
+      35, 37, 153, 38, 32, 120, 38, 38, 38, 103, 0, 39, 38, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_canny_calc_delta_x);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "canny_calc_delta_x");
@@ -18853,14 +18429,14 @@ i420_to_ayuv (orc_uint32 * ORC_RESTRICT d1, const orc_uint8 * ORC_RESTRICT s1, c
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 12, 105, 52, 50, 48, 95, 116, 111, 95, 97, 121, 117, 118, 11, 
-        4, 4, 12, 1, 1, 12, 1, 1, 12, 1, 1, 16, 1, 20, 1, 20, 
-        1, 20, 1, 20, 2, 20, 2, 45, 32, 5, 45, 33, 6, 43, 34, 4, 
-        196, 35, 24, 34, 196, 36, 32, 33, 195, 0, 35, 36, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_i420_to_ayuv);
+    static const orc_uint8 bc[] = {
+      1, 9, 12, 105, 52, 50, 48, 95, 116, 111, 95, 97, 121, 117, 118, 11, 
+      4, 4, 12, 1, 1, 12, 1, 1, 12, 1, 1, 16, 1, 20, 1, 20, 
+      1, 20, 1, 20, 2, 20, 2, 45, 32, 5, 45, 33, 6, 43, 34, 4, 
+      196, 35, 24, 34, 196, 36, 32, 33, 195, 0, 35, 36, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_i420_to_ayuv);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "i420_to_ayuv");
@@ -18988,12 +18564,12 @@ test_4x (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRICT s1, const
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 7, 116, 101, 115, 116, 95, 52, 120, 11, 4, 4, 12, 4, 4, 
-        12, 4, 4, 21, 2, 35, 0, 4, 5, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_test_4x);
+    static const orc_uint8 bc[] = {
+      1, 9, 7, 116, 101, 115, 116, 95, 52, 120, 11, 4, 4, 12, 4, 4, 
+      12, 4, 4, 21, 2, 35, 0, 4, 5, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_test_4x);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "test_4x");
@@ -19109,12 +18685,12 @@ test_4x_2 (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RESTRICT s1, int
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 9, 116, 101, 115, 116, 95, 52, 120, 95, 50, 11, 4, 4, 12, 
-        4, 4, 16, 4, 21, 2, 35, 0, 4, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_test_4x_2);
+    static const orc_uint8 bc[] = {
+      1, 9, 9, 116, 101, 115, 116, 95, 52, 120, 95, 50, 11, 4, 4, 12, 
+      4, 4, 16, 4, 21, 2, 35, 0, 4, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_test_4x_2);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "test_4x_2");
@@ -19208,12 +18784,12 @@ orc_splat_u16 (orc_uint16 * ORC_RESTRICT d1, int p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 13, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 49, 54, 
-        11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_u16);
+    static const orc_uint8 bc[] = {
+      1, 9, 13, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 49, 54, 
+      11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_u16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_splat_u16");
@@ -19305,12 +18881,12 @@ orc_splat_u32 (orc_uint32 * ORC_RESTRICT d1, int p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 13, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 51, 50, 
-        11, 4, 4, 16, 4, 112, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_u32);
+    static const orc_uint8 bc[] = {
+      1, 9, 13, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 51, 50, 
+      11, 4, 4, 16, 4, 112, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_u32);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_splat_u32");
@@ -19409,12 +18985,12 @@ orc_splat_u16_2d (orc_uint16 * ORC_RESTRICT d1, int d1_stride, int p1, int n, in
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 49, 
-        54, 95, 50, 100, 11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_u16_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 49, 
+      54, 95, 50, 100, 11, 2, 2, 16, 2, 79, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_u16_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -19516,12 +19092,12 @@ orc_splat_u32_2d (orc_uint32 * ORC_RESTRICT d1, int d1_stride, int p1, int n, in
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 51, 
-        50, 95, 50, 100, 11, 4, 4, 16, 4, 112, 0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_splat_u32_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 16, 111, 114, 99, 95, 115, 112, 108, 97, 116, 95, 117, 51, 
+      50, 95, 50, 100, 11, 4, 4, 16, 4, 112, 0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_splat_u32_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -19627,12 +19203,12 @@ orc_copy_u16_2d (orc_uint16 * ORC_RESTRICT d1, int d1_stride, const orc_uint16 *
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 15, 111, 114, 99, 95, 99, 111, 112, 121, 95, 117, 49, 54, 
-        95, 50, 100, 11, 2, 2, 12, 2, 2, 79, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_copy_u16_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 15, 111, 114, 99, 95, 99, 111, 112, 121, 95, 117, 49, 54, 
+      95, 50, 100, 11, 2, 2, 12, 2, 2, 79, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_copy_u16_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -19739,12 +19315,12 @@ orc_copy_u32_2d (orc_uint32 * ORC_RESTRICT d1, int d1_stride, const orc_uint32 *
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 15, 111, 114, 99, 95, 99, 111, 112, 121, 95, 117, 51, 50, 
-        95, 50, 100, 11, 4, 4, 12, 4, 4, 112, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_copy_u32_2d);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 15, 111, 114, 99, 95, 99, 111, 112, 121, 95, 117, 51, 50, 
+      95, 50, 100, 11, 4, 4, 12, 4, 4, 112, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_copy_u32_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -19863,14 +19439,14 @@ orc_composite_add_8888_8888_2d (orc_uint32 * ORC_RESTRICT d1, int d1_stride, con
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 30, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 
-        101, 95, 97, 100, 100, 95, 56, 56, 56, 56, 95, 56, 56, 56, 56, 95, 
-        50, 100, 11, 4, 4, 12, 4, 4, 21, 2, 35, 0, 0, 4, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 30, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 
+      101, 95, 97, 100, 100, 95, 56, 56, 56, 56, 95, 56, 56, 56, 56, 95, 
+      50, 100, 11, 4, 4, 12, 4, 4, 21, 2, 35, 0, 0, 4, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_composite_add_8888_8888_2d);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_composite_add_8888_8888_2d);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -19976,13 +19552,13 @@ orc_composite_add_8_8_line (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
-        95, 97, 100, 100, 95, 56, 95, 56, 95, 108, 105, 110, 101, 11, 1, 1, 
-        12, 1, 1, 35, 0, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_composite_add_8_8_line);
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
+      95, 97, 100, 100, 95, 56, 95, 56, 95, 108, 105, 110, 101, 11, 1, 1, 
+      12, 1, 1, 35, 0, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_composite_add_8_8_line);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_composite_add_8_8_line");
@@ -20114,14 +19690,14 @@ orc_composite_add_n_8_8_line (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 28, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
-        95, 97, 100, 100, 95, 110, 95, 56, 95, 56, 95, 108, 105, 110, 101, 11, 
-        1, 1, 12, 1, 1, 16, 2, 20, 2, 20, 1, 150, 32, 4, 89, 32, 
-        32, 24, 80, 32, 32, 157, 33, 32, 35, 0, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_composite_add_n_8_8_line);
+    static const orc_uint8 bc[] = {
+      1, 9, 28, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
+      95, 97, 100, 100, 95, 110, 95, 56, 95, 56, 95, 108, 105, 110, 101, 11, 
+      1, 1, 12, 1, 1, 16, 2, 20, 2, 20, 1, 150, 32, 4, 89, 32, 
+      32, 24, 80, 32, 32, 157, 33, 32, 35, 0, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_composite_add_n_8_8_line);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_composite_add_n_8_8_line");
@@ -20313,15 +19889,15 @@ orc_code_combine_add_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RES
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 22, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 97, 100, 100, 95, 117, 11, 4, 4, 12, 4, 4, 12, 
-        4, 4, 20, 8, 20, 8, 20, 4, 21, 2, 150, 32, 4, 21, 2, 150, 
-        33, 5, 136, 33, 33, 21, 2, 89, 32, 32, 33, 21, 2, 80, 32, 32, 
-        21, 2, 157, 34, 32, 21, 2, 35, 0, 0, 34, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_add_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 22, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 97, 100, 100, 95, 117, 11, 4, 4, 12, 4, 4, 12, 
+      4, 4, 20, 8, 20, 8, 20, 4, 21, 2, 150, 32, 4, 21, 2, 150, 
+      33, 5, 136, 33, 33, 21, 2, 89, 32, 32, 33, 21, 2, 80, 32, 32, 
+      21, 2, 157, 34, 32, 21, 2, 35, 0, 0, 34, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_add_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_add_u");
@@ -20440,13 +20016,13 @@ orc_code_combine_add_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 97, 100, 100, 95, 117, 95, 110, 11, 4, 4, 12, 4, 
-        4, 21, 2, 35, 0, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_add_u_n);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 97, 100, 100, 95, 117, 95, 110, 11, 4, 4, 12, 4, 
+      4, 21, 2, 35, 0, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_add_u_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_add_u_n");
@@ -20487,11 +20063,7 @@ orc_code_combine_over_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RE
   const orc_union32 * ORC_RESTRICT ptr5;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -20600,11 +20172,7 @@ _backup_orc_code_combine_over_u (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr5;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -20716,18 +20284,18 @@ orc_code_combine_over_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RE
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 111, 118, 101, 114, 95, 117, 11, 4, 4, 12, 4, 4, 
-        12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 
-        4, 20, 8, 21, 2, 150, 32, 4, 21, 2, 150, 33, 5, 136, 33, 33, 
-        21, 2, 89, 32, 32, 33, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 
-        113, 35, 0, 21, 2, 150, 36, 35, 21, 2, 101, 32, 32, 16, 136, 33, 
-        32, 21, 2, 89, 32, 36, 33, 21, 2, 80, 32, 32, 21, 2, 157, 35, 
-        32, 21, 2, 35, 0, 35, 34, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_over_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 111, 118, 101, 114, 95, 117, 11, 4, 4, 12, 4, 4, 
+      12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 
+      4, 20, 8, 21, 2, 150, 32, 4, 21, 2, 150, 33, 5, 136, 33, 33, 
+      21, 2, 89, 32, 32, 33, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 
+      113, 35, 0, 21, 2, 150, 36, 35, 21, 2, 101, 32, 32, 16, 136, 33, 
+      32, 21, 2, 89, 32, 36, 33, 21, 2, 80, 32, 32, 21, 2, 157, 35, 
+      32, 21, 2, 35, 0, 35, 34, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_over_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_over_u");
@@ -20786,11 +20354,7 @@ orc_code_combine_over_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_
   int i;
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var37;
-#else
   orc_union64 var37;
-#endif
   orc_union32 var38;
   orc_union32 var39;
   orc_union64 var40;
@@ -20867,11 +20431,7 @@ _backup_orc_code_combine_over_u_n (OrcExecutor * ORC_RESTRICT ex)
   int n = ex->n;
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var37;
-#else
   orc_union64 var37;
-#endif
   orc_union32 var38;
   orc_union32 var39;
   orc_union64 var40;
@@ -20954,17 +20514,17 @@ orc_code_combine_over_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 25, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 111, 118, 101, 114, 95, 117, 95, 110, 11, 4, 4, 12, 
-        4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 4, 
-        20, 8, 113, 35, 4, 21, 2, 150, 32, 35, 113, 34, 0, 21, 2, 150, 
-        36, 34, 21, 2, 101, 32, 32, 16, 136, 33, 32, 21, 2, 89, 32, 36, 
-        33, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 21, 2, 35, 0, 34, 
-        35, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_over_u_n);
+    static const orc_uint8 bc[] = {
+      1, 9, 25, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 111, 118, 101, 114, 95, 117, 95, 110, 11, 4, 4, 12, 
+      4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 4, 
+      20, 8, 113, 35, 4, 21, 2, 150, 32, 35, 113, 34, 0, 21, 2, 150, 
+      36, 34, 21, 2, 101, 32, 32, 16, 136, 33, 32, 21, 2, 89, 32, 36, 
+      33, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 21, 2, 35, 0, 34, 
+      35, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_over_u_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_over_u_n");
@@ -21193,16 +20753,16 @@ orc_code_combine_in_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_REST
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 105, 110, 95, 117, 11, 4, 4, 12, 4, 4, 12, 4, 
-        4, 20, 8, 20, 8, 20, 8, 20, 8, 20, 8, 21, 2, 150, 35, 4, 
-        21, 2, 150, 36, 5, 136, 36, 36, 21, 2, 89, 35, 35, 36, 21, 2, 
-        80, 35, 35, 21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 89, 35, 35, 
-        36, 21, 2, 80, 35, 35, 21, 2, 157, 0, 35, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_in_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 105, 110, 95, 117, 11, 4, 4, 12, 4, 4, 12, 4, 
+      4, 20, 8, 20, 8, 20, 8, 20, 8, 20, 8, 21, 2, 150, 35, 4, 
+      21, 2, 150, 36, 5, 136, 36, 36, 21, 2, 89, 35, 35, 36, 21, 2, 
+      80, 35, 35, 21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 89, 35, 35, 
+      36, 21, 2, 80, 35, 35, 21, 2, 157, 0, 35, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_in_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_in_u");
@@ -21380,15 +20940,15 @@ orc_code_combine_in_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RE
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 105, 110, 95, 117, 95, 110, 11, 4, 4, 12, 4, 4, 
-        20, 8, 20, 8, 20, 8, 20, 8, 20, 8, 21, 2, 150, 35, 4, 21, 
-        2, 150, 32, 0, 136, 36, 32, 21, 2, 89, 35, 35, 36, 21, 2, 80, 
-        35, 35, 21, 2, 157, 0, 35, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_in_u_n);
+    static const orc_uint8 bc[] = {
+      1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 105, 110, 95, 117, 95, 110, 11, 4, 4, 12, 4, 4, 
+      20, 8, 20, 8, 20, 8, 20, 8, 20, 8, 21, 2, 150, 35, 4, 21, 
+      2, 150, 32, 0, 136, 36, 32, 21, 2, 89, 35, 35, 36, 21, 2, 80, 
+      35, 35, 21, 2, 157, 0, 35, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_in_u_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_in_u_n");
@@ -21440,11 +21000,7 @@ orc_code_combine_out_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RES
   orc_union32 var37;
   orc_union32 var38;
   orc_union32 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var40;
-#else
   orc_union64 var40;
-#endif
   orc_union32 var41;
   orc_union64 var42;
   orc_union64 var43;
@@ -21541,11 +21097,7 @@ _backup_orc_code_combine_out_u (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var37;
   orc_union32 var38;
   orc_union32 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var40;
-#else
   orc_union64 var40;
-#endif
   orc_union32 var41;
   orc_union64 var42;
   orc_union64 var43;
@@ -21644,17 +21196,17 @@ orc_code_combine_out_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RES
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 22, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 111, 117, 116, 95, 117, 11, 4, 4, 12, 4, 4, 12, 
-        4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 
-        20, 8, 21, 2, 150, 35, 4, 21, 2, 150, 36, 5, 136, 36, 36, 21, 
-        2, 89, 35, 35, 36, 21, 2, 80, 35, 35, 21, 2, 150, 32, 0, 136, 
-        36, 32, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 35, 36, 21, 2, 
-        80, 35, 35, 21, 2, 157, 0, 35, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_out_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 22, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 111, 117, 116, 95, 117, 11, 4, 4, 12, 4, 4, 12, 
+      4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 
+      20, 8, 21, 2, 150, 35, 4, 21, 2, 150, 36, 5, 136, 36, 36, 21, 
+      2, 89, 35, 35, 36, 21, 2, 80, 35, 35, 21, 2, 150, 32, 0, 136, 
+      36, 32, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 35, 36, 21, 2, 
+      80, 35, 35, 21, 2, 157, 0, 35, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_out_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_out_u");
@@ -21712,11 +21264,7 @@ orc_code_combine_out_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_R
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -21787,11 +21335,7 @@ _backup_orc_code_combine_out_u_n (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -21866,16 +21410,16 @@ orc_code_combine_out_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 111, 117, 116, 95, 117, 95, 110, 11, 4, 4, 12, 4, 
-        4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 20, 
-        8, 21, 2, 150, 35, 4, 21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 
-        101, 36, 36, 16, 21, 2, 89, 35, 35, 36, 21, 2, 80, 35, 35, 21, 
-        2, 157, 0, 35, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_out_u_n);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 111, 117, 116, 95, 117, 95, 110, 11, 4, 4, 12, 4, 
+      4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 20, 
+      8, 21, 2, 150, 35, 4, 21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 
+      101, 36, 36, 16, 21, 2, 89, 35, 35, 36, 21, 2, 80, 35, 35, 21, 
+      2, 157, 0, 35, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_out_u_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_out_u_n");
@@ -21930,11 +21474,7 @@ orc_code_combine_atop_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RE
   orc_union32 var41;
   orc_union32 var42;
   orc_union32 var43;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var44;
-#else
   orc_union64 var44;
-#endif
   orc_union32 var45;
   orc_union64 var46;
   orc_union64 var47;
@@ -22067,11 +21607,7 @@ _backup_orc_code_combine_atop_u (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var41;
   orc_union32 var42;
   orc_union32 var43;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var44;
-#else
   orc_union64 var44;
-#endif
   orc_union32 var45;
   orc_union64 var46;
   orc_union64 var47;
@@ -22205,18 +21741,18 @@ orc_code_combine_atop_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RE
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 97, 116, 111, 112, 95, 117, 11, 4, 4, 12, 4, 4, 
-        12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 
-        8, 20, 8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 
-        150, 36, 5, 136, 36, 36, 21, 2, 89, 35, 35, 36, 21, 2, 80, 35, 
-        35, 21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 89, 37, 35, 36, 21, 
-        2, 80, 37, 37, 21, 2, 157, 38, 37, 21, 2, 150, 32, 0, 136, 36, 
-        35, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 32, 36, 21, 2, 80, 
-        35, 35, 21, 2, 157, 39, 35, 21, 2, 35, 0, 38, 39, 2, 0,       };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_atop_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 97, 116, 111, 112, 95, 117, 11, 4, 4, 12, 4, 4, 
+      12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 
+      8, 20, 8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 
+      150, 36, 5, 136, 36, 36, 21, 2, 89, 35, 35, 36, 21, 2, 80, 35, 
+      35, 21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 89, 37, 35, 36, 21, 
+      2, 80, 37, 37, 21, 2, 157, 38, 37, 21, 2, 150, 32, 0, 136, 36, 
+      35, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 32, 36, 21, 2, 80, 
+      35, 35, 21, 2, 157, 39, 35, 21, 2, 35, 0, 38, 39, 2, 0,     };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_atop_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_atop_u");
@@ -22284,11 +21820,7 @@ orc_code_combine_atop_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_
   orc_union32 var40;
   orc_union32 var41;
   orc_union32 var42;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var43;
-#else
   orc_union64 var43;
-#endif
   orc_union32 var44;
   orc_union64 var45;
   orc_union64 var46;
@@ -22395,11 +21927,7 @@ _backup_orc_code_combine_atop_u_n (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var40;
   orc_union32 var41;
   orc_union32 var42;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var43;
-#else
   orc_union64 var43;
-#endif
   orc_union32 var44;
   orc_union64 var45;
   orc_union64 var46;
@@ -22509,18 +22037,18 @@ orc_code_combine_atop_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 25, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 97, 116, 111, 112, 95, 117, 95, 110, 11, 4, 4, 12, 
-        4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 
-        20, 8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 150, 
-        32, 0, 136, 36, 32, 21, 2, 89, 37, 35, 36, 21, 2, 80, 37, 37, 
-        21, 2, 157, 38, 37, 21, 2, 150, 32, 0, 136, 36, 35, 21, 2, 101, 
-        36, 36, 16, 21, 2, 89, 35, 32, 36, 21, 2, 80, 35, 35, 21, 2, 
-        157, 39, 35, 21, 2, 35, 0, 38, 39, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_atop_u_n);
+    static const orc_uint8 bc[] = {
+      1, 9, 25, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 97, 116, 111, 112, 95, 117, 95, 110, 11, 4, 4, 12, 
+      4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 
+      20, 8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 150, 
+      32, 0, 136, 36, 32, 21, 2, 89, 37, 35, 36, 21, 2, 80, 37, 37, 
+      21, 2, 157, 38, 37, 21, 2, 150, 32, 0, 136, 36, 35, 21, 2, 101, 
+      36, 36, 16, 21, 2, 89, 35, 32, 36, 21, 2, 80, 35, 35, 21, 2, 
+      157, 39, 35, 21, 2, 35, 0, 38, 39, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_atop_u_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_atop_u_n");
@@ -22583,17 +22111,9 @@ orc_code_combine_xor_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RES
   orc_union32 var40;
   orc_union32 var41;
   orc_union32 var42;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var43;
-#else
   orc_union64 var43;
-#endif
   orc_union32 var44;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var45;
-#else
   orc_union64 var45;
-#endif
   orc_union32 var46;
   orc_union64 var47;
   orc_union64 var48;
@@ -22736,17 +22256,9 @@ _backup_orc_code_combine_xor_u (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 var40;
   orc_union32 var41;
   orc_union32 var42;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var43;
-#else
   orc_union64 var43;
-#endif
   orc_union32 var44;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var45;
-#else
   orc_union64 var45;
-#endif
   orc_union32 var46;
   orc_union64 var47;
   orc_union64 var48;
@@ -22891,20 +22403,20 @@ orc_code_combine_xor_u (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RES
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 22, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 120, 111, 114, 95, 117, 11, 4, 4, 12, 4, 4, 12, 
-        4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 
-        20, 8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 150, 
-        36, 5, 136, 36, 36, 21, 2, 89, 35, 35, 36, 21, 2, 80, 35, 35, 
-        21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 101, 36, 36, 16, 21, 2, 
-        89, 37, 35, 36, 21, 2, 80, 37, 37, 21, 2, 157, 38, 37, 21, 2, 
-        150, 32, 0, 136, 36, 35, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 
-        32, 36, 21, 2, 80, 35, 35, 21, 2, 157, 39, 35, 21, 2, 35, 0, 
-        38, 39, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_xor_u);
+    static const orc_uint8 bc[] = {
+      1, 9, 22, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 120, 111, 114, 95, 117, 11, 4, 4, 12, 4, 4, 12, 
+      4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 
+      20, 8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 150, 
+      36, 5, 136, 36, 36, 21, 2, 89, 35, 35, 36, 21, 2, 80, 35, 35, 
+      21, 2, 150, 32, 0, 136, 36, 32, 21, 2, 101, 36, 36, 16, 21, 2, 
+      89, 37, 35, 36, 21, 2, 80, 37, 37, 21, 2, 157, 38, 37, 21, 2, 
+      150, 32, 0, 136, 36, 35, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 
+      32, 36, 21, 2, 80, 35, 35, 21, 2, 157, 39, 35, 21, 2, 35, 0, 
+      38, 39, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_xor_u);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_xor_u");
@@ -22972,17 +22484,9 @@ orc_code_combine_xor_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_R
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var44;
-#else
   orc_union64 var44;
-#endif
   orc_union32 var45;
   orc_union64 var46;
   orc_union64 var47;
@@ -23099,17 +22603,9 @@ _backup_orc_code_combine_xor_u_n (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var44;
-#else
   orc_union64 var44;
-#endif
   orc_union32 var45;
   orc_union64 var46;
   orc_union64 var47;
@@ -23230,19 +22726,19 @@ orc_code_combine_xor_u_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 120, 111, 114, 95, 117, 95, 110, 11, 4, 4, 12, 4, 
-        4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 20, 
-        8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 150, 32, 
-        0, 136, 36, 32, 21, 2, 101, 36, 36, 16, 21, 2, 89, 37, 35, 36, 
-        21, 2, 80, 37, 37, 21, 2, 157, 38, 37, 21, 2, 150, 32, 0, 136, 
-        36, 35, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 32, 36, 21, 2, 
-        80, 35, 35, 21, 2, 157, 39, 35, 21, 2, 35, 0, 38, 39, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 120, 111, 114, 95, 117, 95, 110, 11, 4, 4, 12, 4, 
+      4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 8, 20, 8, 20, 
+      8, 20, 8, 20, 4, 20, 4, 21, 2, 150, 35, 4, 21, 2, 150, 32, 
+      0, 136, 36, 32, 21, 2, 101, 36, 36, 16, 21, 2, 89, 37, 35, 36, 
+      21, 2, 80, 37, 37, 21, 2, 157, 38, 37, 21, 2, 150, 32, 0, 136, 
+      36, 35, 21, 2, 101, 36, 36, 16, 21, 2, 89, 35, 32, 36, 21, 2, 
+      80, 35, 35, 21, 2, 157, 39, 35, 21, 2, 35, 0, 38, 39, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_xor_u_n);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_xor_u_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_xor_u_n");
@@ -23442,15 +22938,15 @@ orc_code_combine_add_ca (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_RE
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 97, 100, 100, 95, 99, 97, 11, 4, 4, 12, 4, 4, 
-        12, 4, 4, 20, 8, 20, 8, 20, 4, 21, 2, 150, 32, 4, 21, 2, 
-        150, 33, 5, 21, 2, 89, 32, 32, 33, 21, 2, 80, 32, 32, 21, 2, 
-        157, 34, 32, 21, 2, 35, 0, 0, 34, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_add_ca);
+    static const orc_uint8 bc[] = {
+      1, 9, 23, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 97, 100, 100, 95, 99, 97, 11, 4, 4, 12, 4, 4, 
+      12, 4, 4, 20, 8, 20, 8, 20, 4, 21, 2, 150, 32, 4, 21, 2, 
+      150, 33, 5, 21, 2, 89, 32, 32, 33, 21, 2, 80, 32, 32, 21, 2, 
+      157, 34, 32, 21, 2, 35, 0, 0, 34, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_add_ca);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_add_ca");
@@ -23568,13 +23064,13 @@ orc_code_combine_add_ca_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 25, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 97, 100, 100, 95, 99, 97, 95, 110, 11, 4, 4, 12, 
-        4, 4, 21, 2, 35, 0, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_add_ca_n);
+    static const orc_uint8 bc[] = {
+      1, 9, 25, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 97, 100, 100, 95, 99, 97, 95, 110, 11, 4, 4, 12, 
+      4, 4, 21, 2, 35, 0, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_add_ca_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_add_ca_n");
@@ -23615,11 +23111,7 @@ orc_code_combine_over_ca (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_R
   const orc_union32 * ORC_RESTRICT ptr5;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
   orc_union64 var44;
   orc_union64 var45;
@@ -23737,11 +23229,7 @@ _backup_orc_code_combine_over_ca (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr5;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
   orc_union64 var44;
   orc_union64 var45;
@@ -23862,19 +23350,19 @@ orc_code_combine_over_ca (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 111, 118, 101, 114, 95, 99, 97, 11, 4, 4, 12, 4, 
-        4, 12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 
-        20, 8, 20, 8, 20, 8, 20, 8, 20, 4, 21, 2, 150, 37, 4, 21, 
-        2, 150, 36, 5, 136, 38, 37, 21, 2, 89, 37, 37, 36, 21, 2, 80, 
-        37, 37, 21, 2, 157, 39, 37, 21, 2, 89, 36, 36, 38, 21, 2, 80, 
-        36, 36, 113, 34, 0, 21, 2, 150, 35, 34, 21, 2, 101, 36, 36, 16, 
-        21, 2, 89, 32, 35, 36, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 
-        21, 2, 35, 0, 34, 39, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_over_ca);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 111, 118, 101, 114, 95, 99, 97, 11, 4, 4, 12, 4, 
+      4, 12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 
+      20, 8, 20, 8, 20, 8, 20, 8, 20, 4, 21, 2, 150, 37, 4, 21, 
+      2, 150, 36, 5, 136, 38, 37, 21, 2, 89, 37, 37, 36, 21, 2, 80, 
+      37, 37, 21, 2, 157, 39, 37, 21, 2, 89, 36, 36, 38, 21, 2, 80, 
+      36, 36, 113, 34, 0, 21, 2, 150, 35, 34, 21, 2, 101, 36, 36, 16, 
+      21, 2, 89, 32, 35, 36, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 
+      21, 2, 35, 0, 34, 39, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_over_ca);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_over_ca");
@@ -23938,11 +23426,7 @@ orc_code_combine_over_ca_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var41;
-#else
   orc_union64 var41;
-#endif
   orc_union32 var42;
   orc_union64 var43;
   orc_union64 var44;
@@ -24031,11 +23515,7 @@ _backup_orc_code_combine_over_ca_n (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var41;
-#else
   orc_union64 var41;
-#endif
   orc_union32 var42;
   orc_union64 var43;
   orc_union64 var44;
@@ -24129,18 +23609,18 @@ orc_code_combine_over_ca_n (orc_uint32 * ORC_RESTRICT d1, const orc_uint32 * ORC
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
-        105, 110, 101, 95, 111, 118, 101, 114, 95, 99, 97, 95, 110, 11, 4, 4, 
-        12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 
-        8, 20, 8, 20, 8, 20, 8, 20, 4, 21, 2, 150, 37, 4, 136, 38, 
-        37, 21, 2, 157, 39, 37, 21, 2, 79, 36, 38, 113, 34, 0, 21, 2, 
-        150, 35, 34, 21, 2, 101, 36, 36, 16, 21, 2, 89, 32, 35, 36, 21, 
-        2, 80, 32, 32, 21, 2, 157, 34, 32, 21, 2, 35, 0, 34, 39, 2, 
-        0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_code_combine_over_ca_n);
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 111, 114, 99, 95, 99, 111, 100, 101, 95, 99, 111, 109, 98, 
+      105, 110, 101, 95, 111, 118, 101, 114, 95, 99, 97, 95, 110, 11, 4, 4, 
+      12, 4, 4, 14, 4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 
+      8, 20, 8, 20, 8, 20, 8, 20, 4, 21, 2, 150, 37, 4, 136, 38, 
+      37, 21, 2, 157, 39, 37, 21, 2, 79, 36, 38, 113, 34, 0, 21, 2, 
+      150, 35, 34, 21, 2, 101, 36, 36, 16, 21, 2, 89, 32, 35, 36, 21, 
+      2, 80, 32, 32, 21, 2, 157, 34, 32, 21, 2, 35, 0, 34, 39, 2, 
+      0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_code_combine_over_ca_n);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_code_combine_over_ca_n");
@@ -24200,11 +23680,7 @@ orc_composite_over_8888_8_8888_line (orc_uint32 * ORC_RESTRICT d1, const orc_uin
   const orc_int8 * ORC_RESTRICT ptr5;
   orc_union32 var38;
   orc_int8 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var40;
-#else
   orc_union64 var40;
-#endif
   orc_union32 var41;
   orc_union64 var42;
   orc_union32 var43;
@@ -24313,11 +23789,7 @@ _backup_orc_composite_over_8888_8_8888_line (OrcExecutor * ORC_RESTRICT ex)
   const orc_int8 * ORC_RESTRICT ptr5;
   orc_union32 var38;
   orc_int8 var39;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var40;
-#else
   orc_union64 var40;
-#endif
   orc_union32 var41;
   orc_union64 var42;
   orc_union32 var43;
@@ -24429,19 +23901,19 @@ orc_composite_over_8888_8_8888_line (orc_uint32 * ORC_RESTRICT d1, const orc_uin
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 35, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
-        95, 111, 118, 101, 114, 95, 56, 56, 56, 56, 95, 56, 95, 56, 56, 56, 
-        56, 95, 108, 105, 110, 101, 11, 4, 4, 12, 4, 4, 12, 1, 1, 14, 
-        4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 4, 20, 4, 20, 
-        8, 21, 2, 150, 32, 4, 152, 36, 5, 21, 2, 150, 33, 36, 21, 2, 
-        89, 32, 32, 33, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 113, 35, 
-        0, 21, 2, 150, 37, 35, 21, 2, 101, 32, 32, 16, 136, 33, 32, 21, 
-        2, 89, 32, 37, 33, 21, 2, 80, 32, 32, 21, 2, 157, 35, 32, 21, 
-        2, 35, 0, 35, 34, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_composite_over_8888_8_8888_line);
+    static const orc_uint8 bc[] = {
+      1, 9, 35, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
+      95, 111, 118, 101, 114, 95, 56, 56, 56, 56, 95, 56, 95, 56, 56, 56, 
+      56, 95, 108, 105, 110, 101, 11, 4, 4, 12, 4, 4, 12, 1, 1, 14, 
+      4, 255, 0, 0, 0, 20, 8, 20, 8, 20, 4, 20, 4, 20, 4, 20, 
+      8, 21, 2, 150, 32, 4, 152, 36, 5, 21, 2, 150, 33, 36, 21, 2, 
+      89, 32, 32, 33, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 113, 35, 
+      0, 21, 2, 150, 37, 35, 21, 2, 101, 32, 32, 16, 136, 33, 32, 21, 
+      2, 89, 32, 37, 33, 21, 2, 80, 32, 32, 21, 2, 157, 35, 32, 21, 
+      2, 35, 0, 35, 34, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_composite_over_8888_8_8888_line);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_composite_over_8888_8_8888_line");
@@ -24503,11 +23975,7 @@ orc_composite_over_n_8888_8888_ca_2d (orc_uint32 * ORC_RESTRICT d1, const orc_ui
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
   orc_union64 var44;
   orc_union64 var45;
@@ -24626,11 +24094,7 @@ _backup_orc_composite_over_n_8888_8888_ca_2d (OrcExecutor * ORC_RESTRICT ex)
   const orc_union32 * ORC_RESTRICT ptr4;
   orc_union32 var40;
   orc_union32 var41;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var42;
-#else
   orc_union64 var42;
-#endif
   orc_union32 var43;
   orc_union64 var44;
   orc_union64 var45;
@@ -24753,20 +24217,20 @@ orc_composite_over_n_8888_8888_ca_2d (orc_uint32 * ORC_RESTRICT d1, const orc_ui
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 36, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
-        95, 111, 118, 101, 114, 95, 110, 95, 56, 56, 56, 56, 95, 56, 56, 56, 
-        56, 95, 99, 97, 95, 50, 100, 11, 4, 4, 12, 4, 4, 14, 4, 255, 
-        0, 0, 0, 16, 4, 20, 8, 20, 8, 20, 4, 20, 8, 20, 8, 20, 
-        8, 20, 8, 20, 4, 21, 2, 150, 37, 24, 21, 2, 150, 36, 4, 136, 
-        38, 37, 21, 2, 89, 37, 37, 36, 21, 2, 80, 37, 37, 21, 2, 157, 
-        39, 37, 21, 2, 89, 36, 36, 38, 21, 2, 80, 36, 36, 113, 34, 0, 
-        21, 2, 150, 35, 34, 21, 2, 101, 36, 36, 16, 21, 2, 89, 32, 35, 
-        36, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 21, 2, 35, 0, 34, 
-        39, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_orc_composite_over_n_8888_8888_ca_2d);
+    static const orc_uint8 bc[] = {
+      1, 9, 36, 111, 114, 99, 95, 99, 111, 109, 112, 111, 115, 105, 116, 101, 
+      95, 111, 118, 101, 114, 95, 110, 95, 56, 56, 56, 56, 95, 56, 56, 56, 
+      56, 95, 99, 97, 95, 50, 100, 11, 4, 4, 12, 4, 4, 14, 4, 255, 
+      0, 0, 0, 16, 4, 20, 8, 20, 8, 20, 4, 20, 8, 20, 8, 20, 
+      8, 20, 8, 20, 4, 21, 2, 150, 37, 24, 21, 2, 150, 36, 4, 136, 
+      38, 37, 21, 2, 89, 37, 37, 36, 21, 2, 80, 37, 37, 21, 2, 157, 
+      39, 37, 21, 2, 89, 36, 36, 38, 21, 2, 80, 36, 36, 113, 34, 0, 
+      21, 2, 150, 35, 34, 21, 2, 101, 36, 36, 16, 21, 2, 89, 32, 35, 
+      36, 21, 2, 80, 32, 32, 21, 2, 157, 34, 32, 21, 2, 35, 0, 34, 
+      39, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_orc_composite_over_n_8888_8888_ca_2d);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "orc_composite_over_n_8888_8888_ca_2d");
@@ -24881,13 +24345,13 @@ cogorc_resample_horiz_1tap (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 99, 111, 103, 111, 114, 99, 95, 114, 101, 115, 97, 109, 112, 
-        108, 101, 95, 104, 111, 114, 105, 122, 95, 49, 116, 97, 112, 11, 1, 1, 
-        12, 1, 1, 16, 2, 16, 2, 48, 0, 4, 24, 25, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_cogorc_resample_horiz_1tap);
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 99, 111, 103, 111, 114, 99, 95, 114, 101, 115, 97, 109, 112, 
+      108, 101, 95, 104, 111, 114, 105, 122, 95, 49, 116, 97, 112, 11, 1, 1, 
+      12, 1, 1, 16, 2, 16, 2, 48, 0, 4, 24, 25, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_cogorc_resample_horiz_1tap);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "cogorc_resample_horiz_1tap");
@@ -24987,13 +24451,13 @@ cogorc_resample_horiz_2tap (orc_uint8 * ORC_RESTRICT d1, const orc_uint8 * ORC_R
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 26, 99, 111, 103, 111, 114, 99, 95, 114, 101, 115, 97, 109, 112, 
-        108, 101, 95, 104, 111, 114, 105, 122, 95, 50, 116, 97, 112, 11, 1, 1, 
-        12, 1, 1, 16, 4, 16, 4, 50, 0, 4, 24, 25, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_cogorc_resample_horiz_2tap);
+    static const orc_uint8 bc[] = {
+      1, 9, 26, 99, 111, 103, 111, 114, 99, 95, 114, 101, 115, 97, 109, 112, 
+      108, 101, 95, 104, 111, 114, 105, 122, 95, 50, 116, 97, 112, 11, 1, 1, 
+      12, 1, 1, 16, 4, 16, 4, 50, 0, 4, 24, 25, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_cogorc_resample_horiz_2tap);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "cogorc_resample_horiz_2tap");
@@ -25034,11 +24498,7 @@ void
 test_float_constant_1 (orc_uint32 * ORC_RESTRICT d1, int n){
   int i;
   orc_union32 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union32 var32;
-#else
   orc_union32 var32;
-#endif
   orc_union32 var33;
 
   ptr0 = (orc_union32 *)d1;
@@ -25062,11 +24522,7 @@ _backup_test_float_constant_1 (OrcExecutor * ORC_RESTRICT ex)
   int i;
   int n = ex->n;
   orc_union32 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union32 var32;
-#else
   orc_union32 var32;
-#endif
   orc_union32 var33;
 
   ptr0 = (orc_union32 *)ex->arrays[0];
@@ -25097,13 +24553,13 @@ test_float_constant_1 (orc_uint32 * ORC_RESTRICT d1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 116, 101, 115, 116, 95, 102, 108, 111, 97, 116, 95, 99, 111, 
-        110, 115, 116, 97, 110, 116, 95, 49, 11, 4, 4, 14, 4, 0, 0, 0, 
-        64, 112, 0, 16, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_test_float_constant_1);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 116, 101, 115, 116, 95, 102, 108, 111, 97, 116, 95, 99, 111, 
+      110, 115, 116, 97, 110, 116, 95, 49, 11, 4, 4, 14, 4, 0, 0, 0, 
+      64, 112, 0, 16, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_test_float_constant_1);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "test_float_constant_1");
@@ -25139,11 +24595,7 @@ void
 test_float_constant_2 (orc_uint32 * ORC_RESTRICT d1, int n){
   int i;
   orc_union32 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union32 var32;
-#else
   orc_union32 var32;
-#endif
   orc_union32 var33;
 
   ptr0 = (orc_union32 *)d1;
@@ -25167,11 +24619,7 @@ _backup_test_float_constant_2 (OrcExecutor * ORC_RESTRICT ex)
   int i;
   int n = ex->n;
   orc_union32 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union32 var32;
-#else
   orc_union32 var32;
-#endif
   orc_union32 var33;
 
   ptr0 = (orc_union32 *)ex->arrays[0];
@@ -25202,13 +24650,13 @@ test_float_constant_2 (orc_uint32 * ORC_RESTRICT d1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 116, 101, 115, 116, 95, 102, 108, 111, 97, 116, 95, 99, 111, 
-        110, 115, 116, 97, 110, 116, 95, 50, 11, 4, 4, 14, 4, 0, 0, 0, 
-        64, 112, 0, 16, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_test_float_constant_2);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 116, 101, 115, 116, 95, 102, 108, 111, 97, 116, 95, 99, 111, 
+      110, 115, 116, 97, 110, 116, 95, 50, 11, 4, 4, 14, 4, 0, 0, 0, 
+      64, 112, 0, 16, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_test_float_constant_2);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "test_float_constant_2");
@@ -25246,11 +24694,7 @@ convert_fc32_to_int32 (orc_uint32 * ORC_RESTRICT d1, const orc_uint64 * ORC_REST
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union64 * ORC_RESTRICT ptr4;
   orc_union64 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var35;
-#else
   orc_union64 var35;
-#endif
   orc_union32 var36;
   orc_union64 var37;
   orc_union64 var38;
@@ -25315,11 +24759,7 @@ _backup_convert_fc32_to_int32 (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 * ORC_RESTRICT ptr0;
   const orc_union64 * ORC_RESTRICT ptr4;
   orc_union64 var34;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var35;
-#else
   orc_union64 var35;
-#endif
   orc_union32 var36;
   orc_union64 var37;
   orc_union64 var38;
@@ -25389,14 +24829,14 @@ convert_fc32_to_int32 (orc_uint32 * ORC_RESTRICT d1, const orc_uint64 * ORC_REST
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 21, 99, 111, 110, 118, 101, 114, 116, 95, 102, 99, 51, 50, 95, 
-        116, 111, 95, 105, 110, 116, 51, 50, 11, 4, 4, 12, 8, 8, 14, 4, 
-        0, 254, 255, 70, 20, 8, 20, 8, 21, 1, 202, 32, 4, 16, 21, 1, 
-        210, 33, 32, 21, 1, 163, 0, 33, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_convert_fc32_to_int32);
+    static const orc_uint8 bc[] = {
+      1, 9, 21, 99, 111, 110, 118, 101, 114, 116, 95, 102, 99, 51, 50, 95, 
+      116, 111, 95, 105, 110, 116, 51, 50, 11, 4, 4, 12, 8, 8, 14, 4, 
+      0, 254, 255, 70, 20, 8, 20, 8, 21, 1, 202, 32, 4, 16, 21, 1, 
+      210, 33, 32, 21, 1, 163, 0, 33, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_convert_fc32_to_int32);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "convert_fc32_to_int32");
@@ -25493,12 +24933,12 @@ param64 (orc_uint64 * ORC_RESTRICT d1, int p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 7, 112, 97, 114, 97, 109, 54, 52, 11, 8, 8, 16, 8, 137, 
-        0, 24, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_param64);
+    static const orc_uint8 bc[] = {
+      1, 9, 7, 112, 97, 114, 97, 109, 54, 52, 11, 8, 8, 16, 8, 137, 
+      0, 24, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_param64);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "param64");
@@ -25535,11 +24975,7 @@ void
 const64 (orc_uint64 * ORC_RESTRICT d1, int n){
   int i;
   orc_union64 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var32;
-#else
   orc_union64 var32;
-#endif
   orc_union64 var33;
 
   ptr0 = (orc_union64 *)d1;
@@ -25563,11 +24999,7 @@ _backup_const64 (OrcExecutor * ORC_RESTRICT ex)
   int i;
   int n = ex->n;
   orc_union64 * ORC_RESTRICT ptr0;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var32;
-#else
   orc_union64 var32;
-#endif
   orc_union64 var33;
 
   ptr0 = (orc_union64 *)ex->arrays[0];
@@ -25598,12 +25030,12 @@ const64 (orc_uint64 * ORC_RESTRICT d1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 7, 99, 111, 110, 115, 116, 54, 52, 11, 8, 8, 15, 8, 239, 
-        205, 171, 137, 103, 69, 35, 1, 137, 0, 16, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_const64);
+    static const orc_uint8 bc[] = {
+      1, 9, 7, 99, 111, 110, 115, 116, 54, 52, 11, 8, 8, 15, 8, 239, 
+      205, 171, 137, 103, 69, 35, 1, 137, 0, 16, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_const64);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "const64");
@@ -25694,12 +25126,12 @@ param64_2 (orc_uint64 * ORC_RESTRICT d1, orc_int64 p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 9, 112, 97, 114, 97, 109, 54, 52, 95, 50, 11, 8, 8, 18, 
-        8, 20, 8, 134, 32, 24, 137, 0, 32, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_param64_2);
+    static const orc_uint8 bc[] = {
+      1, 9, 9, 112, 97, 114, 97, 109, 54, 52, 95, 50, 11, 8, 8, 18, 
+      8, 20, 8, 134, 32, 24, 137, 0, 32, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_param64_2);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "param64_2");
@@ -25745,11 +25177,7 @@ pa_volume_s16ne_orc_2ch (orc_int16 * ORC_RESTRICT d1, orc_int64 p1, int n){
   orc_union32 * ORC_RESTRICT ptr0;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -25828,11 +25256,7 @@ _backup_pa_volume_s16ne_orc_2ch (OrcExecutor * ORC_RESTRICT ex)
   orc_union32 * ORC_RESTRICT ptr0;
   orc_union32 var37;
   orc_union32 var38;
-#if defined(__APPLE__) && __GNUC__ == 4 && __GNUC_MINOR__ == 2 && defined (__i386__) 
-  volatile orc_union64 var39;
-#else
   orc_union64 var39;
-#endif
   orc_union32 var40;
   orc_union64 var41;
   orc_union64 var42;
@@ -25916,18 +25340,18 @@ pa_volume_s16ne_orc_2ch (orc_int16 * ORC_RESTRICT d1, orc_int64 p1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 23, 112, 97, 95, 118, 111, 108, 117, 109, 101, 95, 115, 49, 54, 
-        110, 101, 95, 111, 114, 99, 95, 50, 99, 104, 11, 4, 4, 14, 4, 0, 
-        0, 0, 0, 14, 4, 16, 0, 0, 0, 18, 8, 20, 8, 20, 8, 20, 
-        8, 20, 8, 20, 8, 134, 32, 24, 21, 1, 154, 33, 0, 21, 1, 153, 
-        34, 0, 21, 2, 78, 36, 16, 33, 21, 2, 73, 36, 36, 32, 21, 2, 
-        91, 35, 33, 32, 21, 1, 129, 35, 35, 36, 21, 1, 126, 32, 32, 17, 
-        21, 1, 120, 34, 34, 32, 21, 1, 103, 35, 35, 34, 21, 1, 165, 0, 
-        35, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_pa_volume_s16ne_orc_2ch);
+    static const orc_uint8 bc[] = {
+      1, 9, 23, 112, 97, 95, 118, 111, 108, 117, 109, 101, 95, 115, 49, 54, 
+      110, 101, 95, 111, 114, 99, 95, 50, 99, 104, 11, 4, 4, 14, 4, 0, 
+      0, 0, 0, 14, 4, 16, 0, 0, 0, 18, 8, 20, 8, 20, 8, 20, 
+      8, 20, 8, 20, 8, 134, 32, 24, 21, 1, 154, 33, 0, 21, 1, 153, 
+      34, 0, 21, 2, 78, 36, 16, 33, 21, 2, 73, 36, 36, 32, 21, 2, 
+      91, 35, 33, 32, 21, 1, 129, 35, 35, 36, 21, 1, 126, 32, 32, 17, 
+      21, 1, 120, 34, 34, 32, 21, 1, 103, 35, 35, 34, 21, 1, 165, 0, 
+      35, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_pa_volume_s16ne_orc_2ch);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "pa_volume_s16ne_orc_2ch");
@@ -26159,16 +25583,16 @@ cogorc_convert_YUY2_I420 (orc_uint16 * ORC_RESTRICT d1, orc_uint16 * ORC_RESTRIC
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 24, 99, 111, 103, 111, 114, 99, 95, 99, 111, 110, 118, 101, 114, 
-        116, 95, 89, 85, 89, 50, 95, 73, 52, 50, 48, 11, 2, 2, 11, 2, 
-        2, 11, 1, 1, 11, 1, 1, 12, 4, 4, 12, 4, 4, 20, 2, 20, 
-        2, 20, 2, 21, 1, 199, 32, 34, 4, 97, 0, 34, 21, 1, 199, 33, 
-        34, 5, 97, 1, 34, 21, 1, 39, 32, 32, 33, 199, 3, 2, 32, 2, 
-        0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_cogorc_convert_YUY2_I420);
+    static const orc_uint8 bc[] = {
+      1, 9, 24, 99, 111, 103, 111, 114, 99, 95, 99, 111, 110, 118, 101, 114, 
+      116, 95, 89, 85, 89, 50, 95, 73, 52, 50, 48, 11, 2, 2, 11, 2, 
+      2, 11, 1, 1, 11, 1, 1, 12, 4, 4, 12, 4, 4, 20, 2, 20, 
+      2, 20, 2, 21, 1, 199, 32, 34, 4, 97, 0, 34, 21, 1, 199, 33, 
+      34, 5, 97, 1, 34, 21, 1, 39, 32, 32, 33, 199, 3, 2, 32, 2, 
+      0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_cogorc_convert_YUY2_I420);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "cogorc_convert_YUY2_I420");
@@ -26513,18 +25937,18 @@ cogorc_convert_AYUV_I420 (orc_uint16 * ORC_RESTRICT d1, int d1_stride, orc_uint1
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 7, 9, 24, 99, 111, 103, 111, 114, 99, 95, 99, 111, 110, 118, 101, 
-        114, 116, 95, 65, 89, 85, 86, 95, 73, 52, 50, 48, 11, 2, 2, 11, 
-        2, 2, 11, 1, 1, 11, 1, 1, 12, 8, 8, 12, 8, 8, 20, 4, 
-        20, 4, 20, 4, 20, 4, 20, 2, 20, 2, 20, 1, 20, 1, 21, 1, 
-        198, 33, 32, 4, 21, 1, 189, 0, 32, 21, 1, 198, 34, 32, 5, 21, 
-        1, 189, 1, 32, 21, 2, 39, 35, 33, 34, 21, 1, 199, 37, 36, 35, 
-        199, 38, 39, 36, 39, 2, 38, 39, 199, 38, 39, 37, 39, 3, 38, 39, 
-        2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_cogorc_convert_AYUV_I420);
+    static const orc_uint8 bc[] = {
+      1, 7, 9, 24, 99, 111, 103, 111, 114, 99, 95, 99, 111, 110, 118, 101, 
+      114, 116, 95, 65, 89, 85, 86, 95, 73, 52, 50, 48, 11, 2, 2, 11, 
+      2, 2, 11, 1, 1, 11, 1, 1, 12, 8, 8, 12, 8, 8, 20, 4, 
+      20, 4, 20, 4, 20, 4, 20, 2, 20, 2, 20, 1, 20, 1, 21, 1, 
+      198, 33, 32, 4, 21, 1, 189, 0, 32, 21, 1, 198, 34, 32, 5, 21, 
+      1, 189, 1, 32, 21, 2, 39, 35, 33, 34, 21, 1, 199, 37, 36, 35, 
+      199, 38, 39, 36, 39, 2, 38, 39, 199, 38, 39, 37, 39, 3, 38, 39, 
+      2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_cogorc_convert_AYUV_I420);
 #else
       p = orc_program_new ();
       orc_program_set_2d (p);
@@ -26653,12 +26077,12 @@ memcpy_aligned (void * ORC_RESTRICT d1, const void * ORC_RESTRICT s1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 14, 109, 101, 109, 99, 112, 121, 95, 97, 108, 105, 103, 110, 101, 
-        100, 11, 1, 16, 12, 1, 16, 42, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_memcpy_aligned);
+    static const orc_uint8 bc[] = {
+      1, 9, 14, 109, 101, 109, 99, 112, 121, 95, 97, 108, 105, 103, 110, 101, 
+      100, 11, 1, 16, 12, 1, 16, 42, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_memcpy_aligned);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "memcpy_aligned");
@@ -26754,12 +26178,12 @@ memcpy_large (void * ORC_RESTRICT d1, const void * ORC_RESTRICT s1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 12, 109, 101, 109, 99, 112, 121, 95, 108, 97, 114, 103, 101, 11, 
-        1, 1, 12, 1, 1, 42, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_memcpy_large);
+    static const orc_uint8 bc[] = {
+      1, 9, 12, 109, 101, 109, 99, 112, 121, 95, 108, 97, 114, 103, 101, 11, 
+      1, 1, 12, 1, 1, 42, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_memcpy_large);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "memcpy_large");
@@ -26855,12 +26279,12 @@ memcpy_small (void * ORC_RESTRICT d1, const void * ORC_RESTRICT s1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 12, 109, 101, 109, 99, 112, 121, 95, 115, 109, 97, 108, 108, 11, 
-        1, 1, 12, 1, 1, 42, 0, 4, 2, 0, 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_memcpy_small);
+    static const orc_uint8 bc[] = {
+      1, 9, 12, 109, 101, 109, 99, 112, 121, 95, 115, 109, 97, 108, 108, 11, 
+      1, 1, 12, 1, 1, 42, 0, 4, 2, 0, 
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_memcpy_small);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "memcpy_small");
@@ -26956,13 +26380,13 @@ memcpy_aligned_n16 (void * ORC_RESTRICT d1, const void * ORC_RESTRICT s1, int n)
       OrcProgram *p;
 
 #if 1
-      static const orc_uint8 bc[] = {
-        1, 9, 18, 109, 101, 109, 99, 112, 121, 95, 97, 108, 105, 103, 110, 101, 
-        100, 95, 110, 49, 54, 11, 1, 16, 12, 1, 16, 42, 0, 4, 2, 0, 
+    static const orc_uint8 bc[] = {
+      1, 9, 18, 109, 101, 109, 99, 112, 121, 95, 97, 108, 105, 103, 110, 101, 
+      100, 95, 110, 49, 54, 11, 1, 16, 12, 1, 16, 42, 0, 4, 2, 0, 
 
-      };
-      p = orc_program_new_from_static_bytecode (bc);
-      orc_program_set_backup_function (p, _backup_memcpy_aligned_n16);
+    };
+    p = orc_program_new_from_static_bytecode (bc);
+    orc_program_set_backup_function (p, _backup_memcpy_aligned_n16);
 #else
       p = orc_program_new ();
       orc_program_set_name (p, "memcpy_aligned_n16");

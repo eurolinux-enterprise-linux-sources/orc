@@ -189,26 +189,8 @@ orc_program_compile_full (OrcProgram *program, OrcTarget *target,
   OrcCompiler *compiler;
   int i;
   OrcCompileResult result;
-  const char *error_msg;
 
   ORC_INFO("initializing compiler for program \"%s\"", program->name);
-  error_msg = orc_program_get_error (program);
-  if (error_msg && strcmp (error_msg, "")) {
-    ORC_WARNING ("program %s failed to compile, reason: %s",
-        program->name, error_msg);
-    return ORC_COMPILE_RESULT_UNKNOWN_PARSE;
-  }
-
-  if (program->orccode) {
-    orc_code_free (program->orccode);
-    program->orccode = NULL;
-  }
-
-  if (program->asm_code) {
-    free (program->asm_code);
-    program->asm_code = NULL;
-  }
-
   compiler = malloc (sizeof(OrcCompiler));
   memset (compiler, 0, sizeof(OrcCompiler));
 
@@ -395,8 +377,8 @@ error:
         program->name, compiler->result);
   }
   result = compiler->result;
-  orc_program_set_error (program, compiler->error_msg);
-  free (compiler->error_msg);
+  if (program->error_msg) free (program->error_msg);
+  program->error_msg = compiler->error_msg;
   if (result == 0) {
     result = ORC_COMPILE_RESULT_UNKNOWN_COMPILE;
   }
@@ -598,10 +580,6 @@ orc_compiler_rewrite_insns (OrcCompiler *compiler)
           cinsn->opcode = get_loadp_opcode_for_size (opcode->src_size[i]);
           cinsn->dest_args[0] = orc_compiler_new_temporary (compiler,
               opcode->src_size[i] * multiplier);
-          if (var->vartype == ORC_VAR_TYPE_CONST) {
-            compiler->vars[cinsn->dest_args[0]].flags |=
-                ORC_VAR_FLAG_VOLATILE_WORKAROUND;
-          }
           cinsn->src_args[0] = insn.src_args[i];
           insn.src_args[i] = cinsn->dest_args[0];
 

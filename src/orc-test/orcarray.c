@@ -21,7 +21,7 @@
 
 #ifdef HAVE_MMAP
 /* This can be used to test non-zero high-32-bits of pointers. */
-/* #define USE_MMAP */
+//#define USE_MMAP
 #endif
 
 #define EXTEND_ROWS 16
@@ -42,7 +42,7 @@ orc_array_new (int n, int m, int element_size, int misalignment,
   void *data;
 #ifndef USE_MMAP
 #ifdef HAVE_POSIX_MEMALIGN
-  int ret;
+  int ret ORC_GNUC_UNUSED;
 #endif
 #endif
   int offset;
@@ -69,15 +69,14 @@ orc_array_new (int n, int m, int element_size, int misalignment,
   ar->alloc_data = data;
   ar->aligned_data = data;
 #else
-#ifdef HAVE_POSIX_MEMALIGN
+#ifdef HAVE_POSIX_MEMALIGNx
   ret = posix_memalign (&data, ALIGNMENT, ar->alloc_len);
-  ORC_ASSERT (ret == 0);
   ar->alloc_data = data;
   ar->aligned_data = data;
 #else
   data = malloc (ar->alloc_len + ALIGNMENT);
   ar->alloc_data = data;
-  ar->aligned_data = (void *)((((size_t)data) + (ALIGNMENT-1))&(~(ALIGNMENT-1)));
+  ar->aligned_data = (void *)((((unsigned long)data) + (ALIGNMENT-1))&(~(ALIGNMENT-1)));
 #endif
 #endif
 
@@ -251,7 +250,7 @@ orc_array_compare (OrcArray *array1, OrcArray *array2, int flags)
         for (i=0;i<array1->n;i++){
           if (isnan(a[i]) && isnan(b[i])) continue;
           if (a[i] == b[i]) continue;
-          if (fabs(a[i] - b[i]) < MIN_NONDENORMAL_D) continue;
+          if (abs(a[i] - b[i]) < MIN_NONDENORMAL_D) continue;
           return FALSE;
         }
       }

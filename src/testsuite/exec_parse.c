@@ -81,8 +81,6 @@ read_file (const char *filename)
 
   contents[size] = 0;
 
-  fclose (file);
-
   return contents;
 bail:
   /* something failed */

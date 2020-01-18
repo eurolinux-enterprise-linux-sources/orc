@@ -12,8 +12,7 @@ TESTS = \
 	exec_parse \
 	perf_opcodes_sys perf_parse \
 	memcpy_speed \
-	abi \
-	test-limits
+	abi
 
 noinst_PROGRAMS = $(TESTS) generate_xml_table generate_xml_table2 \
 	generate_opcodes_sys compile_parse compile_parse_c memcpy_speed \

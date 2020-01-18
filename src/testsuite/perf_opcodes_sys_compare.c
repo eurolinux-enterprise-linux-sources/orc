@@ -23,7 +23,7 @@ main (int argc, char *argv[])
   opcode_set = orc_opcode_set_get ("sys");
 
   for(i=0;i<opcode_set->n_opcodes;i++){
-    /* printf("opcode_%-20s ", opcode_set->opcodes[i].name); */
+    //printf("opcode_%-20s ", opcode_set->opcodes[i].name);
     test_opcode_src (opcode_set->opcodes + i);
   }
 
@@ -57,7 +57,8 @@ test_opcode_src (OrcStaticOpcode *opcode)
     }
   }
 
-  if (opcode->flags & ORC_STATIC_OPCODE_FLOAT) {
+  if ((opcode->flags & ORC_STATIC_OPCODE_FLOAT_SRC) ||
+      (opcode->flags & ORC_STATIC_OPCODE_FLOAT_DEST)) {
     flags = ORC_TEST_FLAGS_FLOAT;
   }
 
