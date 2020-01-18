@@ -3,6 +3,8 @@
 # We require automake 1.6 at least.
 AUTOMAKE_OPTIONS = 1.6
 
+BUILT_SOURCES = version.entities
+
 # This is a blank Makefile.am for using gtk-doc.
 # Copy this to your project's API docs directory and modify the variables to
 # suit your project. See the GTK+ Makefiles in gtk+/docs/reference for examples
@@ -66,7 +68,8 @@ HTML_IMAGES=
 
 # Extra SGML files that are included by $(DOC_MAIN_SGML_FILE).
 # e.g. content_files=running.sgml building.sgml changes-2.0.sgml
-content_files=building.xml concepts.xml opcode_table.xml opcodes.xml running.xml tutorial.xml table.xml
+content_files=building.xml concepts.xml opcode_table.xml opcodes.xml \
+  program.xml running.xml tutorial.xml table.xml
 
 # SGML files where gtk-doc abbrevations (#GtkWidget) are expanded
 # These files must be listed here *and* in content_files
@@ -86,7 +89,7 @@ include $(top_srcdir)/gtk-doc.make
 
 # Other files to distribute
 # e.g. EXTRA_DIST += version.xml.in
-EXTRA_DIST +=
+EXTRA_DIST += version.entities.in
 
 # Files not to distribute
 # for --rebuild-types in $(SCAN_OPTIONS), e.g. $(DOC_MODULE).types
@@ -101,6 +104,17 @@ endif
 
 -include $(top_srcdir)/git.mk
 
-update-www:
-	rsync -a html/* cooker.entropywave.com:/srv/code.entropywave.com/www/documentation/orc
+DOC_SERVER = gstreamer.freedesktop.org
+DOC_BASE = /srv/gstreamer.freedesktop.org/www/data/doc
+DOC_URL = $(DOC_SERVER):$(DOC_BASE)
+
+upload:
+	echo Uploading documentation to $(DOC_SERVER):$(DOC_BASE)/orc
+	ssh $(DOC_SERVER) mkdir -p $(DOC_BASE)/orc
+	rsync -rv -e ssh --delete html/* $(DOC_SERVER):$(DOC_BASE)/orc
+	ssh $(DOC_SERVER) chmod -R g+w $(DOC_BASE)/orc
+
+update-tables: $(top_builddir)/testsuite/generate_xml_table $(top_builddir)/testsuite/generate_xml_table2
+	$(top_builddir)/testsuite/generate_xml_table >table.xml
+	$(top_builddir)/testsuite/generate_xml_table2 >opcode_table.xml
 

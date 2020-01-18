@@ -7,9 +7,10 @@
 #include <orc/orcfunctions.h>
 #include <orc/orconce.h>
 #include <orc/orcparse.h>
-#include <orc/orcprogram.h>
 #include <orc/orcutils.h>
 #include <orc/orccpu.h>
+
+const char * orc_version_string (void);
 
 #endif
 

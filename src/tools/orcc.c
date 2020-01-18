@@ -90,6 +90,7 @@ void help (void)
 int
 main (int argc, char *argv[])
 {
+  const char *orc_version;
   char *code;
   int n;
   int i;
@@ -101,6 +102,16 @@ main (int argc, char *argv[])
   char *log = NULL;
 
   orc_init ();
+
+  orc_version = orc_version_string ();
+  if (strcmp (orc_version, VERSION) != 0) {
+    fprintf (stderr, "WARNING: unexpected liborc library version %s is being "
+        "picked up by %s, which is version %s. This might be because orc was "
+        "installed from source and is also installed via packages, and liborc "
+        "from the wrong prefix is used. Check your system setup.\n",
+        orc_version, argv[0], VERSION);
+    exit(1);
+  }
 
   for(i=1;i<argc;i++) {
     if (strcmp(argv[i], "--header") == 0) {
@@ -238,8 +249,10 @@ main (int argc, char *argv[])
   }
 
   n = orc_parse_full (code, &programs, &log);
+  free(code);
   n_programs = n;
   printf("%s", log);
+  free(log);
 
   if (programs == NULL) {
     printf("no programs\n");
@@ -412,6 +425,11 @@ main (int argc, char *argv[])
     }
   }
 
+  for(i=0;i<n;i++){
+    orc_program_free(programs[i]);
+  }
+  free(programs);
+
   fclose (output);
 
   if (error) {
@@ -452,7 +470,7 @@ read_file (const char *filename)
   long size;
   int ret;
 
-  file = fopen (filename, "r");
+  file = fopen (filename, "rb");
   if (file == NULL) return NULL;
 
   ret = fseek (file, 0, SEEK_END);
@@ -471,6 +489,8 @@ read_file (const char *filename)
   if (ret < 0) goto bail;
 
   contents[size] = 0;
+
+  fclose (file);
 
   return contents;
 bail:
@@ -528,13 +548,13 @@ static const char *orcify_typename (const char *s)
 }
 
 void
-output_prototype (OrcProgram *p, FILE *output)
+output_prototype (OrcProgram *p, FILE *output, int backup)
 {
   OrcVariable *var;
   int i;
   int need_comma;
 
-  fprintf(output, "%s (", p->name);
+  fprintf(output, "%s (", backup ? p->backup_name : p->name);
   need_comma = FALSE;
   for(i=0;i<4;i++){
     var = &p->vars[ORC_VAR_D1 + i];
@@ -624,6 +644,114 @@ output_prototype (OrcProgram *p, FILE *output)
 }
 
 void
+output_executor_backup_call (OrcProgram *p, FILE *output)
+{
+  OrcVariable *var;
+  int i;
+
+  fprintf(output, "  %s (", p->backup_name);
+  for(i=0;i<4;i++){
+    var = &p->vars[ORC_VAR_D1 + i];
+    if (var->size) {
+      fprintf(output, "ex->arrays[%s], ", enumnames[ORC_VAR_D1 + i]);
+      if (p->is_2d) {
+        fprintf(output, "ex->params[%s], ", enumnames[ORC_VAR_D1 + i]);
+      }
+    }
+  }
+  for(i=0;i<8;i++){
+    var = &p->vars[ORC_VAR_S1 + i];
+    if (var->size) {
+      fprintf(output, "ex->arrays[%s], ", enumnames[ORC_VAR_S1 + i]);
+      if (p->is_2d) {
+        fprintf(output, "  ex->params[%s], ", enumnames[ORC_VAR_S1 + i]);
+      }
+    }
+  }
+  for(i=0;i<8;i++){
+    var = &p->vars[ORC_VAR_P1 + i];
+    if (var->size) {
+      switch (var->param_type) {
+        case ORC_PARAM_TYPE_INT:
+          fprintf(output, "ex->params[%s],", enumnames[ORC_VAR_P1 + i]);
+          break;
+        case ORC_PARAM_TYPE_FLOAT:
+          fprintf(output, "((orc_union32 * )&ex->params[%s])->f, ",
+              enumnames[ORC_VAR_P1 + i]);
+          break;
+        case ORC_PARAM_TYPE_INT64:
+          fprintf(output, "(ex->params[%s] & 0xffffffff) | ((orc_uint64)(ex->params[%s]) << 32), ", enumnames[ORC_VAR_P1 + i], enumnames[ORC_VAR_T1 + i]);
+          break;
+        case ORC_PARAM_TYPE_DOUBLE:
+          /* FIXME */
+          break;
+        default:
+          ORC_ASSERT(0);
+      }
+    }
+  }
+  if (p->constant_n) {
+    fprintf(output, "%d", p->constant_n);
+  } else {
+    fprintf(output, "ex->n");
+  }
+  if (p->is_2d) {
+    if (p->constant_m) {
+      fprintf(output, ",  %d", p->constant_m);
+    } else {
+      fprintf(output, ", ORC_EXECUTOR_M(ex)");
+    }
+  }
+  fprintf(output, ");\n");
+}
+
+void
+output_backup_call (OrcProgram *p, FILE *output)
+{
+  OrcVariable *var;
+  int i;
+
+  fprintf(output, "  %s (", p->backup_name);
+  for(i=0;i<4;i++){
+    var = &p->vars[ORC_VAR_D1 + i];
+    if (var->size) {
+      fprintf(output, "%s, ", varnames[ORC_VAR_D1 + i]);
+      if (p->is_2d) {
+        fprintf(output, "%s_stride, ", varnames[ORC_VAR_D1 + i]);
+      }
+    }
+  }
+  for(i=0;i<8;i++){
+    var = &p->vars[ORC_VAR_S1 + i];
+    if (var->size) {
+      fprintf(output, "%s, ", varnames[ORC_VAR_S1 + i]);
+      if (p->is_2d) {
+        fprintf(output, "%s_stride, ", varnames[ORC_VAR_S1 + i]);
+      }
+    }
+  }
+  for(i=0;i<8;i++){
+    var = &p->vars[ORC_VAR_P1 + i];
+    if (var->size) {
+        fprintf(output, "%s, ", varnames[ORC_VAR_P1 + i]);
+    }
+  }
+  if (p->constant_n) {
+    fprintf(output, "%d", p->constant_n);
+  } else {
+    fprintf(output, "n");
+  }
+  if (p->is_2d) {
+    if (p->constant_m) {
+      fprintf(output, ", %d", p->constant_m);
+    } else {
+      fprintf(output, ", m");
+    }
+  }
+  fprintf(output, ");\n");
+}
+
+void
 output_code_header (OrcProgram *p, FILE *output)
 {
   if(use_internal) {
@@ -631,8 +759,13 @@ output_code_header (OrcProgram *p, FILE *output)
   } else {
     fprintf(output, "void ");
   }
-  output_prototype (p, output);
+  output_prototype (p, output, 0);
   fprintf(output, ";\n");
+  if (p->backup_name && mode != MODE_TEST) {
+    fprintf(output, "void ");
+    output_prototype (p, output, 1);
+    fprintf(output, ";\n");
+  }
 }
 
 void
@@ -646,7 +779,9 @@ output_code_backup (OrcProgram *p, FILE *output)
     fprintf(output, "_backup_%s (OrcExecutor * ORC_RESTRICT ex)\n", p->name);
   }
   fprintf(output, "{\n");
-  {
+  if (p->backup_name && mode != MODE_TEST) {
+    output_executor_backup_call (p, output);
+  } else {
     OrcCompileResult result;
 
     result = orc_program_compile_full (p, orc_target_get_by_name("c"),
@@ -668,9 +803,11 @@ output_code_no_orc (OrcProgram *p, FILE *output)
 {
 
   fprintf(output, "void\n");
-  output_prototype (p, output);
+  output_prototype (p, output, 0);
   fprintf(output, "{\n");
-  {
+  if (p->backup_name && mode != MODE_TEST) {
+    output_backup_call (p, output);
+  } else {
     OrcCompileResult result;
 
     result = orc_program_compile_full (p, orc_target_get_by_name("c"),
@@ -731,7 +868,7 @@ output_code_execute (OrcProgram *p, FILE *output, int is_inline)
   } else {
     fprintf(output, "void\n");
   }
-  output_prototype (p, output);
+  output_prototype (p, output, 0);
   fprintf(output, "\n");
   fprintf(output, "{\n");
   fprintf(output, "  OrcExecutor _ex, *ex = &_ex;\n");
@@ -834,9 +971,9 @@ output_code_execute (OrcProgram *p, FILE *output, int is_inline)
           fprintf(output, "  {\n");
           fprintf(output, "    orc_union64 tmp;\n");
           fprintf(output, "    tmp.i = %s;\n", varnames[ORC_VAR_P1 + i]);
-          fprintf(output, "    ex->params[%s] = tmp.x2[0];\n",
+          fprintf(output, "    ex->params[%s] = ((orc_uint64) tmp.i) & 0xffffffff;\n",
               enumnames[ORC_VAR_P1 + i]);
-          fprintf(output, "    ex->params[%s] = tmp.x2[1];\n",
+          fprintf(output, "    ex->params[%s] = ((orc_uint64) tmp.i) >> 32;\n",
               enumnames[ORC_VAR_T1 + i]);
           fprintf(output, "  }\n");
           break;
@@ -845,9 +982,9 @@ output_code_execute (OrcProgram *p, FILE *output, int is_inline)
           fprintf(output, "  {\n");
           fprintf(output, "    orc_union64 tmp;\n");
           fprintf(output, "    tmp.f = %s;\n", varnames[ORC_VAR_P1 + i]);
-          fprintf(output, "    ex->params[%s] = tmp.x2[0];\n",
+          fprintf(output, "    ex->params[%s] = ((orc_uint64) tmp.i) & 0xffffffff;\n",
               enumnames[ORC_VAR_P1 + i]);
-          fprintf(output, "    ex->params[%s] = tmp.x2[1];\n",
+          fprintf(output, "    ex->params[%s] = ((orc_uint64) tmp.i) >> 32;\n",
               enumnames[ORC_VAR_T1 + i]);
           fprintf(output, "  }\n");
           break;
@@ -887,11 +1024,11 @@ output_program_generation (OrcProgram *p, FILE *output, int is_inline)
     bytecode = orc_bytecode_from_program (p);
 
     fprintf(output, "#if 1\n");
-    //fprintf(output, "#ifdef bytecode\n");
-    fprintf(output, "    static const orc_uint8 bc[] = {\n");
+    /* fprintf(output, "#ifdef bytecode\n"); */
+    fprintf(output, "      static const orc_uint8 bc[] = {\n");
     for(i=0;i<bytecode->length;i++) {
       if ((i&0xf) == 0) {
-        fprintf(output, "      ");
+        fprintf(output, "        ");
       }
       fprintf(output, "%d, ", bytecode->bytecode[i]);
       if ((i&0xf) == 15) {
@@ -901,11 +1038,11 @@ output_program_generation (OrcProgram *p, FILE *output, int is_inline)
     if ((i&0xf) != 15) {
       fprintf(output, "\n");
     }
-    fprintf(output, "    };\n");
-    fprintf(output, "    p = orc_program_new_from_static_bytecode (bc);\n");
-    //fprintf(output, "   orc_program_set_name (p, \"%s\");\n", p->name);
+    fprintf(output, "      };\n");
+    fprintf(output, "      p = orc_program_new_from_static_bytecode (bc);\n");
+    /* fprintf(output, "     orc_program_set_name (p, \"%s\");\n", p->name); */
     if (use_backup && !is_inline) {
-      fprintf(output, "    orc_program_set_backup_function (p, _backup_%s);\n",
+      fprintf(output, "      orc_program_set_backup_function (p, _backup_%s);\n",
           p->name);
     }
 
@@ -935,6 +1072,8 @@ output_program_generation (OrcProgram *p, FILE *output, int is_inline)
       fprintf(output, "#endif\n");
     }
 #endif
+
+    orc_bytecode_free (bytecode);
 
     fprintf(output, "#else\n");
   }
@@ -1192,13 +1331,8 @@ output_code_test (OrcProgram *p, FILE *output)
     var = &p->vars[ORC_VAR_C1 + i];
     if (var->size) {
       if (var->size < 8) {
-        if (var->value.i != 0x80000000) {
-          fprintf(output, "      orc_program_add_constant (p, %d, 0x%08x, \"%s\");\n",
-              var->size, (int)var->value.i, varnames[ORC_VAR_C1 + i]);
-        } else {
-          fprintf(output, "      orc_program_add_constant (p, %d, 0x%08x, \"%s\");\n",
-              var->size, (int)var->value.i, varnames[ORC_VAR_C1 + i]);
-        }
+	fprintf(output, "      orc_program_add_constant (p, %d, 0x%08x, \"%s\");\n",
+	    var->size, (int)var->value.i, varnames[ORC_VAR_C1 + i]);
       } else {
         fprintf(output, "      orc_program_add_constant_int64 (p, %d, "
             "0x%08x%08xULL, \"%s\");\n",
@@ -1337,7 +1471,7 @@ output_code_assembly (OrcProgram *p, FILE *output)
 {
 
   fprintf(output, "/* %s */\n", p->name);
-  //output_prototype (p, output);
+  /* output_prototype (p, output); */
   {
     OrcCompileResult result;
     OrcTarget *t = orc_target_get_by_name(target);

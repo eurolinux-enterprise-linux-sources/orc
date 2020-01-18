@@ -49,7 +49,7 @@ orc_executor_run (OrcExecutor *ex)
   }
   if (func) {
     func (ex);
-    //ORC_ERROR("counters %d %d %d", ex->counter1, ex->counter2, ex->counter3);
+    /* ORC_ERROR("counters %d %d %d", ex->counter1, ex->counter2, ex->counter3); */
   } else {
     orc_executor_emulate (ex);
   }
@@ -68,7 +68,7 @@ orc_executor_run_backup (OrcExecutor *ex)
   }
   if (func) {
     func (ex);
-    //ORC_ERROR("counters %d %d %d", ex->counter1, ex->counter2, ex->counter3);
+    /* ORC_ERROR("counters %d %d %d", ex->counter1, ex->counter2, ex->counter3); */
   } else {
     orc_executor_emulate (ex);
   }
@@ -102,7 +102,8 @@ orc_executor_set_array_str (OrcExecutor *ex, const char *name, void *ptr)
 {
   int var;
   var = orc_program_find_var_by_name (ex->program, name);
-  ex->arrays[var] = ptr;
+  if (var >= 0)
+    ex->arrays[var] = ptr;
 }
 
 void
@@ -142,7 +143,8 @@ orc_executor_set_param_str (OrcExecutor *ex, const char *name, int value)
 {
   int var;
   var = orc_program_find_var_by_name (ex->program, name);
-  ex->params[var] = value;
+  if (var >= 0)
+    ex->params[var] = value;
 }
 
 int
@@ -156,7 +158,9 @@ orc_executor_get_accumulator_str (OrcExecutor *ex, const char *name)
 {
   int var;
   var = orc_program_find_var_by_name (ex->program, name);
-  return ex->accumulators[var];
+  if (var >= 0)
+    return ex->accumulators[var];
+  return -1;
 }
 
 void
@@ -291,10 +295,15 @@ orc_executor_emulate (OrcExecutor *ex)
       } else if (var->vartype == ORC_VAR_TYPE_PARAM) {
         opcode_ex[j].src_ptrs[k] = tmpspace[insn->src_args[k]];
         /* FIXME hack */
-        load_constant (tmpspace[insn->src_args[k]], 8,
-            (orc_uint64)(orc_uint32)ex->params[insn->src_args[k]] |
-            (((orc_uint64)(orc_uint32)ex->params[insn->src_args[k] +
-             (ORC_VAR_T1 - ORC_VAR_P1)])<<32));
+        if (var->size == 8) {
+          load_constant (tmpspace[insn->src_args[k]], 8,
+              (orc_uint64)(orc_uint32)ex->params[insn->src_args[k]] |
+              (((orc_uint64)(orc_uint32)ex->params[insn->src_args[k] +
+               (ORC_VAR_T1 - ORC_VAR_P1)])<<32));
+        } else {
+          load_constant (tmpspace[insn->src_args[k]], 8,
+              ex->params[insn->src_args[k]]);
+        }
       } else if (var->vartype == ORC_VAR_TYPE_TEMP) {
         opcode_ex[j].src_ptrs[k] = tmpspace[insn->src_args[k]];
       } else if (var->vartype == ORC_VAR_TYPE_SRC) {

@@ -189,8 +189,26 @@ orc_program_compile_full (OrcProgram *program, OrcTarget *target,
   OrcCompiler *compiler;
   int i;
   OrcCompileResult result;
+  const char *error_msg;
 
   ORC_INFO("initializing compiler for program \"%s\"", program->name);
+  error_msg = orc_program_get_error (program);
+  if (error_msg && strcmp (error_msg, "")) {
+    ORC_WARNING ("program %s failed to compile, reason: %s",
+        program->name, error_msg);
+    return ORC_COMPILE_RESULT_UNKNOWN_PARSE;
+  }
+
+  if (program->orccode) {
+    orc_code_free (program->orccode);
+    program->orccode = NULL;
+  }
+
+  if (program->asm_code) {
+    free (program->asm_code);
+    program->asm_code = NULL;
+  }
+
   compiler = malloc (sizeof(OrcCompiler));
   memset (compiler, 0, sizeof(OrcCompiler));
 
@@ -300,7 +318,7 @@ orc_program_compile_full (OrcProgram *program, OrcTarget *target,
     program->orccode->vars[i].value = compiler->vars[i].value;
   }
 
-  if (program->backup_func && _orc_compiler_flag_backup) {
+  if (program->backup_func && (_orc_compiler_flag_backup || target == NULL)) {
     orc_compiler_error (compiler, "Compilation disabled, using backup");
     compiler->result = ORC_COMPILE_RESULT_UNKNOWN_COMPILE;
     goto error;
@@ -377,8 +395,8 @@ error:
         program->name, compiler->result);
   }
   result = compiler->result;
-  if (program->error_msg) free (program->error_msg);
-  program->error_msg = compiler->error_msg;
+  orc_program_set_error (program, compiler->error_msg);
+  free (compiler->error_msg);
   if (result == 0) {
     result = ORC_COMPILE_RESULT_UNKNOWN_COMPILE;
   }
@@ -547,7 +565,7 @@ orc_compiler_rewrite_insns (OrcCompiler *compiler)
         if (var->vartype == ORC_VAR_TYPE_SRC ||
             var->vartype == ORC_VAR_TYPE_DEST) {
           OrcInstruction *cinsn;
-          
+
           cinsn = compiler->insns + compiler->n_insns;
           compiler->n_insns++;
 
@@ -562,10 +580,7 @@ orc_compiler_rewrite_insns (OrcCompiler *compiler)
         } else if (var->vartype == ORC_VAR_TYPE_CONST ||
             var->vartype == ORC_VAR_TYPE_PARAM) {
           OrcInstruction *cinsn;
-          int multiplier;
-
-          cinsn = compiler->insns + compiler->n_insns;
-          compiler->n_insns++;
+          int l, multiplier, loaded;
 
           multiplier = 1;
           if (insn.flags & ORC_INSTRUCTION_FLAG_X2) {
@@ -575,14 +590,35 @@ orc_compiler_rewrite_insns (OrcCompiler *compiler)
             multiplier = 4;
           }
 
+          loaded = -1;
+          for(l=0;l<ORC_N_COMPILER_VARIABLES;l++){
+            if (compiler->vars[l].name == NULL) continue;
+            if (!compiler->vars[l].has_parameter) continue;
+            if (compiler->vars[l].parameter != insn.src_args[i]) continue;
+            if (compiler->vars[l].size != opcode->src_size[i] * multiplier) continue;
+            loaded = l;
+            break;
+          }
+          if (loaded != -1) {
+            insn.src_args[i] = loaded;
+            continue;
+          }
+          cinsn = compiler->insns + compiler->n_insns;
+          compiler->n_insns++;
+
           cinsn->flags = insn.flags;
           cinsn->flags |= ORC_INSN_FLAG_ADDED;
           cinsn->opcode = get_loadp_opcode_for_size (opcode->src_size[i]);
           cinsn->dest_args[0] = orc_compiler_new_temporary (compiler,
               opcode->src_size[i] * multiplier);
+          if (var->vartype == ORC_VAR_TYPE_CONST) {
+            compiler->vars[cinsn->dest_args[0]].flags |=
+                ORC_VAR_FLAG_VOLATILE_WORKAROUND;
+          }
+          compiler->vars[cinsn->dest_args[0]].has_parameter = TRUE;
+          compiler->vars[cinsn->dest_args[0]].parameter = insn.src_args[i];
           cinsn->src_args[0] = insn.src_args[i];
           insn.src_args[i] = cinsn->dest_args[0];
-
         }
       }
     }
@@ -883,10 +919,14 @@ orc_compiler_rewrite_vars2 (OrcCompiler *compiler)
      */
     if (compiler->insns[j].flags & ORC_INSN_FLAG_INVARIANT) continue;
 
-    if (!(compiler->insns[j].opcode->flags & ORC_STATIC_OPCODE_ACCUMULATOR)
-        && compiler->insns[j].opcode->dest_size[1] == 0) {
+    if (!(compiler->insns[j].opcode->flags & ORC_STATIC_OPCODE_ACCUMULATOR)) {
       int src1 = compiler->insns[j].src_args[0];
-      int dest = compiler->insns[j].dest_args[0];
+      int dest;
+
+      if (compiler->insns[j].opcode->dest_size[1] == 0)
+        dest = compiler->insns[j].dest_args[0];
+      else
+        dest = compiler->insns[j].dest_args[1];
 
       if (compiler->vars[src1].last_use == j) {
         if (compiler->vars[src1].first_use == j) {
@@ -905,7 +945,7 @@ orc_compiler_rewrite_vars2 (OrcCompiler *compiler)
       compiler->vars[src2].alloc = 1;
     } else {
       int src2 = compiler->insns[j].src_args[1];
-      if (compiler->vars[src2].alloc == 1) {
+      if (src2 != -1 && compiler->vars[src2].alloc == 1) {
         compiler->vars[src2].alloc = 0;
       }
     }
@@ -1030,25 +1070,26 @@ orc_compiler_get_constant (OrcCompiler *compiler, int size, int value)
 {
   int i;
   int tmp;
+  unsigned int v = value;
 
   if (size < 4) {
     if (size < 2) {
-      value &= 0xff;
-      value |= (value<<8);
+      v &= 0xff;
+      v |= (v<<8);
     }
-    value &= 0xffff;
-    value |= (value<<16);
+    v &= 0xffff;
+    v |= (v<<16);
   }
 
   for(i=0;i<compiler->n_constants;i++){
     if (compiler->constants[i].is_long == FALSE &&
-        compiler->constants[i].value == value) {
+        compiler->constants[i].value == v) {
       break;
     }
   }
   if (i == compiler->n_constants) {
     compiler->n_constants++;
-    compiler->constants[i].value = value;
+    compiler->constants[i].value = v;
     compiler->constants[i].alloc_reg = 0;
     compiler->constants[i].use_count = 0;
     compiler->constants[i].is_long = FALSE;
@@ -1068,36 +1109,14 @@ int
 orc_compiler_get_constant_long (OrcCompiler *compiler,
     orc_uint32 a, orc_uint32 b, orc_uint32 c, orc_uint32 d)
 {
-  int i;
   int tmp;
 
-  for(i=0;i<compiler->n_constants;i++){
-    if (compiler->constants[i].is_long == TRUE &&
-        compiler->constants[i].full_value[0] == a &&
-        compiler->constants[i].full_value[1] == b &&
-        compiler->constants[i].full_value[2] == c &&
-        compiler->constants[i].full_value[3] == d) {
-      break;
-    }
+  tmp = orc_compiler_try_get_constant_long (compiler, a, b, c, d);
+  if (tmp == ORC_REG_INVALID) {
+    tmp = orc_compiler_get_temp_reg (compiler);
+    orc_compiler_load_constant_long (compiler, tmp,
+        &compiler->constants[compiler->n_constants - 1]);
   }
-  if (i == compiler->n_constants) {
-    compiler->n_constants++;
-    compiler->constants[i].full_value[0] = a;
-    compiler->constants[i].full_value[1] = b;
-    compiler->constants[i].full_value[2] = c;
-    compiler->constants[i].full_value[3] = d;
-    compiler->constants[i].is_long = TRUE;
-    compiler->constants[i].alloc_reg = 0;
-    compiler->constants[i].use_count = 0;
-  }
-
-  compiler->constants[i].use_count++;
-
-  if (compiler->constants[i].alloc_reg != 0) {;
-    return compiler->constants[i].alloc_reg;
-  }
-  tmp = orc_compiler_get_temp_reg (compiler);
-  orc_compiler_load_constant_long (compiler, tmp, &compiler->constants[i]);
   return tmp;
 }
 
@@ -1162,6 +1181,9 @@ orc_compiler_get_constant_reg (OrcCompiler *compiler)
       compiler->alloc_regs[compiler->constants[j].alloc_reg] = 1;
     }
   }
+  if (compiler->max_used_temp_reg < compiler->min_temp_reg)
+    compiler->max_used_temp_reg = compiler->min_temp_reg;
+
   for(j=ORC_VEC_REG_BASE;j<=compiler->max_used_temp_reg;j++) {
     compiler->alloc_regs[j] = 1;
   }

@@ -2,22 +2,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Orc Opcodes</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<title>Orc Opcodes: Orc Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Orc Reference Manual">
 <link rel="up" href="ch02.html" title="Application API">
-<link rel="prev" href="orc-OrcExecutor.html" title="OrcExecutor">
+<link rel="prev" href="orc-program.html" title="Orc Program Syntax">
 <link rel="next" href="ch03.html" title="Extension API">
-<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
-<td><a accesskey="p" href="orc-OrcExecutor.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
-<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">Orc Reference Manual</th>
-<td><a accesskey="n" href="ch03.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="orc-program.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch03.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="refentry">
 <a name="orc-opcodes"></a><div class="titlepage"></div>
@@ -28,10 +28,10 @@
 Description of Opcodes
 </p>
 </td>
-<td valign="top" align="right"></td>
+<td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
 <div class="refsect1">
-<a name="idp13431552"></a><h2>Orc Opcodes</h2>
+<a name="id-1.3.7.3"></a><h2>Orc Opcodes</h2>
 <p>
     Opcodes only work with variables of a particular size.  In the
     table below, destination and source indicate the size of the
@@ -79,7 +79,7 @@ Description of Opcodes
   </p>
 <div class="table">
 <a name="table-basictypes"></a><p class="title"><b>Table 1. Table of Opcodes</b></p>
-<div class="table-contents"><table summary="Table of Opcodes" border="1">
+<div class="table-contents"><table class="table" summary="Table of Opcodes" border="1">
 <colgroup>
 <col>
 <col>
@@ -564,7 +564,7 @@ Description of Opcodes
 <td align="left" valign="top">2</td>
 <td align="left" valign="top">2</td>
 <td align="left" valign="top">high bits of signed multiply</td>
-<td align="left" valign="top">(a * b) &gt;&gt; 8</td>
+<td align="left" valign="top">(a * b) &gt;&gt; 16</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulhuw</td>
@@ -572,7 +572,7 @@ Description of Opcodes
 <td align="left" valign="top">2</td>
 <td align="left" valign="top">2</td>
 <td align="left" valign="top">high bits of unsigned multiply</td>
-<td align="left" valign="top">(a * b) &gt;&gt; 8</td>
+<td align="left" valign="top">(a * b) &gt;&gt; 16</td>
 </tr>
 <tr>
 <td align="left" valign="top">orw</td>
@@ -939,96 +939,96 @@ Description of Opcodes
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">copy</td>
+<td align="left" valign="top">a</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeqq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">compare equal</td>
+<td align="left" valign="top">(a == b) ? (~0) : 0</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpgtsq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">compare greater than</td>
+<td align="left" valign="top">(a &gt; b) ? (~0) : 0</td>
 </tr>
 <tr>
 <td align="left" valign="top">andq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">bitwise AND</td>
+<td align="left" valign="top">a &amp; b</td>
 </tr>
 <tr>
 <td align="left" valign="top">andnq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">bitwise AND NOT</td>
+<td align="left" valign="top">a &amp; (~b)</td>
 </tr>
 <tr>
 <td align="left" valign="top">orq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">bitwise or</td>
+<td align="left" valign="top">a | b</td>
 </tr>
 <tr>
 <td align="left" valign="top">xorq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">bitwise XOR</td>
+<td align="left" valign="top">a ^ b</td>
 </tr>
 <tr>
 <td align="left" valign="top">addq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">add</td>
+<td align="left" valign="top">a + b</td>
 </tr>
 <tr>
 <td align="left" valign="top">subq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">subtract</td>
+<td align="left" valign="top">a - b</td>
 </tr>
 <tr>
 <td align="left" valign="top">shlq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8S</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">shift left</td>
+<td align="left" valign="top">a &lt;&lt; b</td>
 </tr>
 <tr>
 <td align="left" valign="top">shrsq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8S</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">signed shift right</td>
+<td align="left" valign="top">a &gt;&gt; b</td>
 </tr>
 <tr>
 <td align="left" valign="top">shruq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8S</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">unsigned shift right</td>
+<td align="left" valign="top">a &gt;&gt; b</td>
 </tr>
 <tr>
 <td align="left" valign="top">convsbw</td>
@@ -1267,16 +1267,16 @@ Description of Opcodes
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">4</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">multiply signed</td>
+<td align="left" valign="top">a * b</td>
 </tr>
 <tr>
 <td align="left" valign="top">mululq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">4</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">multiply unsigned</td>
+<td align="left" valign="top">a * b</td>
 </tr>
 <tr>
 <td align="left" valign="top">accw</td>
@@ -1307,7 +1307,7 @@ Description of Opcodes
 <td align="left" valign="top">2</td>
 <td align="left" valign="top">2</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top">endianness swap</td>
+<td align="left" valign="top">endianness byte swap</td>
 <td align="left" valign="top">special</td>
 </tr>
 <tr>
@@ -1315,7 +1315,7 @@ Description of Opcodes
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top">endianness swap</td>
+<td align="left" valign="top">endianness byte swap</td>
 <td align="left" valign="top">special</td>
 </tr>
 <tr>
@@ -1323,24 +1323,24 @@ Description of Opcodes
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">endianness word swap</td>
+<td align="left" valign="top">special</td>
 </tr>
 <tr>
 <td align="left" valign="top">swapq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">endianness byte swap</td>
+<td align="left" valign="top">special</td>
 </tr>
 <tr>
 <td align="left" valign="top">swaplq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">endianness long word swap</td>
+<td align="left" valign="top">special</td>
 </tr>
 <tr>
 <td align="left" valign="top">select0wb</td>
@@ -1379,24 +1379,24 @@ Description of Opcodes
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">select first half</td>
+<td align="left" valign="top">special</td>
 </tr>
 <tr>
 <td align="left" valign="top">select1ql</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">select second half</td>
+<td align="left" valign="top">special</td>
 </tr>
 <tr>
 <td align="left" valign="top">mergelq</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">4</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">merge halves</td>
+<td align="left" valign="top">special</td>
 </tr>
 <tr>
 <td align="left" valign="top">mergewl</td>
@@ -1419,8 +1419,8 @@ Description of Opcodes
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">split first/second long words</td>
+<td align="left" valign="top">special</td>
 </tr>
 <tr>
 <td align="left" valign="top">splitlw</td>
@@ -1539,112 +1539,112 @@ Description of Opcodes
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">add</td>
+<td align="left" valign="top">a + b</td>
 </tr>
 <tr>
 <td align="left" valign="top">subd</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">subtract</td>
+<td align="left" valign="top">a - b</td>
 </tr>
 <tr>
 <td align="left" valign="top">muld</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">multiply</td>
+<td align="left" valign="top">a * b</td>
 </tr>
 <tr>
 <td align="left" valign="top">divd</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">divide</td>
+<td align="left" valign="top">a / b</td>
 </tr>
 <tr>
 <td align="left" valign="top">sqrtd</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">square root</td>
+<td align="left" valign="top">sqrt(a)</td>
 </tr>
 <tr>
 <td align="left" valign="top">maxd</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">maximum</td>
+<td align="left" valign="top">max(a,b)</td>
 </tr>
 <tr>
 <td align="left" valign="top">mind</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">minimum</td>
+<td align="left" valign="top">min(a,b)</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeqd</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">compare equal</td>
+<td align="left" valign="top">(a == b) ? (~0) : 0</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpltd</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">compare less than</td>
+<td align="left" valign="top">(a == b) ? (~0) : 0</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpled</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">8</td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">compare less than or equal</td>
+<td align="left" valign="top">(a == b) ? (~0) : 0</td>
 </tr>
 <tr>
 <td align="left" valign="top">convdl</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">convert double point to integer</td>
+<td align="left" valign="top">a</td>
 </tr>
 <tr>
 <td align="left" valign="top">convld</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">convert integer to double point</td>
+<td align="left" valign="top">a</td>
 </tr>
 <tr>
 <td align="left" valign="top">convfd</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">convert float to double</td>
+<td align="left" valign="top">a</td>
 </tr>
 <tr>
 <td align="left" valign="top">convdf</td>
 <td align="left" valign="top">4</td>
 <td align="left" valign="top">8</td>
 <td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
-<td align="left" valign="top"> </td>
+<td align="left" valign="top">convert double to float</td>
+<td align="left" valign="top">a</td>
 </tr>
 </tbody>
 </table></div>
@@ -1658,15 +1658,14 @@ Description of Opcodes
   </p>
 </div>
 <div class="refsect1">
-<a name="idp11386800"></a><h2>Rule Coverage</h2>
+<a name="id-1.3.7.4"></a><h2>Rule Coverage</h2>
 <p>
     The values for shift operations are not correct in this table.
   </p>
 <div class="table">
 <a name="table-basictypes"></a><p class="title"><b>Table 2. Table of Opcode Rule Coverage</b></p>
-<div class="table-contents"><table summary="Table of Opcode Rule Coverage" border="1">
+<div class="table-contents"><table class="table" summary="Table of Opcode Rule Coverage" border="1">
 <colgroup>
-<col>
 <col>
 <col>
 <col>
@@ -1679,7 +1678,6 @@ Description of Opcodes
 <th align="left">sse</th>
 <th align="left">mmx</th>
 <th align="left">altivec</th>
-<th align="left">arm</th>
 <th align="left">neon</th>
 <th align="left">c64x-c</th>
 </tr></thead>
@@ -1689,36 +1687,32 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addssb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addusb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">andb</td>
@@ -1727,7 +1721,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">andnb</td>
@@ -1736,7 +1729,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">avgsb</td>
@@ -1745,7 +1737,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">avgub</td>
@@ -1754,7 +1745,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeqb</td>
@@ -1763,7 +1753,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpgtsb</td>
@@ -1772,7 +1761,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">copyb</td>
@@ -1781,7 +1769,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadb</td>
@@ -1790,14 +1777,12 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadoffb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -1805,7 +1790,6 @@ Description of Opcodes
 <td align="left" valign="top">loadupdb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -1817,11 +1801,9 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadpb</td>
-<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
@@ -1835,7 +1817,6 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">ldresnearl</td>
@@ -1844,11 +1825,9 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">ldreslinb</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -1862,50 +1841,44 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">maxsb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">maxub</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">minsb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">minub</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">mullb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -1914,7 +1887,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -1923,7 +1895,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -1934,11 +1905,9 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">shlb</td>
-<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
@@ -1950,7 +1919,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -1959,18 +1927,16 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">signb</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">yes</td>
-<td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">storeb</td>
@@ -1979,23 +1945,20 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">subb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">subssb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2004,7 +1967,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2015,43 +1977,38 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">absw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addssw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addusw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">andw</td>
@@ -2060,7 +2017,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">andnw</td>
@@ -2069,16 +2025,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">avgsw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">avguw</td>
@@ -2087,7 +2041,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeqw</td>
@@ -2096,7 +2049,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpgtsw</td>
@@ -2105,7 +2057,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">copyw</td>
@@ -2114,14 +2065,12 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">div255w</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2129,7 +2078,6 @@ Description of Opcodes
 <td align="left" valign="top">divluw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2141,20 +2089,17 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadoffw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadpw</td>
-<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
@@ -2166,36 +2111,32 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">maxuw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">minsw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">minuw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">mullw</td>
@@ -2204,7 +2145,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulhsw</td>
@@ -2213,16 +2153,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulhuw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">orw</td>
@@ -2231,7 +2169,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">shlw</td>
@@ -2240,16 +2177,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">shrsw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">shruw</td>
@@ -2258,16 +2193,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">signw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">storew</td>
@@ -2276,34 +2209,30 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">subw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">subssw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">subusw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">xorw</td>
@@ -2312,16 +2241,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">absl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addl</td>
@@ -2330,7 +2257,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">addssl</td>
@@ -2339,7 +2265,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">addusl</td>
@@ -2348,7 +2273,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">andl</td>
@@ -2357,7 +2281,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">andnl</td>
@@ -2366,25 +2289,22 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">avgsl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">avgul</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeql</td>
@@ -2393,7 +2313,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpgtsl</td>
@@ -2402,7 +2321,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">copyl</td>
@@ -2411,7 +2329,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadl</td>
@@ -2420,20 +2337,17 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadoffl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadpl</td>
-<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
@@ -2447,7 +2361,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">maxul</td>
@@ -2456,7 +2369,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">minsl</td>
@@ -2465,7 +2377,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">minul</td>
@@ -2474,16 +2385,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulll</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulhsl</td>
@@ -2492,16 +2401,14 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulhul</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">orl</td>
@@ -2510,7 +2417,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">shll</td>
@@ -2519,7 +2425,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">shrsl</td>
@@ -2528,7 +2433,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">shrul</td>
@@ -2537,16 +2441,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">signl</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">yes</td>
-<td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">storel</td>
@@ -2555,7 +2457,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">subl</td>
@@ -2564,16 +2465,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">subssl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">subusl</td>
@@ -2582,7 +2481,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">xorl</td>
@@ -2591,22 +2489,19 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">loadpq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2616,16 +2511,14 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">splatw3q</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2633,24 +2526,21 @@ Description of Opcodes
 <td align="left" valign="top">copyq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeqq</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpgtsq</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2660,8 +2550,7 @@ Description of Opcodes
 <td align="left" valign="top">andq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2669,8 +2558,7 @@ Description of Opcodes
 <td align="left" valign="top">andnq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2678,8 +2566,7 @@ Description of Opcodes
 <td align="left" valign="top">orq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2687,8 +2574,7 @@ Description of Opcodes
 <td align="left" valign="top">xorq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2697,14 +2583,12 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">subq</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
@@ -2717,13 +2601,11 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">shrsq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2735,7 +2617,6 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convsbw</td>
@@ -2744,23 +2625,20 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convubw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">splatbw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2769,7 +2647,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2778,25 +2655,22 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">convuwl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">convslq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2805,7 +2679,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2816,14 +2689,12 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convhwb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2832,22 +2703,19 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">convsuswb</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">convusswb</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2859,7 +2727,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2870,14 +2737,12 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convhlw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2886,22 +2751,19 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">convsuslw</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convusslw</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2913,7 +2775,6 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2922,7 +2783,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -2931,13 +2791,11 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convsusql</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2951,11 +2809,9 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convuusql</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -2969,40 +2825,35 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulubw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulswl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">muluwl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulslq</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -3014,59 +2865,52 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">accw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">accl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">accsadubl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">swapw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">swapl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">swapwl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3074,8 +2918,7 @@ Description of Opcodes
 <td align="left" valign="top">swapq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3083,8 +2926,7 @@ Description of Opcodes
 <td align="left" valign="top">swaplq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3095,7 +2937,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">select1wb</td>
@@ -3104,7 +2945,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">select0lw</td>
@@ -3113,7 +2953,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">select1lw</td>
@@ -3122,14 +2961,12 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">select0ql</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3137,8 +2974,7 @@ Description of Opcodes
 <td align="left" valign="top">select1ql</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3146,8 +2982,7 @@ Description of Opcodes
 <td align="left" valign="top">mergelq</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3158,22 +2993,19 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">mergebw</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">splitql</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
@@ -3183,7 +3015,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3192,7 +3023,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3201,72 +3031,64 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">subf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">mulf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">divf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">sqrtf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">maxf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">minf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeqf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpltf</td>
@@ -3274,8 +3096,7 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmplef</td>
@@ -3283,31 +3104,27 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">convfl</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">convlf</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
+<td align="left" valign="top">yes</td>
 </tr>
 <tr>
 <td align="left" valign="top">addd</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
@@ -3318,7 +3135,6 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
@@ -3327,14 +3143,12 @@ Description of Opcodes
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
 <td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">divd</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">yes</td>
@@ -3347,12 +3161,10 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">maxd</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -3365,12 +3177,10 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpeqd</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -3383,12 +3193,10 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">cmpled</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -3401,12 +3209,10 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convld</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -3419,12 +3225,10 @@ Description of Opcodes
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
-<td align="left" valign="top">no</td>
 </tr>
 <tr>
 <td align="left" valign="top">convdf</td>
 <td align="left" valign="top">yes</td>
-<td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
 <td align="left" valign="top">no</td>
@@ -3437,7 +3241,6 @@ Description of Opcodes
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.18</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

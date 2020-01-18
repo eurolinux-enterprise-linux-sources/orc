@@ -189,6 +189,7 @@ orcarm
 
 @compiler: 
 @regs: 
+@vregs: 
 
 
 <!-- ##### FUNCTION orc_arm_emit_push ##### -->
@@ -198,6 +199,7 @@ orcarm
 
 @compiler: 
 @regs: 
+@vregs: 
 
 
 <!-- ##### FUNCTION orc_arm_emit_sub ##### -->

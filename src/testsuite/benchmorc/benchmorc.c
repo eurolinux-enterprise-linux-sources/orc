@@ -15,7 +15,7 @@ int error = FALSE;
 
 double weights_ginger[];
 double weights_feathers[];
-//double weights_preston[];
+/* double weights_preston[]; */
 double weights_n900[];
 
 int
@@ -39,6 +39,7 @@ main (int argc, char *argv[])
   }
 
   n = orc_parse (code, &programs);
+  free (code);
 
 #if 0
   sum = 0;
@@ -64,12 +65,14 @@ main (int argc, char *argv[])
     double weight;
 
     perf = orc_test_performance_full (programs[i], 0, NULL);
-    //weight = weights_ginger[i];
+    /* weight = weights_ginger[i]; */
     weight = weights_feathers[i];
-    //weight = weights_n900[i];
+    /* weight = weights_n900[i]; */
 
     sum += weight * perf;
+    orc_program_free (programs[i]);
   }
+  free (programs);
   printf("score %g\n", 100.0/sum);
 #endif
 
@@ -86,7 +89,7 @@ read_file (const char *filename)
   long size;
   int ret;
 
-  file = fopen (filename, "r");
+  file = fopen (filename, "rb");
   if (file == NULL) return NULL;
 
   ret = fseek (file, 0, SEEK_END);
@@ -106,6 +109,7 @@ read_file (const char *filename)
 
   contents[size] = 0;
 
+  fclose (file);
   return contents;
 bail:
   /* something failed */

@@ -37,7 +37,7 @@ main (int argc, char *argv[])
   }
   code = read_file (filename);
   if (!code) {
-    printf("perf_parse <file.orc>\n");
+    printf("exec_parse <file.orc>\n");
     exit(1);
   }
 
@@ -61,7 +61,7 @@ read_file (const char *filename)
   long size;
   int ret;
 
-  file = fopen (filename, "r");
+  file = fopen (filename, "rb");
   if (file == NULL) return NULL;
 
   ret = fseek (file, 0, SEEK_END);
@@ -80,6 +80,8 @@ read_file (const char *filename)
   if (ret < 0) goto bail;
 
   contents[size] = 0;
+
+  fclose (file);
 
   return contents;
 bail:

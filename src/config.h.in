@@ -24,6 +24,9 @@
 /* Defined if host is amd64 */
 #undef HAVE_AMD64
 
+/* Defined if we have __android_log_print() */
+#undef HAVE_ANDROID_LIBLOG
+
 /* Defined if host is arm */
 #undef HAVE_ARM
 
@@ -120,12 +123,8 @@
 /* Define to 1 if you have the <valgrind/valgrind.h> header file. */
 #undef HAVE_VALGRIND_VALGRIND_H
 
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
-
-/* Define to 1 if your C compiler doesn't accept -c and -o together. */
-#undef NO_MINUS_C_MINUS_O
 
 /* Defined for compiling internal code */
 #undef ORC_EXPORTS

@@ -1,9 +1,18 @@
 #!/bin/sh
 
-if [ `whoami` = ds ] ; then
-  confargs="$confargs --enable-gtk-doc"
-fi
+set -e
 
-autoreconf -i -f &&
-./configure --disable-static $confargs $@
+test -n "$srcdir" || srcdir=`dirname "$0"`
+test -n "$srcdir" || srcdir=.
+
+olddir=`pwd`
+cd "$srcdir"
+
+autoreconf -i -f
+
+cd "$olddir"
+
+if test -z "$NOCONFIGURE"; then
+    exec $srcdir/configure --disable-static --enable-maintainer-mode --enable-gtk-doc $@
+fi
 

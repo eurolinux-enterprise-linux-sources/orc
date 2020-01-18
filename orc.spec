@@ -1,19 +1,14 @@
 Name:		orc
-Version:	0.4.17
-Release:	5%{?dist}
+Version:	0.4.26
+Release:	1%{?dist}
 Summary:	The Oil Run-time Compiler
 
 Group:		System Environment/Libraries
 License:	BSD
 URL:		http://cgit.freedesktop.org/gstreamer/orc/
-Source0:	http://code.entropywave.com/download/orc/orc-%{version}.tar.gz
-BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+Source0:        http://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
 
 BuildRequires:	gtk-doc, libtool
-
-# Upstream bugs: https://bugs.freedesktop.org/show_bug.cgi?id=41446
-Patch1:		0001-Use-a-subdirectory-for-temporary-files.patch
-Patch2:		0002-Add-compiler-option-for-ENABLE_USER_CODEMEM.patch
 
 %description
 Orc is a library and set of tools for compiling and executing
@@ -52,23 +47,18 @@ Requires:	pkgconfig
 The Orc compiler, to produce optimized code.
 
 
-
 %prep
 %setup -q
-%patch1 -p1 -b .subdir
-%patch2 -p1 -b .condtmp
-
-autoreconf -vif
+NOCONFIGURE=1 autoreconf -vif
 
 
 %build
-%configure --disable-static --enable-gtk-doc --enable-user-codemem
+%configure --disable-static --enable-gtk-doc
 
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
 
 
 %install
-rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} INSTALL="install -p"
 
 # Remove unneeded files.
@@ -78,29 +68,21 @@ rm -rf %{buildroot}/%{_libdir}/orc
 touch -r stamp-h1 %{buildroot}%{_includedir}/%{name}-0.4/orc/orc-stdint.h   
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %post -p /sbin/ldconfig
 
 
 %postun -p /sbin/ldconfig
 
 
-
 %files
-%defattr(-,root,root,-)
 %doc COPYING README
 %{_libdir}/liborc-*.so.*
 %{_bindir}/orc-bugreport
 
 %files doc
-%defattr(-,root,root,-)
 %doc %{_datadir}/gtk-doc/html/orc/
 
 %files devel
-%defattr(-,root,root,-)
 %doc examples/*.c
 %{_includedir}/%{name}-0.4/
 %{_libdir}/liborc-*.so
@@ -108,12 +90,38 @@ rm -rf %{buildroot}
 %{_datadir}/aclocal/orc.m4
 
 %files compiler
-%defattr(-,root,root,-)
 %{_bindir}/orcc
 
 
-
 %changelog
+* Thu Mar 09 2017 Wim Taymans <wtaymans@redhat.com> - 0.4.26-1
+- Update to 0.4.26
+- Remove upstreamed patches
+- Resolves: #1430051
+
+* Thu Aug 13 2015 Wim Taymans <wtaymans@redhat.com> - 0.4.22-5
+- Run backup functions on s390x instead of emulation
+- Fix load of parameters smaller than 64 bits
+- Related: rhbz#1249506
+
+* Thu Aug 13 2015 Wim Taymans <wtaymans@redhat.com> - 0.4.22-4
+- Fix unit test on ppc64le
+- Resolves: rhbz#1252498
+
+* Wed Jul 8 2015 Wim Taymans <wtaymans@redhat.com> - 0.4.22-3
+- Fix loading of 64bit parameters on big endian
+- Related: #1234325
+
+* Wed Mar 25 2015 Wim Taymans <wtaymans@redhat.com> - 0.4.22-2
+- Don't run tests during build
+- add new source
+- remove old patches, add new patch
+- Resolves: #1174391
+
+* Fri Aug 29 2014 Peter Robinson <pbrobinson@fedoraproject.org> 0.4.22-1
+- Update to 0.4.22
+- Resolves: #1174391
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.4.17-5
 - Mass rebuild 2014-01-24
 
@@ -195,7 +203,7 @@ Resolves: 1048890
 * Thu Aug 19 2010 Fabian Deutsch <fabiand@fedoraproject.org> - 0.4.7-1
 - Updated to 0.4.7.
 
-* Tue Jul 22 2010 Fabian Deutsch <fabiand@fedoraproject.org> - 0.4.6-1
+* Thu Jul 22 2010 Fabian Deutsch <fabiand@fedoraproject.org> - 0.4.6-1
 - Updated to 0.4.6.
 - New orc-bugreport added.
 

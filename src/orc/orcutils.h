@@ -29,17 +29,17 @@
 #define _ORC_UTILS_H_
 
 /* Orc objects */
-//typedef struct _OrcVariable OrcVariable;
-//typedef struct _OrcOpcodeSet OrcOpcodeSet;
-//typedef struct _OrcStaticOpcode OrcStaticOpcode;
+/* typedef struct _OrcVariable OrcVariable; */
+/* typedef struct _OrcOpcodeSet OrcOpcodeSet; */
+/* typedef struct _OrcStaticOpcode OrcStaticOpcode; */
 typedef struct _OrcInstruction OrcInstruction;
 typedef struct _OrcProgram OrcProgram;
 typedef struct _OrcCompiler OrcCompiler;
 typedef struct _OrcConstant OrcConstant;
-//typedef struct _OrcFixup OrcFixup;
+/* typedef struct _OrcFixup OrcFixup; */
 typedef struct _OrcTarget OrcTarget;
 typedef struct _OrcCode OrcCode;
-//typedef struct _OrcCodeChunk OrcCodeChunk;
+/* typedef struct _OrcCodeChunk OrcCodeChunk; */
 
 typedef enum {
   ORC_COMPILE_RESULT_OK = 0,
@@ -139,11 +139,10 @@ typedef unsigned int orc_bool;
 #endif
 
 #define ORC_READ_UINT32_LE(ptr) \
-  ((orc_uint32)( \
-    ((orc_uint8 *)(ptr))[0] | \
-    (((orc_uint8 *)(ptr))[1]<<8) | \
-    (((orc_uint8 *)(ptr))[2]<<16) | \
-    (((orc_uint8 *)(ptr))[3]<<24)))
+  (((orc_uint32)((orc_uint8 *)(ptr))[0]) | \
+   ((orc_uint32)(((orc_uint8 *)(ptr))[1])<<8) | \
+   ((orc_uint32)(((orc_uint8 *)(ptr))[2])<<16) | \
+   ((orc_uint32)(((orc_uint8 *)(ptr))[3])<<24))
 
 #define ORC_WRITE_UINT32_LE(ptr,val) \
   do { \
@@ -208,9 +207,6 @@ ORC_BEGIN_DECLS
 
 #ifdef ORC_ENABLE_UNSTABLE_API
 
-int get_file_int (const char *file, int *value);
-char * get_file (const char *file);
-char * get_cpuinfo_line (char *cpuinfo, const char *tag);
 char * _strndup (const char *s, int n);
 char ** strsplit (const char *s, char delimiter);
 char * get_tag_value (char *s, const char *tag);

@@ -3,7 +3,7 @@ DIST_SUBDIRS = orcc benchmorc
 
 SUBDIRS = orcc benchmorc
 
-TESTS_ENVIRONMENT = \
+AM_TESTS_ENVIRONMENT = \
         testfile="$(srcdir)/test.orc"
 
 TESTS = \
@@ -12,7 +12,8 @@ TESTS = \
 	exec_parse \
 	perf_opcodes_sys perf_parse \
 	memcpy_speed \
-	abi
+	abi \
+	test-limits test_parse
 
 noinst_PROGRAMS = $(TESTS) generate_xml_table generate_xml_table2 \
 	generate_opcodes_sys compile_parse compile_parse_c memcpy_speed \
@@ -21,7 +22,8 @@ noinst_PROGRAMS = $(TESTS) generate_xml_table generate_xml_table2 \
 	bytecode_parse \
 	compile_opcodes_sys_c \
 	compile_opcodes_sys \
-	show_parse
+	show_parse \
+	test_parse
 
 
 EXTRA_DIST = test.orc

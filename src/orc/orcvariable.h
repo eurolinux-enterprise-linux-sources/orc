@@ -13,6 +13,8 @@
 
 ORC_BEGIN_DECLS
 
+#define ORC_VAR_FLAG_VOLATILE_WORKAROUND (1<<0)
+
 typedef struct _OrcVariable OrcVariable;
 
 typedef enum {
@@ -67,6 +69,10 @@ struct _OrcVariable {
   int load_dest;
   int update_type;
   int need_offset_reg;
+  unsigned int flags;
+
+  int has_parameter;
+  int parameter;
 };
 
 ORC_END_DECLS

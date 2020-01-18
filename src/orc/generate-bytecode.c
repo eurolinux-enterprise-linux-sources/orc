@@ -34,6 +34,7 @@ void help (void)
   printf("\n");
   printf("Application Options:\n");
   printf("  -o, --output FILE       Write output to FILE\n");
+  printf("      --header            Write header instead of .c file\n");
   printf("\n");
 
   exit (0);
@@ -44,7 +45,6 @@ main (int argc, char *argv[])
 {
   char *output_file = NULL;
   char *input_file = NULL;
-  char *include_file = NULL;
   FILE *output;
   int i;
   OrcOpcodeSet *opcode_set;
@@ -77,7 +77,8 @@ main (int argc, char *argv[])
   }
 
   if (output_file == NULL) {
-    output_file = "out.c";
+    output_file = output_header ? "out.h" : "out.c";
+    printf("Writing to file: %s\n", output_file);
   }
 
   output = fopen (output_file, "w");
@@ -95,9 +96,6 @@ main (int argc, char *argv[])
   if (output_header) {
     fprintf(output, "#include <math.h>\n");
     fprintf(output, "#include <orc/orc.h>\n");
-    if (include_file) {
-      fprintf(output, "#include <%s>\n", include_file);
-    }
     fprintf(output, "\n");
 
     fprintf(output, "typedef enum {\n");
@@ -122,7 +120,8 @@ main (int argc, char *argv[])
     fprintf(output, "  ORC_BC_ADD_PARAMETER_INT64,\n");
     fprintf(output, "  ORC_BC_ADD_PARAMETER_DOUBLE,\n");
     fprintf(output, "  ORC_BC_ADD_TEMPORARY,\n");
-    for (i=21;i<32;i++){
+    fprintf(output, "  ORC_BC_INSTRUCTION_FLAGS,\n");
+    for (i=22;i<32;i++){
       fprintf(output, "  ORC_BC_RESERVED_%d,\n", i);
     }
     for(i=0;i<opcode_set->n_opcodes;i++){
@@ -163,7 +162,8 @@ main (int argc, char *argv[])
     fprintf(output, "  ORC_BC_ADD_PARAMETER_INT64,\n");
     fprintf(output, "  ORC_BC_ADD_PARAMETER_DOUBLE,\n");
     fprintf(output, "  ORC_BC_ADD_TEMPORARY,\n");
-    for (i=21;i<32;i++){
+    fprintf(output, "  ORC_BC_INSTRUCTION_FLAGS,\n");
+    for (i=22;i<32;i++){
       fprintf(output, "  ORC_BC_RESERVED_%d,\n", i);
     }
 

@@ -14,6 +14,12 @@
 #include <orc/orcarm.h>
 #include <orc/orcutils.h>
 
+#ifdef HAVE_ARM
+#if defined(__APPLE__)
+#include  <libkern/OSCacheControl.h>
+#endif
+#endif
+
 /**
  * SECTION:orcarm
  * @title: ARM
@@ -27,7 +33,7 @@ orc_arm_cond_name (OrcArmCond cond)
     "eq", "ne", "cs", "cc", "mi", "pl", "vs", "vc",
     "hi", "ls", "ge", "lt", "gt", "le", "", ""
   };
-  if (cond < 0 || cond >= 16) {
+  if ((int)cond < 0 || (int)cond >= 16) {
     return "ERROR";
   }
   return cond_names[cond&0xf];
@@ -48,7 +54,7 @@ orc_arm_reg_name (int reg)
     "r4", "r5", "r6", "r7",
     "r8", "r9", "r10", "r11",
     "ip", "sp", "lr", "pc" };
-    //"r12", "r13", "r14", "r15" };
+  /* "r12", "r13", "r14", "r15" }; */
 #endif
 
   if (reg < ORC_GP_REG_BASE || reg >= ORC_GP_REG_BASE+16) {
@@ -73,45 +79,91 @@ orc_arm_emit_bx_lr (OrcCompiler *compiler)
 }
 
 void
-orc_arm_emit_push (OrcCompiler *compiler, int regs)
+orc_arm_emit_push (OrcCompiler *compiler, int regs, orc_uint32 vregs)
 {
   int i;
-  int x = 0;
 
-  ORC_ASM_CODE(compiler,"  push {");
-  for(i=0;i<16;i++){
-    if (regs & (1<<i)) {
-      x |= (1<<i);
-      ORC_ASM_CODE(compiler,"r%d", i);
-      if (x != regs) {
-        ORC_ASM_CODE(compiler,", ");
+  if (regs) {
+    int x = 0;
+
+    ORC_ASM_CODE(compiler,"  push {");
+    for(i=0;i<16;i++){
+      if (regs & (1<<i)) {
+        x |= (1<<i);
+        ORC_ASM_CODE(compiler,"r%d", i);
+        if (x != regs) {
+          ORC_ASM_CODE(compiler,", ");
+        }
       }
     }
-  }
-  ORC_ASM_CODE(compiler,"}\n");
+    ORC_ASM_CODE(compiler,"}\n");
 
-  orc_arm_emit (compiler, 0xe92d0000 | regs);
+    orc_arm_emit (compiler, 0xe92d0000 | regs);
+  }
+
+  if (vregs) {
+    int first = -1, last = -1, nregs;
+
+    ORC_ASM_CODE(compiler, "  vpush {");
+    for(i=0; i<32; ++i) {
+      if (vregs & (1U << i)) {
+        if (first==-1) {
+           ORC_ASM_CODE(compiler, "d%d", i);
+           first = i;
+        }
+        last = i;
+      }
+    }
+    // What's the deal with even/odd registers ?
+    ORC_ASM_CODE(compiler, "-d%d}\n", last+1);
+
+    nregs = last + 1 - first + 1;
+    orc_arm_emit (compiler, 0xed2d0b00 | (((first & 0x10) >> 4) << 22) | ((first & 0x0f) << 12) | (nregs << 1));
+  }
 }
 
 void
-orc_arm_emit_pop (OrcCompiler *compiler, int regs)
+orc_arm_emit_pop (OrcCompiler *compiler, int regs, orc_uint32 vregs)
 {
   int i;
-  int x = 0;
 
-  ORC_ASM_CODE(compiler,"  pop {");
-  for(i=0;i<16;i++){
-    if (regs & (1<<i)) {
-      x |= (1<<i);
-      ORC_ASM_CODE(compiler,"r%d", i);
-      if (x != regs) {
-        ORC_ASM_CODE(compiler,", ");
+
+  if (vregs) {
+    int first = -1, last = -1, nregs;
+
+    ORC_ASM_CODE(compiler, "  vpop {");
+    for(i=0; i<32; ++i) {
+      if (vregs & (1U << i)) {
+        if (first==-1) {
+           ORC_ASM_CODE(compiler, "d%d", i);
+           first = i;
+        }
+        last = i;
       }
     }
-  }
-  ORC_ASM_CODE(compiler,"}\n");
+    ORC_ASM_CODE(compiler, "-d%d}\n", last+1);
 
-  orc_arm_emit (compiler, 0xe8bd0000 | regs);
+    nregs = last + 1 - first + 1;
+    orc_arm_emit (compiler, 0xecbd0b00 | (((first & 0x10) >> 4) << 22) | ((first & 0x0f) << 12) | (nregs << 1));
+  }
+
+  if (regs) {
+    int x = 0;
+
+    ORC_ASM_CODE(compiler,"  pop {");
+    for(i=0;i<16;i++){
+      if (regs & (1<<i)) {
+        x |= (1<<i);
+        ORC_ASM_CODE(compiler,"r%d", i);
+        if (x != regs) {
+          ORC_ASM_CODE(compiler,", ");
+        }
+      }
+    }
+    ORC_ASM_CODE(compiler,"}\n");
+
+    orc_arm_emit (compiler, 0xe8bd0000 | regs);
+  }
 }
 
 void
@@ -724,7 +776,11 @@ void
 orc_arm_flush_cache (OrcCode *code)
 {
 #ifdef HAVE_ARM
+#ifdef __APPLE__
+  sys_icache_invalidate(code->code, code->code_size);
+#else
   __clear_cache (code->code, code->code + code->code_size);
+#endif
 #endif
 }
 
